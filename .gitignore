@@ -1,0 +1,10 @@
+*.user
+/cmake-build-*
+/cmake-build-*
+/lib
+/bin
+/include
+/venv
+out
+.idea
+.vs

@@ -1,0 +1,46 @@
+﻿#include "AppConfig.h"
+
+Q_GLOBAL_STATIC(AppConfig, appConfig)
+
+AppConfig* AppConfig::instance()
+{
+  return appConfig;
+}
+
+AppConfig::AppConfig(QObject* parent) : QObject{ parent }
+{
+  appDir = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+}
+
+bool AppConfig::isDebug()
+{
+  return strcmp(BUILD_TYPE, "Debug") == 0;
+}
+
+bool AppConfig::isLinux()
+{
+  return strcmp(SYSTEM_NAME, "Linux") == 0;
+}
+
+QString AppConfig::getLogDir()
+{
+  return existsDir(appDir + "/logs");
+}
+
+QString AppConfig::getImageCacheDir()
+{
+  return existsDir(appDir + "/cache/image");
+}
+
+QString AppConfig::getEmojiDir()
+{
+  return existsDir(appDir + "/hwdata/emojiFolder");
+}
+
+QString AppConfig::existsDir(const QString& path)
+{
+  QDir dir = path;
+  if (!dir.exists(path))
+    dir.mkpath(path);
+  return path;
+}

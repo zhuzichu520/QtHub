@@ -1,0 +1,48 @@
+﻿import QtQuick 2.15
+import QtGraphicalEffects 1.15
+import "../view"
+import "../storage"
+
+Item {
+
+    //一个圆形图片
+    property alias source: avatar_image.source
+    property int avatarRadius: width / 2
+    width: 54
+    height: 54
+    property bool isMask : true
+
+    Image {
+        id: avatar_image
+        anchors.fill: parent
+        anchors.centerIn: parent
+        smooth: true
+        source: "qrc:/image/ic_avatar.png"
+        fillMode: Image.PreserveAspectFit
+        visible: false
+        asynchronous: true
+        cache: true
+        onStatusChanged: {
+            if (status===Image.Error) {
+                source="qrc:/image/ic_avatar.png"
+            }
+        }
+    }
+
+    Rectangle {
+        id: mask
+        width: parent.width
+        height: parent.height
+        radius: avatarRadius
+        visible: isMask
+        color: "#FFF7F8F9"
+    }
+
+    OpacityMask {
+        anchors.fill: parent
+        source: avatar_image
+        maskSource: mask
+        visible: true
+    }
+
+}

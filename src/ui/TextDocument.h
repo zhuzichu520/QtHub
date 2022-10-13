@@ -9,7 +9,6 @@
 #include <QJsonArray>
 #include <QTextImageFormat>
 #include <QTextCursor>
-#include <QRegExp>
 #include <QTextDocumentFragment>
 #include <QTextFrame>
 #include <QFileIconProvider>

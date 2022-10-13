@@ -187,5 +187,6 @@
         <file>component/Toast.qml</file>
         <file>image/favicon.png</file>
         <file>image/ic_login_logo.png</file>
+        <file>layout/main.qml</file>
     </qresource>
 </RCC>

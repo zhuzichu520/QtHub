@@ -13,10 +13,10 @@ void RepositoryImpl::handleResult(const QString &result, T& data)
     throw BizException(-1, "服务器异常");
   }
   json j = json::parse(result.toStdString());
-  ResultDto resultDto = j.get<ResultDto>();
-  if (!resultDto.success)
-  {
-    throw BizException(atoi(resultDto.errCode.c_str()), QString::fromStdString(resultDto.errDesc));
-  }
-  data = j["result"].get<T>();
+//  ResultDto resultDto = j.get<ResultDto>();
+//  if (!resultDto.success)
+//  {
+//    throw BizException(atoi(resultDto.errCode.c_str()), QString::fromStdString(resultDto.errDesc));
+//  }
+//  data = j["result"].get<T>();
 }

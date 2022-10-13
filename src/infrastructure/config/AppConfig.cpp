@@ -9,7 +9,7 @@ AppConfig* AppConfig::instance()
 
 AppConfig::AppConfig(QObject* parent) : QObject{ parent }
 {
-  appDir = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+  appDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
 }
 
 bool AppConfig::isDebug()

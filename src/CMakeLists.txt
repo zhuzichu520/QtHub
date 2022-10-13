@@ -13,28 +13,15 @@ set(PROJECT_SOURCES
     ui/res/qml.qrc
     )
 
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(QtHub
-        MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}
-        )
-else()
-    if(ANDROID)
-        add_library(QtHub SHARED
-            ${PROJECT_SOURCES}
-            )
-    else()
-        add_executable(QtHub
-            ${PROJECT_SOURCES}
-            )
-    endif()
-endif()
+qt_add_executable(QtHub
+    ${PROJECT_SOURCES}
+    )
 
-target_compile_definitions(QtHub
-    PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_link_libraries(QtHub PRIVATE
-    Qt${QT_VERSION_MAJOR}::Core
-    Qt${QT_VERSION_MAJOR}::Quick
+    Qt6::Core
+    Qt6::Quick
+    Qt6::QuickControls2
+    Qt6::Widgets
     UI
     )
 
@@ -47,10 +34,33 @@ set_target_properties(QtHub PROPERTIES
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE
-    #    WIN32_EXECUTABLE TRUE
+    WIN32_EXECUTABLE TRUE
+)
+
+if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
+
+    if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+        target_link_libraries(QtHub PUBLIC
+                ${THIRD_DIR_PATH}/win64/frameless/debug/FramelessHelperCored.lib
+                ${THIRD_DIR_PATH}/win64/frameless/debug/FramelessHelperQuickd.lib
+                ${THIRD_DIR_PATH}/win64/frameless/debug/FramelessHelperWidgetsd.lib
+                )
+    endif ()
+
+    if (CMAKE_BUILD_TYPE STREQUAL "Release")
+        target_link_libraries(QtHub PUBLIC
+                ${THIRD_DIR_PATH}/win64/frameless/release/FramelessHelperCore.lib
+                ${THIRD_DIR_PATH}/win64/frameless/release/FramelessHelperQuick.lib
+                ${THIRD_DIR_PATH}/win64/frameless/release/FramelessHelperWidgets.lib
+                )
+    endif ()
+
+    target_include_directories(
+            QtHub PUBLIC
+            ${THIRD_DIR_PATH}/win64/frameless/include/FramelessHelper/Core/private
+            ${THIRD_DIR_PATH}/win64/frameless/include/FramelessHelper/Core
+            ${THIRD_DIR_PATH}/win64/frameless/include/FramelessHelper/Quick
+            ${THIRD_DIR_PATH}/win64/frameless/include/FramelessHelper/Widgets
     )
 
-if(QT_VERSION_MAJOR EQUAL 6)
-    qt_import_qml_plugins(QtHub)
-    qt_finalize_executable(QtHub)
-endif()
+endif ()

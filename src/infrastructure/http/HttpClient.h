@@ -518,10 +518,12 @@ private slots:
       {
         QString dispositionHeader = value;
         // fixme rx
-        QRegExp rx("attachment;\\s*filename=([\\S]+)");
-        if (rx.exactMatch(dispositionHeader))
+
+        QRegularExpression rx("attachment;\\s*filename=([\\S]+)");
+        QRegularExpressionMatch match = rx.match(value);
+        if (match.hasMatch())
         {
-          m_fileName = rx.cap(1);
+          m_fileName = match.captured(1);
         }
       }
 
@@ -2180,7 +2182,7 @@ inline QString networkHeader2String(const QNetworkRequest& request)
     return "null";
   }
 
-  if (headerString.at(headerString.count() - 1) == "\n")
+  if (headerString.at(headerString.size() - 1) == '\n')
   {
     headerString.chop(1);
   }
@@ -2202,7 +2204,7 @@ inline QString networkReplyHeader2String(const QNetworkReply* reply)
     return "null";
   }
 
-  if (headerString.at(headerString.count() - 1) == "\n")
+  if (headerString.at(headerString.size() - 1) == '\n')
   {
     headerString.chop(1);
   }
@@ -2288,7 +2290,7 @@ inline QString networkBody2String(const QPair<HttpRequest::BodyType, QVariant>& 
   bodyDataString = lineIndent(bodyDataString, "=>    ");
 
   QString bodyString = bodyTypeString + bodyDataString;
-  if (bodyString.at(bodyString.count() - 1) == "\n")
+  if (bodyString.at(bodyString.size() - 1) == '\n')
   {
     bodyString.chop(1);
   }

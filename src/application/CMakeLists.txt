@@ -18,7 +18,7 @@ install(TARGETS APPLICATION LIBRARY DESTINATION lib)
 install(FILES ${APPLICATION_HEADERS} DESTINATION include/application)
 
 target_link_libraries(APPLICATION PUBLIC
-        Qt${QT_VERSION_MAJOR}::Core
+        Qt6::Core
         DOMAIN
         INFRASTRUCTURE
         )

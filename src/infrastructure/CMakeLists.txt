@@ -55,9 +55,9 @@ install(TARGETS INFRASTRUCTURE LIBRARY DESTINATION lib)
 install(FILES ${INFRASTRUCTURE_HEADERS} DESTINATION include/infrastructure)
 
 target_link_libraries(INFRASTRUCTURE PUBLIC
-        Qt${QT_VERSION_MAJOR}::Core
-        Qt${QT_VERSION_MAJOR}::Network
-        Qt${QT_VERSION_MAJOR}::Quick
+        Qt6::Core
+        Qt6::Network
+        Qt6::Quick
         DOMAIN
         )
 

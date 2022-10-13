@@ -1,6 +1,5 @@
 ﻿import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtGraphicalEffects 1.0
 import "../storage"
 
 ToolTip {
@@ -20,12 +19,12 @@ ToolTip {
             color: "#F7F7F7"
         }
 
-        DropShadow{
-            anchors.fill: itemLayout
-            radius: 3
-            samples: 5
-            color: AppStorage.isDark ? "#80FFFFFF" : "#80000000"
-            source: itemLayout
-        }
+//        DropShadow{
+//            anchors.fill: itemLayout
+//            radius: 3
+//            samples: 5
+//            color: AppStorage.isDark ? "#80FFFFFF" : "#80000000"
+//            source: itemLayout
+//        }
     }
 }

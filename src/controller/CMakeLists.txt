@@ -16,9 +16,9 @@ install(TARGETS CONTROLLER LIBRARY DESTINATION lib)
 install(FILES ${CONTOLLER_HEADERS} DESTINATION include/controller)
 
 target_link_libraries(CONTROLLER PUBLIC
-        Qt${QT_VERSION_MAJOR}::Core
-        Qt${QT_VERSION_MAJOR}::Concurrent
-        Qt${QT_VERSION_MAJOR}::Quick
+        Qt6::Core
+        Qt6::Concurrent
+        Qt6::Quick
         INFRASTRUCTURE
         DOMAIN
         APPLICATION

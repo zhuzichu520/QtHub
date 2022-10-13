@@ -1,5 +1,4 @@
 ﻿import QtQuick 2.15
-import QtGraphicalEffects 1.15
 import "../view"
 import "../storage"
 
@@ -38,11 +37,11 @@ Item {
         color: "#FFF7F8F9"
     }
 
-    OpacityMask {
-        anchors.fill: parent
-        source: avatar_image
-        maskSource: mask
-        visible: true
-    }
+//    OpacityMask {
+//        anchors.fill: parent
+//        source: avatar_image
+//        maskSource: mask
+//        visible: true
+//    }
 
 }

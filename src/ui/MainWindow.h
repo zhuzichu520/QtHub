@@ -8,6 +8,7 @@
 #include <QIcon>
 #include <QFont>
 #include <framelessquickhelper.h>
+#include <framelessconfig_p.h>
 #include <QQuickWindow>
 #include <infrastructure/tool/CommonTool.h>
 #include <infrastructure/log/Logger.h>
@@ -21,6 +22,7 @@
 #include "MyNetworkAccessManagerFactory.h"
 #include "TextDocument.h"
 #include "ScreensHotHelper.h"
+#include "Settings.h"
 
 class Q_DECL_EXPORT MainWindow
 {

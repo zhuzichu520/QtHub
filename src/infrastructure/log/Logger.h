@@ -11,7 +11,6 @@
 #include <fstream>
 #include <glog/logging.h>
 #include <infrastructure/config/AppConfig.h>
-#include <qtextcodec.h>
 
 #define LOGD(data) qDebug() << data
 #define LOGI(data) LOG(INFO) << data

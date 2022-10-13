@@ -40,7 +40,6 @@ void TextDocument::insertEmoji(const QString& url)
 {
   QFont font;
   font.setPixelSize(14);
-  font.resolve(QFont::AllPropertiesResolved);
   QFontMetrics fmt(font);
   textCursor().insertHtml(QString::fromStdString("<img src=\"%1\" width=\"%2\" height=\"%2\" style=\"vertical-align: "
                                                  "bottom;\" />")
@@ -78,7 +77,6 @@ void TextDocument::insertFile(const QString& path)
   // 绘制文本
   QFont font;
   font.setPixelSize(24);
-  font.resolve(QFont::AllPropertiesResolved);
   QFontMetrics fmt(font);
   painter.setFont(font);
   pen.setColor("#333333");
@@ -288,7 +286,7 @@ void TextDocument::customCopy()
     {
       const QString& text = fragment.text();
       textBuilder.append(text);
-      for (int i = 0; i < text.count(); i++)
+      for (int i = 0; i < text.size(); i++)
       {
         position++;
         if (position > start && position <= end)

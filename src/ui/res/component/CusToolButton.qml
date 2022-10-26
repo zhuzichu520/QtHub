@@ -9,8 +9,8 @@ Item {
     signal clickEvent
     property alias iconSize: textIcon.font.pixelSize
 
-    property color normalColor : "#00000000"
-    property color hoverColor: "#33FFFFFF"
+    property color normalColor : "#ffffff"
+    property color hoverColor: Qt.darker(normalColor,1.2)
 
     property color hoverTextColor : color
     property string fontFamily: awesome.name

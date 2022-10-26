@@ -3,17 +3,26 @@
 
 #include <QObject>
 #include <windows.h>
+#include <domain/entity/User.h>
 
 class Repository : public QObject
 {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  explicit Repository(QObject* parent = nullptr);
+    explicit Repository(QObject* parent = nullptr);
 
-  QString api(const QString& path);
+    QString api(const QString& path){
+        return "https://api.github.com" + path;
+    }
 
-private:
-  QString baseUrl = "https://nim-saas-api.avicnet.cn";
+    QString html(const QString& path){
+        return "https://github.com" + path;
+    }
+
+    virtual QString accessToken(const QString &id,const QString &secret,const QString &code) = 0;
+
+    virtual User user() = 0;
+
 };
 
 #endif  // REPOSITORY_H

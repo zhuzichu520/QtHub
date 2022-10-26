@@ -21,6 +21,10 @@ public:
 
   ~MainController();
 
+  Q_SIGNAL void loginSuccess();
+
+  Q_INVOKABLE void loadUser();
+
 
 };
 

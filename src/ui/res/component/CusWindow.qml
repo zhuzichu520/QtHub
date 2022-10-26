@@ -1,8 +1,8 @@
-﻿import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Window 2.15
-import QtQuick.Layouts 1.15
-import UI 1.0
+﻿import QtQuick
+import QtQuick.Controls
+import QtQuick.Window
+import QtQuick.Layouts
+import UI
 import "../storage"
 import "../global/global.js" as Global
 
@@ -60,14 +60,12 @@ ApplicationWindow {
         var rawW = window.width
         var rawH = window.height
         framelessHelper.removeWindowFrame()
+        width = rawW + 1
+        height = rawH
+        width = rawW  - 1
         if(isCenter){
-            width = rawW
-            height = rawH
             x = (Screen.width-width)/2
             y = (Screen.height-height)/2
-        }else{
-            width = rawW
-            height = rawH
         }
         flags = flags | Qt.WindowStaysOnTopHint
         flags = flags &~ Qt.WindowStaysOnTopHint
@@ -123,9 +121,7 @@ ApplicationWindow {
         anchors.fill: container
         color: "#33000000"
         visible: false
-        BusyIndicator{
-            width: 60
-            height: 60
+        CusLoading{
             anchors.centerIn: parent
         }
         z:99
@@ -152,8 +148,6 @@ ApplicationWindow {
     function showErrorToast(text){
         toast.showToast(text,Toast.Type.Error)
     }
-
-
 
     function showLoading(){
         layoutLoading.visible = true

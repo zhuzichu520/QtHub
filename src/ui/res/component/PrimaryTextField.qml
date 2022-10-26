@@ -1,4 +1,4 @@
-import QtQuick 2.15
+﻿import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import "../storage"
@@ -31,7 +31,9 @@ Item {
         width: parent.width
         selectionColor: "#9BCAEF"
         selectByMouse: true
+        verticalAlignment: TextInput.AlignVCenter
         selectedTextColor: color
+        height: 32
         background: Rectangle{
             radius: 3
             border{

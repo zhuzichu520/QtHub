@@ -9,7 +9,6 @@
 #include <infrastructure/stdafx.h>
 #include <domain/exception/BizException.h>
 #include <infrastructure/log/Logger.h>
-#include <QtConcurrent>
 #include <infrastructure/tool/RxTool.h>
 #include <infrastructure/injection/dependencyinjector.h>
 

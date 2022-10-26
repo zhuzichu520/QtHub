@@ -1650,7 +1650,7 @@ void HttpResponse::setHttpRequest(const HttpRequest& httpRequest)
   {
     connect(reply, SIGNAL(finished()), this, SLOT(onFinished()));
     connect(reply, SIGNAL(finished()), this, SLOT(onHandleHead()));
-    connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(onError(QNetworkReply::NetworkError)));
+    connect(reply, SIGNAL(errorOccurred(QNetworkReply::NetworkError)), this, SLOT(onError(QNetworkReply::NetworkError)));
 
     connect(reply, SIGNAL(downloadProgress(qint64, qint64)), this, SLOT(onDownloadProgress(qint64, qint64)));
     connect(reply, SIGNAL(uploadProgress(qint64, qint64)), this, SLOT(onUploadProgress(qint64, qint64)));

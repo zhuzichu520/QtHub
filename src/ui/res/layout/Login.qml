@@ -11,9 +11,32 @@ CusWindow {
     width: 300
     height: 400
     title: "登录"
+    closeDestory:false
 
     LoginController{
         id:controller
+        onLoginStatusChanged: {
+            switch(loginStatus){
+            case 1:
+                hideLoading()
+                break;
+            case 2:
+                window.show()
+                window.raise()
+                window.requestActivate()
+                showLoading()
+                break;
+            case 3:
+                hideLoading()
+                break;
+            case 4:
+                finish()
+                hideLoading()
+                break;
+            default:
+                break;
+            }
+        }
     }
 
     Component.onCompleted: {
@@ -23,11 +46,12 @@ CusWindow {
     page: CusPage{
 
         Image{
+            id:img_logo
             width: 60
             height: 60
             anchors{
                 top: parent.top
-                topMargin: 60
+                topMargin: 100
                 horizontalCenter: parent.horizontalCenter
             }
             source: "qrc:/image/ic_login_logo.png"
@@ -37,12 +61,18 @@ CusWindow {
         Text{
             text:"QtHub"
             anchors{
-                top: parent.top
-                topMargin: 123
+                top: img_logo.bottom
+                topMargin: 20
                 horizontalCenter: parent.horizontalCenter
             }
             color: "#191E24"
             font.pixelSize: 20
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    showToast(settingsHelper.getToken())
+                }
+            }
         }
 
         CusToolBar {
@@ -51,60 +81,18 @@ CusWindow {
             darkEnable: false
             topEnable: false
             isTop: false
-            color: "#00000000"
-            minHoverColor: "#33000000"
         }
 
-        PrimaryTextField{
-            id:edit_account
-            width: 260
-            height: 36
-            lableText: "用户名或邮箱"
-            text:"zhuzichu520@gmail.com"
-            anchors{
-                horizontalCenter: parent.horizontalCenter
-                top: parent.top
-                topMargin: 183
-            }
-        }
-
-        PrimaryTextField{
-            id:edit_password
-            width: 260
-            height: 36
-            lableText: "密码"
-            text:"aA7711451"
-            anchors{
-                horizontalCenter: parent.horizontalCenter
-                top: parent.top
-                topMargin: 240
-            }
-        }
-
-        Text {
-            id: text_error
-            color: "#FFCC4125"
-            text: controller.textError
-            font.pixelSize: 12
-            width: edit_password.width
-            anchors {
-                top: edit_password.bottom
-                left: edit_password.left
-                topMargin: 3
-                leftMargin: 3
-            }
-            wrapMode: Text.WrapAnywhere
-        }
 
         PrimaryButton{
             id:btn_login
             width: 260
             height: 36
-            text:"登录"
+            text:"去授权"
             anchors{
                 horizontalCenter: parent.horizontalCenter
                 bottom:parent.bottom
-                bottomMargin: 50
+                bottomMargin: 100
             }
             onClicked: {
                 Qt.openUrlExternally("https://github.com/login/oauth/authorize?client_id=ebf59d49ca54dae4bda5&redirect_uri=http://localhost:8080/oauth/redirect")

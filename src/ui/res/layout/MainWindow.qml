@@ -17,14 +17,56 @@ CusWindow {
     minimumWidth: 700
     minimumHeight: 500
     closeDestory: false
-    isOpen: false
+    isOpen: true
 
     MainController{
         id:controller
+        onLoginSuccess: {
+            show()
+        }
     }
 
-    onCreateView: {
-        navigate(Router.window_login)
+    Component.onCompleted: {
+//        navigate(Router.window_login)
+    }
+
+
+    page: CusPage{
+
+        Image{
+            id:img_logo
+            width: 60
+            height: 60
+            anchors{
+                top: parent.top
+                topMargin: 100
+                horizontalCenter: parent.horizontalCenter
+            }
+            source: "qrc:/image/ic_login_logo.png"
+        }
+
+
+        TextArea{
+            text: settingsHelper.getToken()
+            anchors{
+                top: img_logo.bottom
+                topMargin: 20
+                horizontalCenter: parent.horizontalCenter
+            }
+            readOnly: true
+            selectByMouse: true
+            color: "#191E24"
+            font.pixelSize: 20
+        }
+
+        CusToolBar {
+            id:toolBar
+            darkEnable: false
+            topEnable: false
+            isTop: false
+        }
+
+
     }
 
 

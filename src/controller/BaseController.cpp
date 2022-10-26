@@ -60,9 +60,9 @@ void BaseController::handleError(std::exception_ptr eptr, std::function<void(Biz
   {
     if (func)
     {
-      func(BizException("业务处理异常"));
+      func(BizException("未知异常"));
     }
-    LOGI(QString::fromStdString("【代码异常】code->%1").arg(e.what()).toStdString());
+    LOGI(QString::fromStdString("【未知异常】message->%1").arg(e.what()).toStdString());
   }
 }
 

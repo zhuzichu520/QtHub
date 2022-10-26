@@ -2,6 +2,7 @@
 import QtQuick.Controls 2.15
 import QtQuick.Window 2.15
 import QtQuick.Layouts 1.15
+import Qt5Compat.GraphicalEffects
 import "../global/global.js" as Global
 
 Window {

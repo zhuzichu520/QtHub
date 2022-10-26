@@ -135,9 +135,9 @@ Rectangle {
 
             CusToolButton {
                 id:btnMin
-                icon: "\ue664"
+                icon: "\ue65a"
                 visible: minEnable
-                iconSize : 13
+                iconSize : 15
                 onClickEvent: {
                     if(onMinEvent)
                         onMinEvent()
@@ -149,16 +149,16 @@ Rectangle {
             }
             CusToolButton {
                 id:btnMax
-                icon: window.visibility === Window.Maximized ? "\ue7bf" : "\ue7c1"
+                icon: window.visibility === Window.Maximized ? "\ue692" : "\ue65d"
                 onClickEvent: window.toggleMaximized();
                 visible: maxEnable
-                iconSize : 13
+                iconSize : 15
                 tipText:  window.visibility === Window.Maximized ? "还原" : "最大化"
                 Component.onCompleted: Window.window.setHitTestVisible(btnMax, true)
             }
             CusToolButton {
                 id:btnClose
-                icon: "\ue6f4"
+                icon: "\ue660"
                 onClickEvent: {
                     if(onCloseEvent)
                         onCloseEvent()
@@ -168,7 +168,7 @@ Rectangle {
                 hoverColor: "#E81123"
                 hoverTextColor: "#FFFFFF"
                 visible: closeEnable
-                iconSize : 17
+                iconSize : 15
                 tipText:"关闭"
                 Component.onCompleted: Window.window.setHitTestVisible(btnClose, true)
             }

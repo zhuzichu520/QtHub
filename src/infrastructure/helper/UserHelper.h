@@ -3,14 +3,16 @@
 
 #include <QObject>
 #include <QGlobalStatic>
+#include <infrastructure/stdafx.h>
 
 class UserHelper : public QObject
 {
-  Q_OBJECT
+    Q_OBJECT
+    Q_PROPERTY_AUTO(QString,token)
 public:
-  static UserHelper* instance();
+    static UserHelper* instance();
 
-  explicit UserHelper(QObject* parent = nullptr);
+    explicit UserHelper(QObject* parent = nullptr);
 
 };
 

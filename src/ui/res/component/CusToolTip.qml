@@ -1,9 +1,12 @@
-﻿import QtQuick 2.15
-import QtQuick.Controls 2.15
+﻿import QtQuick
+import QtQuick.Controls
+
+import Qt5Compat.GraphicalEffects
 import "../storage"
 
 ToolTip {
     id:tool_tip
+
     contentItem: Text {
         text: tool_tip.text
         font: tool_tip.font
@@ -19,12 +22,12 @@ ToolTip {
             color: "#F7F7F7"
         }
 
-//        DropShadow{
-//            anchors.fill: itemLayout
-//            radius: 3
-//            samples: 5
-//            color: AppStorage.isDark ? "#80FFFFFF" : "#80000000"
-//            source: itemLayout
-//        }
+        DropShadow{
+            anchors.fill: itemLayout
+            radius: 3
+            samples: 5
+            color: AppStorage.isDark ? "#80FFFFFF" : "#80000000"
+            source: itemLayout
+        }
     }
 }

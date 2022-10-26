@@ -28,6 +28,7 @@ public:
   Q_INVOKABLE qint64 currentTimeMillis();
 
   Q_INVOKABLE QJsonObject string2JsonObject(const std::string&);
+  Q_INVOKABLE void jsonNonNull(QString& val);
 };
 
 #endif  // COMMONTOOL_H

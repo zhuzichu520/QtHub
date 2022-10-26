@@ -4,6 +4,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Controls.impl 2.12
 import QtQuick.Templates 2.12 as T
 import QtQuick.Window 2.12
+import Qt5Compat.GraphicalEffects
 import "../storage"
 
 T.Menu {

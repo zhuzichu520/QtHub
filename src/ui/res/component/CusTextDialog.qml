@@ -20,17 +20,12 @@ Dialog {
         Rectangle{
             id:background_layout
             anchors.fill: parent
+            radius: 5
             color: Theme.colorBackground
         }
-
-        DropShadow{
-            anchors.fill: background_layout
-            radius: 8.0
-            samples: 17
-            color: AppStorage.isDark ? "#80FFFFFF" : "#80000000"
-            source: background_layout
+        Shadow{
+            radius: 5
         }
-
     }
 
     Text{

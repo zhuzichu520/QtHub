@@ -17,14 +17,14 @@ Item {
         anchors.fill: parent
         anchors.centerIn: parent
         smooth: true
-        source: "qrc:/image/ic_avatar.png"
+        source: "qrc:/image/ic_login_logo.png"
         fillMode: Image.PreserveAspectFit
         visible: false
         asynchronous: true
         cache: true
         onStatusChanged: {
             if (status===Image.Error) {
-                source="qrc:/image/ic_avatar.png"
+                source="qrc:/image/ic_login_logo.png"
             }
         }
     }

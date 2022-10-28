@@ -1,6 +1,5 @@
 ﻿import QtQuick 2.15
 
-
 MouseArea {
 
     property int border: 5
@@ -13,7 +12,7 @@ MouseArea {
     propagateComposedEvents: true
     z: -65535
 
-    onPressed: {
+    onPressed : (mouse)=> {
         //if window is fixedSize, ignore it
         if (fixedSize) {
             return;
@@ -87,10 +86,8 @@ MouseArea {
         }
     }
 
-    onPositionChanged: {
-        //console.log("MouseArea.onPositionChanged=", mouse.x, mouse.y);
+    onPositionChanged: (mouse)=> {
 
-        //if window is fixedSize, ignore it
         if (fixedSize) {
             cursorShape = Qt.ArrowCursor;
             return;

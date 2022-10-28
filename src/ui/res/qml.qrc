@@ -188,5 +188,7 @@
         <file>image/favicon.png</file>
         <file>image/ic_login_logo.png</file>
         <file>component/CusLoading.qml</file>
+        <file>layout/Settings.qml</file>
+        <file>component/Shadow.qml</file>
     </qresource>
 </RCC>

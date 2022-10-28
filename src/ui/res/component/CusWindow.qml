@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Window
 import QtQuick.Layouts
 import UI
+import Qt5Compat.GraphicalEffects
 import "../storage"
 import "../global/global.js" as Global
 
@@ -13,16 +14,15 @@ ApplicationWindow {
     property alias page: container.children
     property int requestCode
     property var prevWindow
-    property var resizable
     signal windowResult(int requestCode,int resultCode,var data)
     property bool closeDestory: true
     property int titleBarHeight: 30
-    property int offsetW:0
-    visible: false
-    property int offsetH:0
     property bool isCenter:true
-    property bool isOpen: true
-
+    property int radius: 5
+    property int offset: window.visibility === Window.Maximized ? 0 : 5
+    visible: true
+    flags: Qt.Window | Qt.FramelessWindowHint
+    color: "#00000000"
     signal createView()
 
     onClosing: function(closeevent){
@@ -39,44 +39,14 @@ ApplicationWindow {
         }
     }
 
-    onResizableChanged: {
-        if(resizable){
-            minimumWidth = 0
-            minimumHeight = 0
-            maximumWidth = 16777215
-            maximumHeight = 16777215
-        }else{
-            minimumWidth = width
-            minimumHeight = height
-            maximumWidth = width
-            maximumHeight = height
-        }
-        flags = flags | Qt.WindowStaysOnTopHint
-        flags = flags &~ Qt.WindowStaysOnTopHint
-    }
-
     Component.onCompleted: {
-        framelessHelper.titleBarHeight = window.titleBarHeight
-        var rawW = window.width
-        var rawH = window.height
-        framelessHelper.removeWindowFrame()
-        width = rawW + 1
-        height = rawH
-        width = rawW  - 1
         if(isCenter){
             x = (Screen.width-width)/2
             y = (Screen.height-height)/2
         }
-        flags = flags | Qt.WindowStaysOnTopHint
-        flags = flags &~ Qt.WindowStaysOnTopHint
         createView()
         if(window.router !== undefined){
             Router.addWindow(router.url,window)
-        }
-        if(isOpen){
-            show()
-            window.raise()
-            window.requestActivate()
         }
     }
 
@@ -86,24 +56,44 @@ ApplicationWindow {
         }
     }
 
-    FramelessHelper {
-        id: framelessHelper
-    }
-
-    Item {
-        id:container
-        anchors.fill: parent
-        MouseArea{
-            anchors.fill: parent
+    MouseArea{
+        width: window.width
+        height: titleBarHeight
+        acceptedButtons: Qt.LeftButton
+        onPressed: window.startSystemMove()
+        anchors{
+            left: parent.left
+            right: parent.right
+            top: parent.top
+            leftMargin: offset
+            rightMargin: offset
+            topMargin: offset
+        }
+        onDoubleClicked: {
+            if(window_resize.fixedSize){
+                return
+            }
+            toggleMaximized()
         }
     }
 
-    Rectangle{
+    Shadow{
         anchors.fill: parent
-        color:"#00000000"
-        border.width: 1
-        visible: appConfig.isLinux()
-        border.color: Theme.colorPrimary
+        anchors.margins: 0
+    }
+
+    Rectangle {
+        id:container
+        anchors.fill: parent
+        anchors.margins: offset
+        layer.enabled: true
+        layer.effect:OpacityMask {
+            maskSource: Rectangle {
+                width: container.width
+                height: container.height
+                radius: window.radius
+            }
+        }
     }
 
     Toast{
@@ -116,22 +106,9 @@ ApplicationWindow {
         }
     }
 
-    Rectangle{
-        id:layoutLoading
-        anchors.fill: container
-        color: "#33000000"
-        visible: false
-        CusLoading{
-            anchors.centerIn: parent
-        }
-        z:99
-        MouseArea{
-            hoverEnabled: true
-            anchors.fill: parent
-        }
+    WindowResize{
+        id:window_resize
     }
-
-
 
     function toggleMaximized() {
         if (window.visibility === Window.Maximized) {
@@ -142,7 +119,7 @@ ApplicationWindow {
     }
 
     function showToast(text){
-       toast.showToast(text)
+        toast.showToast(text)
     }
 
     function showErrorToast(text){
@@ -204,15 +181,20 @@ ApplicationWindow {
     }
 
     function setHitTestVisible(view,isHit){
-        framelessHelper.setHitTestVisible(view, isHit)
+
     }
 
     function getToolBarHeight(){
-        return framelessHelper.titleBarHeight
+        return titleBarHeight
     }
 
     function finish(){
         window.close()
+    }
+
+    function updateWindow(){
+        width =- 1
+        width =+ 1
     }
 
 }

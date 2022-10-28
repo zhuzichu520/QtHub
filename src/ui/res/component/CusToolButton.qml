@@ -1,4 +1,5 @@
 ﻿import QtQuick 2.15
+import "../global/global.js" as Global
 
 Item {
     id:root
@@ -9,7 +10,7 @@ Item {
     signal clickEvent
     property alias iconSize: textIcon.font.pixelSize
 
-    property color normalColor : "#ffffff"
+    property color normalColor : "#00000000"
     property color hoverColor: Qt.darker(normalColor,1.2)
 
     property color hoverTextColor : color
@@ -38,7 +39,12 @@ Item {
 
     CusToolTip{
         id:tool_tip
-        visible: mouseArea.containsMouse
+        visible: {
+            if(tool_tip.text === ""){
+                return false
+            }
+            return mouseArea.containsMouse
+        }
         delay: 1000
     }
 

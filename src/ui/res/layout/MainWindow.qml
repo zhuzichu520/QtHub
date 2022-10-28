@@ -17,7 +17,6 @@ CusWindow {
     minimumWidth: 700
     minimumHeight: 500
     closeDestory: false
-    isOpen: true
 
     MainController{
         id:controller
@@ -33,40 +32,57 @@ CusWindow {
 
     page: CusPage{
 
-        Image{
-            id:img_logo
-            width: 60
-            height: 60
-            anchors{
-                top: parent.top
-                topMargin: 100
-                horizontalCenter: parent.horizontalCenter
+        ListModel{
+            id:sliderModel
+            ListElement{
+                name:"消息"
+                icon:"\ue61a"
+                fontSize:24
+                url:"qrc:/layout/MainSession.qml"
             }
-            source: "qrc:/image/ic_login_logo.png"
-        }
-
-
-        TextArea{
-            text: settingsHelper.getToken()
-            anchors{
-                top: img_logo.bottom
-                topMargin: 20
-                horizontalCenter: parent.horizontalCenter
+            ListElement{
+                name:"联系人"
+                icon:"\ue9d2"
+                fontSize:24
+                url:"qrc:/layout/MainContact.qml"
             }
-            readOnly: true
-            selectByMouse: true
-            color: "#191E24"
-            font.pixelSize: 20
         }
 
         CusToolBar {
             id:toolBar
-            darkEnable: false
-            topEnable: false
-            isTop: false
+            topEnable: true
         }
 
 
+        CusSliderBar{
+            id:slider
+            model: sliderModel
+            avatar: "qrc:/image/ic_login_logo.png"
+            onClickAvatar:{
+
+            }
+            onClickMenu:{
+                id:menu_setting.open()
+            }
+        }
+    }
+
+    CusMenu{
+        id:menu_setting
+        x:slider.width + window.offset
+        y:slider.height - height
+        CusMenuItem{
+            text:"意见反馈"
+            onClicked: {
+
+            }
+        }
+        CusMenuItem{
+            text:"设置"
+            onClicked: {
+                navigate(Router.window_settings)
+            }
+        }
     }
 
 

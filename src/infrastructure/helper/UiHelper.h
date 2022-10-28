@@ -25,6 +25,8 @@ public:
   Q_INVOKABLE QString getResBySecretValue(int val);
 
   Q_INVOKABLE int getScreenIndex();
+
+  Q_INVOKABLE void restart();
 };
 
 #endif  // UIHELPER_H

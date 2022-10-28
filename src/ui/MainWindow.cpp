@@ -1,7 +1,5 @@
 ﻿#include "MainWindow.h"
 
-FRAMELESSHELPER_USE_NAMESPACE
-
 MainWindow::MainWindow(char* argv[])
 {
     // 初始化日志
@@ -33,7 +31,6 @@ MainWindow::MainWindow(char* argv[])
     m_engine.rootContext()->setContextProperty("appConfig", appConfig);
 
     qmlRegisterType<TextDocument>("UI", 1, 0, "TextDocument");
-    qmlRegisterType<FramelessQuickHelper>("UI", 1, 0, "FramelessHelper");
     qmlRegisterType<PixmapImage>("UI", 1, 0, "PixmapImage");
     qmlRegisterType<ScreensHotHelper>("UI", 1, 0, "ScreensHotHelper");
 

@@ -7,7 +7,6 @@
 #include <QQuickStyle>
 #include <QIcon>
 #include <QFont>
-#include <framelessquickhelper.h>
 #include <QQuickWindow>
 #include <infrastructure/tool/CommonTool.h>
 #include <infrastructure/log/Logger.h>

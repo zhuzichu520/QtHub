@@ -40,20 +40,10 @@ T.Menu {
     background: Item {
         implicitWidth: 94
         implicitHeight: 30
-             Rectangle{
-                id:itemLayout
-                anchors.fill: parent
-                radius: 3
-                color: backgroundColor
-             }
 
-             DropShadow{
-                 anchors.fill: itemLayout
-                 radius: 3
-                 samples: 5
-                 color: AppStorage.isDark ? "#80FFFFFF" : "#80000000"
-                 source: itemLayout
-             }
+        Shadow{
+            shadowColor: "#999999"
+        }
 
     }
 

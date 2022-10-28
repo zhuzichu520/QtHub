@@ -130,3 +130,7 @@ int UiHelper::getScreenIndex()
   }
   return screenIndex;
 }
+
+void UiHelper::restart(){
+    qApp->exit(931);
+}

@@ -10,6 +10,10 @@ CusWindow {
     id:window
     width: 300
     height: 400
+    minimumWidth: 300
+    minimumHeight: 400
+    maximumWidth: 300
+    maximumHeight: 400
     title: "登录"
     closeDestory:false
 
@@ -37,10 +41,6 @@ CusWindow {
                 break;
             }
         }
-    }
-
-    Component.onCompleted: {
-        resizable = false
     }
 
     page: CusPage{
@@ -77,7 +77,6 @@ CusWindow {
 
         CusToolBar {
             id:toolBar
-            maxEnable: false
             darkEnable: false
             topEnable: false
             isTop: false

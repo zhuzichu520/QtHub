@@ -8,8 +8,7 @@ Rectangle {
     id:root
 
     property alias model: listView.model
-    property alias avatar: cusAvatar.avatar
-    property alias avatarName: cusAvatar.avatarName
+    property alias avatar: cusAvatar.source
     signal clickAvatar
     signal clickMenu
 
@@ -26,14 +25,14 @@ Rectangle {
 
     CusAvatar{
         id:cusAvatar
+        width: 38
+        height: 38
         anchors{
             horizontalCenter: parent.horizontalCenter
             top: parent.top
             topMargin: 38
         }
-        onClickAvatar: {
-            root.clickAvatar()
-        }
+
     }
 
 

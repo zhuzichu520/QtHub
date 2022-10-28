@@ -36,11 +36,7 @@ Window {
         width: dialogWidth
         height: dialogHeight
         anchors.centerIn: parent
-        layer.enabled: true
         radius: dialog.radius
-        layer.effect: DropShadow{
-            color:"#80000000"
-        }
     }
 
     Rectangle{

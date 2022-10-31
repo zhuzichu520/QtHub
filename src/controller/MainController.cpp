@@ -5,7 +5,7 @@ MainController::MainController(QObject* parent) : BaseController{ parent }
     connect(userService(),&UserService::loginSuccess,this,[this](){
         Q_EMIT loginSuccess();
     });
-    loadUser();
+//    loadUser();
 }
 
 MainController::~MainController()

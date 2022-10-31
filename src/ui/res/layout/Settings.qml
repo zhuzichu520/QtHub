@@ -1,4 +1,4 @@
-import QtQuick
+﻿import QtQuick
 import QtQuick.Controls
 import QtQuick.Window
 import QtQuick.Layouts
@@ -9,6 +9,8 @@ CusWindow {
     id:window
     width: 550
     height: 470
+    minimumWidth: 550
+    minimumHeight: 470
     title: "设置"
 
 
@@ -16,10 +18,6 @@ CusWindow {
 
         CusToolBar {
             id:toolBar
-            maxEnable: false
-            darkEnable: false
-            topEnable: false
-            isTop: false
             title:window.title
         }
 

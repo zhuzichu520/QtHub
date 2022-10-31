@@ -7,21 +7,21 @@
 
 int main(int argc, char* argv[])
 {
-  QApplication app(argc, argv);
+  QGuiApplication app(argc, argv);
 
   //    QHotkey hotkey(QKeySequence("Ctrl+Alt+Q"), true, &app);
   //    QObject::connect(&hotkey, &QHotkey::activated, qApp, [&](){
   //        qApp->quit();
   //    });
   MainWindow window(argv);
-  QApplication::setOrganizationName("HIWITECH.COM");
-  QApplication::setApplicationName("AvicIM");
+  QGuiApplication::setOrganizationName("HIWITECH.COM");
+  QGuiApplication::setApplicationName("AvicIM");
   window.show();
 
-  int e = app.exec();
-  if (e == 931)
+  const int exec = QCoreApplication::exec();
+  if (exec == 931)
   {
     QProcess::startDetached(qApp->applicationFilePath(), QStringList());
   }
-  return 0;
+  return exec;
 }

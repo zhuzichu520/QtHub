@@ -70,9 +70,9 @@ CusWindow {
             }
             Behavior on width {
                 NumberAnimation{
-                    duration: 1000
+                    duration: 500
                     easing{
-                        type: Easing.OutElastic
+                        type: Easing.InOutCubic
                     }
                 }
             }

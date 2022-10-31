@@ -18,6 +18,8 @@ CusWindow {
     minimumHeight: 500
     closeDestory: false
 
+    property bool showDrawer: true
+
     MainController{
         id:controller
         onLoginSuccess: {
@@ -26,7 +28,7 @@ CusWindow {
     }
 
     Component.onCompleted: {
-//        navigate(Router.window_login)
+        //        navigate(Router.window_login)
     }
 
 
@@ -35,15 +37,17 @@ CusWindow {
         ListModel{
             id:sliderModel
             ListElement{
-                name:"消息"
-                icon:"\ue61a"
-                fontSize:24
+                name:"首页"
+                icon:"\ue68d"
+                fontSize:14
+                iconSize:20
                 url:"qrc:/layout/MainSession.qml"
             }
             ListElement{
-                name:"联系人"
-                icon:"\ue9d2"
-                fontSize:24
+                name:"搜索"
+                icon:"\ue608"
+                fontSize:14
+                iconSize:20
                 url:"qrc:/layout/MainContact.qml"
             }
         }
@@ -53,9 +57,9 @@ CusWindow {
             topEnable: true
         }
 
-
         CusSliderBar{
             id:slider
+            width: showDrawer ? 120 : 0
             model: sliderModel
             avatar: "qrc:/image/ic_login_logo.png"
             onClickAvatar:{
@@ -64,7 +68,87 @@ CusWindow {
             onClickMenu:{
                 id:menu_setting.open()
             }
+            Behavior on width {
+                NumberAnimation{
+                    duration: 1000
+                    easing{
+                        type: Easing.OutElastic
+                    }
+                }
+            }
         }
+
+        StackLayout{
+            id:content
+            anchors{
+                top:toolBar.bottom
+                left: slider.right
+                bottom: parent.bottom
+                right:parent.right
+            }
+            currentIndex: slider.getIndex()
+            MainHome{
+                id:page_home
+            }
+            MainSearch{
+                id:page_search
+            }
+        }
+
+        Canvas {
+
+            property color themeColor: "#FF2E2E2E"
+
+            id:drawer
+            width: 12
+            height: 48
+            rotation: 180
+            opacity: 0.4
+            anchors {
+                verticalCenter: slider.verticalCenter
+                left: slider.right
+            }
+            contextType: "2d"
+            antialiasing: false
+            onPaint: {
+                context.lineWidth = 2
+                context.fillStyle = themeColor
+                context.beginPath()
+                context.moveTo(0, 12)
+                context.lineTo(12, 0)
+                context.lineTo(12, 48)
+                context.lineTo(0, 36)
+                context.lineTo(0, 12)
+                context.closePath()
+                context.fill()
+            }
+
+            onThemeColorChanged: {
+                requestPaint()
+            }
+
+            Image {
+                width: 10
+                height: 10
+                anchors.centerIn: parent
+                source: showDrawer ? "qrc:/image/ic_arrow_right.png" : "qrc:/image/ic_arrow_left.png"
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                hoverEnabled: true
+                onEntered: {
+                    parent.opacity = 1
+                }
+                onExited: {
+                    parent.opacity = 0.4
+                }
+                onClicked: {
+                    showDrawer = !showDrawer
+                }
+            }
+        }
+
     }
 
     CusMenu{

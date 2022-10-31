@@ -19,11 +19,14 @@ ApplicationWindow {
     property int titleBarHeight: 30
     property bool isCenter:true
     property int radius: 5
-    property int offset: window.visibility === Window.Maximized ? 0 : 5
+//    property int offset: window.visibility === Window.Maximized ? 0 : 5
+    property int offset:5
     visible: true
     flags: Qt.Window | Qt.FramelessWindowHint
     color: "#00000000"
     signal createView()
+
+
 
     onClosing: function(closeevent){
         try{
@@ -80,6 +83,7 @@ ApplicationWindow {
     Shadow{
         anchors.fill: parent
         anchors.margins: 0
+        radius: window.radius
     }
 
     Rectangle {

@@ -190,5 +190,10 @@
         <file>component/CusLoading.qml</file>
         <file>layout/Settings.qml</file>
         <file>component/Shadow.qml</file>
+        <file>component/TextIcon.qml</file>
+        <file>image/ic_arrow_left.png</file>
+        <file>image/ic_arrow_right.png</file>
+        <file>layout/MainHome.qml</file>
+        <file>layout/MainSearch.qml</file>
     </qresource>
 </RCC>

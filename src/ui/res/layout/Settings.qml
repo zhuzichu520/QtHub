@@ -16,7 +16,6 @@ CusWindow {
 
         CusToolBar {
             id:toolBar
-            maxEnable: false
             darkEnable: false
             topEnable: false
             isTop: false

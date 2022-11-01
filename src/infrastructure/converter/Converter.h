@@ -12,6 +12,7 @@ public:
     static User dto2User(const UserDto val){
         User user;
         user.name = QString::fromStdString(val.name);
+        user.avatar = QString::fromStdString(val.avatar_url);
         user.location = QString::fromStdString(val.location);
         user.email = QString::fromStdString(val.email);
         user.blog = QString::fromStdString(val.blog);

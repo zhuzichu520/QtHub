@@ -6,7 +6,8 @@ import "../storage"
 Item {
 
     //一个圆形图片
-    property alias source: avatar_image.source
+    id:root
+    property var source
     property int avatarRadius: width / 2
     width: 54
     height: 54
@@ -17,7 +18,12 @@ Item {
         anchors.fill: parent
         anchors.centerIn: parent
         smooth: true
-        source: "qrc:/image/ic_login_logo.png"
+        source: {
+            if(root.source === undefined || root.source===""){
+                return "qrc:/image/ic_login_logo.png"
+            }
+            return root.source
+        }
         fillMode: Image.PreserveAspectFit
         visible: false
         asynchronous: true

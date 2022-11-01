@@ -34,6 +34,14 @@ Rectangle {
             topMargin: 38
         }
 
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+
+                clickAvatar()
+            }
+        }
+
     }
 
 

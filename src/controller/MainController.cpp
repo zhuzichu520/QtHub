@@ -5,7 +5,9 @@ MainController::MainController(QObject* parent) : BaseController{ parent }
     connect(userService(),&UserService::loginSuccess,this,[this](){
         Q_EMIT loginSuccess();
     });
-    loadUser();
+    if(UserHelper::instance()->isLogin()){
+        loadUser();
+    }
 }
 
 MainController::~MainController()
@@ -13,17 +15,18 @@ MainController::~MainController()
 }
 
 void MainController::loadUser(){
-    rxs::create<QString>([this](subscriber<QString> subscriber){
-        User user = userService()->user();
-        qDebug()<<"->>>>>>>>>>>>>>>>>>>>"<<user.name;
-        subscriber.on_next("");
-        subscriber.on_completed();
-    }).subscribe_on(Rx->IO()).observe_on(Rx->mainThread()).subscribe([](const QString &data){
+    userService()->loadUser();
+//    rxs::create<QString>([this](subscriber<QString> subscriber){
+//        User user = userService()->user();
+//        UserHelper::instance()->updateUser(user);
+//        subscriber.on_next("");
+//        subscriber.on_completed();
+//    }).subscribe_on(Rx->IO()).observe_on(Rx->mainThread()).subscribe([](const QString &data){
 
-    },
-    [this](const rxu::error_ptr& error){
-        handleError(error,[](const BizException& e){
+//    },
+//    [this](const rxu::error_ptr& error){
+//        handleError(error,[](const BizException& e){
 
-        });
-    });
+//        });
+//    });
 }

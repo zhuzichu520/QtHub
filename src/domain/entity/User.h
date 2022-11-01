@@ -8,6 +8,7 @@ public:
     User(){};
     ~User(){};
     QString name;
+    QString avatar;
     QString location;
     QString email;
     QString blog;

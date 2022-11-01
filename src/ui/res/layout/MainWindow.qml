@@ -61,9 +61,13 @@ CusWindow {
             id:slider
             width: showDrawer ? 120 : 0
             model: sliderModel
-            avatar: "qrc:/image/ic_login_logo.png"
+            avatar: userHelper.avatar
             onClickAvatar:{
-
+                if(!userHelper.isLogin()){
+                    navigate(Router.window_login)
+                    return
+                }
+                showToast(userHelper.token)
             }
             onClickMenu:{
                 id:menu_setting.open()

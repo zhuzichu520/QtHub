@@ -9,4 +9,5 @@ UserHelper* UserHelper::instance()
 
 UserHelper::UserHelper(QObject* parent) : QObject{ parent }
 {
+    token(SettingsHelper::instance()->getToken());
 }

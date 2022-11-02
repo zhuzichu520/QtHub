@@ -55,6 +55,7 @@ CusWindow {
         CusToolBar {
             id:toolBar
             topEnable: true
+            darkEnable: true
         }
 
         CusSliderBar{

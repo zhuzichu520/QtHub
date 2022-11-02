@@ -195,5 +195,6 @@
         <file>image/ic_arrow_right.png</file>
         <file>layout/MainHome.qml</file>
         <file>layout/MainSearch.qml</file>
+        <file>layout/ColorPickerWindow.qml</file>
     </qresource>
 </RCC>

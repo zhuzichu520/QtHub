@@ -46,5 +46,5 @@ MainWindow::~MainWindow()
 
 void MainWindow::show()
 {
-    m_engine.load(QUrl("qrc:///layout/MainWindow.qml"));
+    m_engine.load(QUrl("qrc:///layout/Login.qml"));
 }

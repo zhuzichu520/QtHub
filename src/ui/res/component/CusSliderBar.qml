@@ -11,7 +11,7 @@ Rectangle {
     property alias avatar: cusAvatar.source
     signal clickAvatar
     signal clickMenu
-
+    clip: true
     width: 56
     height: parent.height
     anchors.left: parent.left
@@ -28,7 +28,8 @@ Rectangle {
         width: 38
         height: 38
         anchors{
-            horizontalCenter: parent.horizontalCenter
+            left: parent.left
+            leftMargin: 28
             top: parent.top
             topMargin: 38
         }
@@ -47,20 +48,54 @@ Rectangle {
             bottom: parent.bottom
         }
         delegate: Item{
-            width: 56
+            width: root.width
             height: 40
-            Text{
-                anchors.centerIn: parent
-                text:model.icon
-                font.family: awesome.name
-                color: listView.currentIndex === index ? Theme.colorPrimary : "#999999"
-                font.pixelSize: model.fontSize
+
+            Rectangle{
+                anchors{
+                    top: parent.top
+                    bottom: parent.bottom
+                    left: parent.left
+                    right: parent.right
+                    leftMargin: 14
+                    rightMargin: 14
+                }
+                visible: mouse_item.containsMouse
+                color:"#66000000"
+                radius: 6
             }
+
             MouseArea{
+                id:mouse_item
                 anchors.fill: parent
+                hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
                     listView.currentIndex = index
+                }
+            }
+
+            Text{
+                id:ic_title
+                text:model.icon
+                font.family: awesome.name
+                color: listView.currentIndex === index ? Theme.colorPrimary : "#999999"
+                font.pixelSize: model.iconSize
+                anchors{
+                    left: parent.left
+                    leftMargin: 28
+                    verticalCenter: parent.verticalCenter
+                }
+            }
+
+            Text{
+                text:model.name
+                color: ic_title.color
+                font.pixelSize: model.fontSize
+                anchors{
+                    left: ic_title.right
+                    leftMargin: 10
+                    verticalCenter: parent.verticalCenter
                 }
             }
         }
@@ -72,7 +107,8 @@ Rectangle {
         text:"\ueaf1"
         color: item_mouse.containsMouse? "#FFFFFF" : "#999999"
         anchors{
-            horizontalCenter: parent.horizontalCenter
+            right: parent.right
+            rightMargin: 14
             bottom: parent.bottom
             bottomMargin: 20
         }

@@ -19,9 +19,10 @@ ApplicationWindow {
     property int titleBarHeight: 30
     property bool isCenter:true
     property int radius: 5
-    property int offset: window.visibility === Window.Maximized ? 0 : 5
+    //    property int offset: window.visibility === Window.Maximized ? 0 : 5
+    property int offset:5
     visible: true
-    flags: Qt.Window | Qt.FramelessWindowHint
+    flags: Qt.Window | Qt.FramelessWindowHint | Qt.WindowSystemMenuHint | Qt.WindowMinMaxButtonsHint
     color: "#00000000"
     signal createView()
 
@@ -80,6 +81,7 @@ ApplicationWindow {
     Shadow{
         anchors.fill: parent
         anchors.margins: 0
+        radius: window.radius
     }
 
     Rectangle {
@@ -103,6 +105,21 @@ ApplicationWindow {
             right:container.right
             top: container.top
             topMargin: titleBarHeight
+        }
+    }
+
+    Rectangle{
+        id:layoutLoading
+        anchors.fill: container
+        color: "#33000000"
+        visible: false
+        CusLoading{
+            anchors.centerIn: parent
+        }
+        z:99
+        MouseArea{
+            hoverEnabled: true
+            anchors.fill: parent
         }
     }
 

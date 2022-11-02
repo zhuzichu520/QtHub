@@ -35,7 +35,7 @@ CusWindow {
                 break;
             case 4:
                 finish()
-                hideLoading()
+                navigate(Router.window_main)
                 break;
             default:
                 break;

@@ -19,7 +19,7 @@ public:
 
     void login(const QString& code);
 
-    User user();
+    User loadUser();
 
     Q_SIGNAL void loginSuccess();
 

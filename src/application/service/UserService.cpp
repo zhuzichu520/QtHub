@@ -7,6 +7,6 @@ void UserService::login(const QString& code){
     LOGD("【token】"+token);
 }
 
-void UserService::loadUser(){
+User UserService::loadUser(){
     return repository->user();
 }

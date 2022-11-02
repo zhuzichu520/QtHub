@@ -15,18 +15,17 @@ MainController::~MainController()
 }
 
 void MainController::loadUser(){
-    userService()->loadUser();
-//    rxs::create<QString>([this](subscriber<QString> subscriber){
-//        User user = userService()->user();
-//        UserHelper::instance()->updateUser(user);
-//        subscriber.on_next("");
-//        subscriber.on_completed();
-//    }).subscribe_on(Rx->IO()).observe_on(Rx->mainThread()).subscribe([](const QString &data){
+    rxs::create<QString>([this](subscriber<QString> subscriber){
+        User user = userService()->loadUser();
+        UserHelper::instance()->updateUser(user);
+        subscriber.on_next("");
+        subscriber.on_completed();
+    }).subscribe_on(Rx->IO()).observe_on(Rx->mainThread()).subscribe([](const QString &data){
 
-//    },
-//    [this](const rxu::error_ptr& error){
-//        handleError(error,[](const BizException& e){
+    },
+    [this](const rxu::error_ptr& error){
+        handleError(error,[](const BizException& e){
 
-//        });
-//    });
+        });
+    });
 }

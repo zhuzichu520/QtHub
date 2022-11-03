@@ -18,26 +18,16 @@ ApplicationWindow {
     property bool closeDestory: true
     property int titleBarHeight: 30
     property bool isCenter:true
-    property int radius: 5
+    property int radius: Theme.windowRadius
     //    property int offset: window.visibility === Window.Maximized ? 0 : 5
     property int offset:5
-    visible: true
     flags: Qt.Window | Qt.FramelessWindowHint | Qt.WindowSystemMenuHint | Qt.WindowMinMaxButtonsHint
+    visible: true
     color: "#00000000"
     signal createView()
 
-    onClosing: function(closeevent){
-        try{
-            if(closeDestory){
-                window.destroy()
-            }else{
-                window.visible = false
-            }
-            closeevent.accepted = false
-        }catch(err){
-            //            window.destroy()
-            //            closeevent.accepted = false
-        }
+    onClosing: (event)=>{
+        window.destroy()
     }
 
     Component.onCompleted: {
@@ -152,9 +142,9 @@ ApplicationWindow {
         layoutLoading.visible = false
     }
 
-    function navigate(url,requestCode = 0){
+    function navigate(url,attach=false,requestCode = 0){
         if (url.indexOf('?') < 0){
-            url = Router.toUrl(url)
+            url = Router.toUrl(url,attach)
         }
         var obj = Router.parseUrl(url)
         var path = obj.path;
@@ -179,7 +169,7 @@ ApplicationWindow {
         }
         options.requestCode = requestCode
         options.prevWindow = window
-        var comp = Qt.createComponent(data.path)
+        var comp = app.createWindow(data.path)
         if (comp.status !== Component.Ready){
             console.error("组件创建错误："+path)
             return
@@ -188,7 +178,7 @@ ApplicationWindow {
         options.router = data
 
         if(!isAttach){
-            win = comp.createObject(null,options)
+            win =comp.createObject(null,options)
         }else{
             win = comp.createObject(window,options)
         }

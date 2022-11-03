@@ -7,7 +7,7 @@ MainWindow::MainWindow(char* argv[])
     // 依赖注入
     ApplicationInjector::init();
 
-    //    QGuiApplication::setQuitOnLastWindowClosed(true);
+//        QGuiApplication::setQuitOnLastWindowClosed(true);
     QFont font;
     font.setFamily("Microsoft YaHei");
     QGuiApplication::setFont(font);
@@ -46,5 +46,5 @@ MainWindow::~MainWindow()
 
 void MainWindow::show()
 {
-    m_engine.load(QUrl("qrc:///layout/Login.qml"));
+    m_engine.load(QUrl("qrc:///layout/App.qml"));
 }

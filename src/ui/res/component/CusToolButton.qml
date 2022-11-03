@@ -7,13 +7,13 @@ Item {
 
     property alias icon : textIcon.text
     property alias tipText: tool_tip.text
-    property color color : "#666"
+    property color color : AppStorage.isDark?"#AAFFFFFF" : "#666"
     signal clickEvent
     property alias iconSize: textIcon.font.pixelSize
 
     property color normalColor : "#00000000"
     property color hoverColor: AppStorage.isDark ? "#33FFFFFF" : Qt.darker(normalColor,1.2)
-    property color hoverTextColor : color
+    property color hoverTextColor :  color
     property string fontFamily: awesome.name
 
     height: 30

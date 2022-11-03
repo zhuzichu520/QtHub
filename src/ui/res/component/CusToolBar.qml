@@ -102,7 +102,7 @@ Rectangle {
                 normalColor: root.color
                 visible: topEnable
                 tipText: isTop ? "取消置顶" : "窗口置顶"
-                color: isTop ? Theme.colorPrimary : "#666"
+                color: isTop ? Theme.colorPrimary :  (AppStorage.isDark?"#AAFFFFFF" : "#666")
             }
 
             CusToolButton {

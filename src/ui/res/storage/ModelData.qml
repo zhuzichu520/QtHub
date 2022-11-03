@@ -1,6 +1,7 @@
-pragma Singleton
+﻿pragma Singleton
 
-import QtQuick 2.15
+import QtQuick
+import QtQuick.Controls
 
 ListModel{
     Component.onCompleted: {

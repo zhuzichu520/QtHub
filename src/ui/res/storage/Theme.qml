@@ -1,10 +1,12 @@
 ﻿pragma Singleton
 import QtQuick
+import QtQuick.Controls
+
 import "../storage"
 
 QtObject{
 
-    property string colorPrimary: "#1A7EFE"
+    property string colorPrimary: AppStorage.colorPrimary
 
     property string colorBackground:AppStorage.isDark?"#000011":"#FFFFFF"
     property string colorBackground1:AppStorage.isDark?"#333333":"#F7F7F7"
@@ -16,4 +18,20 @@ QtObject{
     property string colorFontSecondary :AppStorage.isDark?"#999999":"#666666"
     property string colorFontTertiary: AppStorage.isDark?"#BBBBBB":"#999999"
 
+    property int windowRadius
+
+    Component.onCompleted: {
+        windowRadius =  Qt.binding(function(){
+            if(AppStorage.windowRadiusStep === 0){
+                return 0
+            }
+            if(AppStorage.windowRadiusStep === 1){
+                return 5
+            }
+            if(AppStorage.windowRadiusStep === 2){
+                return 10
+            }
+            return 5
+        })
+    }
 }

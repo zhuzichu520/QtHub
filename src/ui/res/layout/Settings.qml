@@ -13,7 +13,6 @@ CusWindow {
     minimumHeight: 470
     title: "设置"
 
-
     page: CusPage{
 
         CusToolBar {
@@ -137,6 +136,12 @@ CusWindow {
                         left: parent.left
                         leftMargin: 20
                     }
+                    MouseArea{
+                        anchors.fill: parent
+                        onClicked: {
+                            console.debug(window.data.lenght)
+                        }
+                    }
                 }
 
                 Text{
@@ -201,18 +206,51 @@ CusWindow {
                     }
 
                     Rectangle{
-                        width: 30
-                        height: 30
+                        width: 26
+                        height: 26
                         color:Theme.colorPrimary
                         MouseArea{
                             cursorShape: Qt.PointingHandCursor
                             anchors.fill: parent
                             onClicked: {
-                                navigate(Router.window_colorpicker,2)
+                                navigate(Router.window_colorpicker,true,2)
                             }
                         }
                     }
                 }
+
+                RowLayout {
+
+                    Text{
+                        font.pixelSize: 12
+                        text:"边框圆角"
+                        color:Theme.colorFontPrimary
+                    }
+
+                    CusRadioButton {
+                        checked: AppStorage.windowRadiusStep === 0
+                        text: qsTr("0")
+                        onClicked: {
+                            AppStorage.windowRadiusStep = 0
+                        }
+                    }
+                    CusRadioButton {
+                        checked: AppStorage.windowRadiusStep === 1
+                        text: qsTr("5")
+                        onClicked: {
+                            AppStorage.windowRadiusStep = 1
+                        }
+                    }
+                    CusRadioButton {
+                        checked: AppStorage.windowRadiusStep === 2
+                        text: qsTr("10")
+                        onClicked: {
+                            AppStorage.windowRadiusStep = 2
+                        }
+
+                    }
+                }
+
 
             }
         }

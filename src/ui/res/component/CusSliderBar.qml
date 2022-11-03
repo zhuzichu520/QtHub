@@ -87,7 +87,7 @@ Rectangle {
                 id:ic_title
                 text:model.icon
                 font.family: awesome.name
-                color: listView.currentIndex === index ? Theme.colorPrimary : "#999999"
+                color: listView.currentIndex === index ? Theme.colorPrimary : "#DDDDDD"
                 font.pixelSize: model.iconSize
                 anchors{
                     left: parent.left

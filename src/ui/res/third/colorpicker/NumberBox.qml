@@ -1,4 +1,4 @@
-import QtQuick 2.15
+import QtQuick
 
 Row {
     property alias  caption: captionBox.text
@@ -21,8 +21,8 @@ Row {
         height: parent.height
         TextInput {
             id: inputBox
-            color: "#888888"; selectionColor: "#FF7777AA"
-            font.pixelSize: 11            
+            color: "#AAAAAA"; selectionColor: "#FF7777AA"
+            font.pixelSize: 11
             maximumLength: 10
             focus: false
             readOnly: true
@@ -35,5 +35,3 @@ Row {
         }
     }
 }
-
-

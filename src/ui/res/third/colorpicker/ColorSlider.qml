@@ -1,4 +1,4 @@
-import QtQuick 2.15
+﻿import QtQuick
 
 Item {
     property int cursorHeight: 7
@@ -29,16 +29,19 @@ Item {
                 pickerCursor.y = Math.max(0, Math.min(height, mouse.y)-cursorHeight)
             }
         }
-        onPositionChanged: {
+        onPositionChanged:(mouse)=> {
             handleMouse(mouse)
         }
-        onPressed: handleMouse(mouse)
+        onPressed:(mouse)=> handleMouse(mouse)
     }
 
     onVisibleChanged: {
         if(visible) {
-            pickerCursor.y = -cursorHeight*0.5
+            pickerCursor.y = 0
         }
     }
-}
 
+    function setValue(val) {
+        pickerCursor.y = height * (1 - val)
+    }
+}

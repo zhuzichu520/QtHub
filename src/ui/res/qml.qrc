@@ -196,5 +196,7 @@
         <file>layout/MainHome.qml</file>
         <file>layout/MainSearch.qml</file>
         <file>layout/ColorPickerWindow.qml</file>
+        <file>layout/App.qml</file>
+        <file>component/CusRadioButton.qml</file>
     </qresource>
 </RCC>

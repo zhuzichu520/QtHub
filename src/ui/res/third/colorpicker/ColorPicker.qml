@@ -1,90 +1,52 @@
-﻿import QtQuick 2.15
-import QtQuick.Layouts 1.15
-import QtQuick.Controls 2.15
+﻿import QtQuick
+import QtQuick.Layouts
+import QtQuick.Controls
 
 Rectangle {
     id: colorPicker
-    property color colorValue: {
-        if(paletteMode === 1)
-            return _hsla(hueSlider.value, sbPicker.saturation,
-                         sbPicker.brightness, alphaSlider.value)
-        if(paletteMode === 0 )
-            return _rgb(paletts.paletts_color, alphaSlider.value)
-        return finderColor
-    }
+    property color colorValue: "transparent"
     property bool enableAlphaChannel: true
     property bool enableDetails: true
     property int colorHandleRadius : 8
+    property bool paletteMode : true
+    property bool enablePaletteMode : true
+    property string switchToColorPickerString: "调色板..."
+    property string switchToPalleteString: "取色器..."
 
-    // 0=调色板 1=自定义 3=拾取
-    property int paletteMode : 0
-
-    property color fontColor
-
-    property color finderColor : "#000000"
-
-
-    property string switchToPalleteString: "调色板"
-    property string switchToColorPickerString: "自定义"
-    property string switchToFindString: "拾取"
-
-    property alias findLayout: findItem.children
+    property color _changingColorValue : paletteMode ?
+                                   _rgb(paletts.paletts_color, alphaSlider.value) :
+                                   _hsla(hueSlider.value, sbPicker.saturation,
+                                    sbPicker.brightness, alphaSlider.value)
+    on_ChangingColorValueChanged: {
+        colorValue = _changingColorValue
+    }
 
     signal colorChanged(color changedColor)
 
-    width: 400; height: 200
+    implicitWidth: picker.implicitWidth
+    implicitHeight: palette_switch.implicitHeight + picker.implicitHeight
     color: "#3C3C3C"
     clip: true
+    property alias linkColor: palette_switch.linkColor
 
-    Row {
+    Text {
         id: palette_switch
-        spacing: 14
-        anchors{
-            left: parent.left
-            leftMargin: 14
+        textFormat: Text.StyledText
+        text: paletteMode ?
+                  "<a href=\".\">" + switchToColorPickerString + "</a>" :
+                  "<a href=\".\">" + switchToPalleteString + "</a>"
+        visible: enablePaletteMode
+        onLinkActivated: {
+            paletteMode = !paletteMode
         }
-
-        Text{
-            text: switchToPalleteString
-            color:fontColor
-            MouseArea{
-                cursorShape: Qt.PointingHandCursor
-                anchors.fill: parent
-                onClicked: {
-                    paletteMode = 0
-                }
-            }
-        }
-
-        Text{
-            text: switchToColorPickerString
-            color:fontColor
-            MouseArea{
-                cursorShape: Qt.PointingHandCursor
-                anchors.fill: parent
-                onClicked: {
-                    paletteMode = 1
-                }
-            }
-        }
-
-        Text{
-            text: switchToFindString
-            color:fontColor
-            visible: false
-            MouseArea{
-                cursorShape: Qt.PointingHandCursor
-                anchors.fill: parent
-                onClicked: {
-                    paletteMode = 2
-                }
-            }
-        }
+        anchors.right: parent.right
+        anchors.rightMargin: colorHandleRadius
+        linkColor: "white"
     }
 
     RowLayout {
         id: picker
-        anchors.top: palette_switch.bottom
+        anchors.top: enablePaletteMode　? palette_switch.bottom : parent.top
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.rightMargin: colorHandleRadius
@@ -95,24 +57,19 @@ Rectangle {
             id: swipe
             clip: true
             interactive: false
-            currentIndex: paletteMode
+            currentIndex: paletteMode ? 1 : 0
 
             Layout.fillWidth: true
             Layout.fillHeight: true
-
-
-            Palettes {
-                id: paletts
-            }
-
+            Layout.minimumWidth: paletts.implicitWidth
+            Layout.minimumHeight: paletts.implicitHeight
 
             SBPicker {
                 id: sbPicker
 
-                height: parent.implicitHeight
-                width: parent.implicitWidth
                 hueColor: {
                     var v = 1.0-hueSlider.value
+
                     if(0.0 <= v && v < 0.16) {
                         return Qt.rgba(1.0, 0.0, v/0.16, 1.0)
                     } else if(0.16 <= v && v < 0.33) {
@@ -131,16 +88,15 @@ Rectangle {
                 }
             }
 
-            Item{
-               id:findItem
+            Palettes {
+                id: paletts
             }
-
         }
 
         // hue picking slider
         Item {
             id: huePicker
-            visible: paletteMode === 1
+            visible: !paletteMode
             width: 12
             Layout.fillHeight: true
             Layout.topMargin: colorHandleRadius
@@ -228,7 +184,7 @@ Rectangle {
 
             // H, S, B color values boxes
             Column {
-                visible: paletteMode === 1
+                visible: !paletteMode
                 width: parent.width
                 NumberBox { caption: "H:"; value: hueSlider.value.toFixed(2) }
                 NumberBox { caption: "S:"; value: sbPicker.saturation.toFixed(2) }
@@ -301,5 +257,20 @@ Rectangle {
     //  extracts integer color channel value [0..255] from color value
     function _getChannelStr(clr, channelIdx) {
         return parseInt(clr.toString().substr(channelIdx*2 + 1, 2), 16)
+    }
+
+    // set color from outside
+    function setColor(color) {
+
+        // color object
+        var c = Qt.tint(color, "transparent")
+
+        console.debug('set_color is called with:'+c)
+
+        // set alpha
+        alphaSlider.setValue(c.a)
+
+        // set rgb. Now it's insufficient to update hue related component.
+        colorPicker.colorValue = c
     }
 }

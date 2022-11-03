@@ -1,4 +1,4 @@
-import QtQuick 2.15
+﻿import QtQuick
 
 Item {
     id: root
@@ -54,8 +54,7 @@ Item {
                 pickerCursor.y = Math.max(0, Math.min(height, mouse.y) - 2 * r);
             }
         }
-        onPositionChanged: handleMouse(mouse)
-        onPressed: handleMouse(mouse)
+        onPositionChanged:(mouse)=> handleMouse(mouse)
+        onPressed:(mouse)=> handleMouse(mouse)
     }
 }
-

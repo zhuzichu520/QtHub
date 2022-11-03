@@ -7,6 +7,7 @@
 
 int main(int argc, char* argv[])
 {
+
   QGuiApplication app(argc, argv);
 
   //    QHotkey hotkey(QKeySequence("Ctrl+Alt+Q"), true, &app);

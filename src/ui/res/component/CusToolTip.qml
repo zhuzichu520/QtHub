@@ -1,6 +1,5 @@
 ﻿import QtQuick
 import QtQuick.Controls
-import Qt5Compat.GraphicalEffects
 import "../storage"
 
 ToolTip {
@@ -10,15 +9,15 @@ ToolTip {
         text: tool_tip.text
         font: tool_tip.font
         wrapMode: Text.WrapAnywhere
-        color: "#000000"
+        color: Theme.colorFontPrimary
     }
 
     background: Item {
-        Rectangle{
-            id:itemLayout
+
+        Shadow{
             anchors.fill: parent
-            radius: 3
-            color: "#F7F7F7"
+            shadowColor: Theme.colorPrimary
         }
+
     }
 }

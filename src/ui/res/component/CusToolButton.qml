@@ -1,5 +1,6 @@
 ﻿import QtQuick 2.15
 import "../global/global.js" as Global
+import "../storage"
 
 Item {
     id:root
@@ -11,8 +12,7 @@ Item {
     property alias iconSize: textIcon.font.pixelSize
 
     property color normalColor : "#00000000"
-    property color hoverColor: Qt.darker(normalColor,1.2)
-
+    property color hoverColor: AppStorage.isDark ? "#33FFFFFF" : Qt.darker(normalColor,1.2)
     property color hoverTextColor : color
     property string fontFamily: awesome.name
 

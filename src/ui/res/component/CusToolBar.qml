@@ -8,6 +8,7 @@ import "../view"
 
 Rectangle {
 
+    id:root
     property string title
     property url logo
     property bool maxEnable: !(window.minimumWidth === window.maximumWidth && window.minimumHeight === window.maximumHeight)
@@ -88,6 +89,8 @@ Rectangle {
                 onClickEvent: {
                     AppStorage.isDark = !AppStorage.isDark
                 }
+                normalColor: root.color
+                tipText: AppStorage.isDark ? "白天模式" : "夜间模式"
                 visible: darkEnable
             }
 
@@ -96,7 +99,9 @@ Rectangle {
                 icon: "\ue770"
                 onClickEvent: { isTop = !isTop }
                 iconSize : 16
+                normalColor: root.color
                 visible: topEnable
+                tipText: isTop ? "取消置顶" : "窗口置顶"
                 color: isTop ? Theme.colorPrimary : "#666"
             }
 
@@ -111,6 +116,7 @@ Rectangle {
                     else
                         window.showMinimized()
                 }
+                normalColor: root.color
                 tipText:"最小化"
             }
             CusToolButton {
@@ -119,6 +125,7 @@ Rectangle {
                 onClickEvent: window.toggleMaximized();
                 visible: maxEnable
                 iconSize : 15
+                normalColor: root.color
                 tipText:  window.visibility === Window.Maximized ? "还原" : "最大化"
             }
             CusToolButton {

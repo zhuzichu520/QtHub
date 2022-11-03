@@ -82,6 +82,7 @@ ApplicationWindow {
         anchors.fill: parent
         anchors.margins: 0
         radius: window.radius
+        shadowColor: Theme.colorPrimary
     }
 
     Rectangle {

@@ -6,7 +6,6 @@
 #include <infrastructure/http/HttpClient.h>
 #include <infrastructure/helper/UserHelper.h>
 #include <infrastructure/tool/MainThread.h>
-#include <infrastructure/tool/CountDownLatch.h>
 #include <domain/exception/BizException.h>
 #include <infrastructure/helper/SettingsHelper.h>
 
@@ -46,25 +45,20 @@ private:
     static QString handle(const QNetworkAccessManager::Operation &operation,const QString& url,const QVariantMap& data){
         qDebug()<<"【HTTP】请求地址->"<<url;
         qDebug()<<"【HTTP】请求参数->"<<data;
+        HttpClient client;
         QString result;
-        CountDownLatch latch(1);
         QNetworkReply::NetworkError error;
-        MainThread::handle([&operation,&error,&latch,&result,url,data]() mutable{
-            QNetworkReply* reply = nullptr;
-            if(operation == QNetworkAccessManager::GetOperation){
-                reply = HttpClient::instance()->get(url).headers(headers()).body(data).timeout(timeout()).block().exec()->reply();
-            }else if(operation == QNetworkAccessManager::PostOperation){
-                reply = HttpClient::instance()->post(url).headers(headers()).body(data).timeout(timeout()).block().exec()->reply();
-            }else{
-                latch.countDown();
-                throw BizException("QNetworkAccessManager::Operation 没有定义");
-            }
-            error = reply->error();
-            QByteArray bytes = reply->readAll();
-            result = QString::fromUtf8(bytes);
-            latch.countDown();
-        });
-        latch.await();
+        QNetworkReply* reply = nullptr;
+        if(operation == QNetworkAccessManager::GetOperation){
+            reply = client.get(url).headers(headers()).body(data).timeout(timeout()).block().exec()->reply();
+        }else if(operation == QNetworkAccessManager::PostOperation){
+            reply = client.post(url).headers(headers()).body(data).timeout(timeout()).block().exec()->reply();
+        }else{
+            throw BizException("QNetworkAccessManager::Operation 没有定义");
+        }
+        error = reply->error();
+        QByteArray bytes = reply->readAll();
+        result = QString::fromUtf8(bytes);
         if(error != QNetworkReply::NoError){
             LOGI(QString::fromStdString("【网络错误】%1").arg(error).toStdString());
             throw BizException(QString::fromStdString("网络出现异常，错误码：%1").arg(error));

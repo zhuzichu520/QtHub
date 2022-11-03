@@ -9,8 +9,9 @@ CusWindow {
     id:window
     width: 550
     height: 470
+    minimumWidth: 550
+    minimumHeight: 470
     title: "设置"
-
 
     page: CusPage{
 

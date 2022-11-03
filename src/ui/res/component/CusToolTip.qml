@@ -14,6 +14,12 @@ ToolTip {
 
     background: Item {
 
+        Rectangle{
+            anchors.fill: parent
+            color: Theme.colorBackground
+            radius: 5
+        }
+
         Shadow{
             anchors.fill: parent
             shadowColor: Theme.colorPrimary

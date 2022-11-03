@@ -11,6 +11,7 @@ Item {
     property int radius: 5
 
     Rectangle{
+        id:react_background
         width: root.width - 8
         height: root.height - 8
         anchors.centerIn: parent

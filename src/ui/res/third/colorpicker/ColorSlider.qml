@@ -1,4 +1,4 @@
-import QtQuick 2.15
+import QtQuick
 
 Item {
     property int cursorHeight: 7
@@ -37,8 +37,11 @@ Item {
 
     onVisibleChanged: {
         if(visible) {
-            pickerCursor.y = -cursorHeight*0.5
+            pickerCursor.y = 0
         }
     }
-}
 
+    function setValue(val) {
+        pickerCursor.y = height * (1 - val)
+    }
+}

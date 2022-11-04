@@ -12,6 +12,7 @@ class UserHelper : public QObject
     Q_OBJECT
     Q_PROPERTY_AUTO(QString,token)
     Q_PROPERTY_AUTO(QString,name)
+    Q_PROPERTY_AUTO(QString,login)
     Q_PROPERTY_AUTO(QString,avatar)
     Q_PROPERTY_AUTO(QString,location)
     Q_PROPERTY_AUTO(QString,email)
@@ -31,6 +32,10 @@ public:
         return !_token.isEmpty();
     }
 
+    Q_INVOKABLE void logout(){
+        SettingsHelper::instance()->saveToken("");
+    }
+
     void updateUser(const User& user){
         name(user.name);
         avatar(user.avatar);
@@ -43,6 +48,7 @@ public:
         public_gists(user.public_gists);
         followers(user.followers);
         following(user.following);
+        login(user.login);
     };
 
 };

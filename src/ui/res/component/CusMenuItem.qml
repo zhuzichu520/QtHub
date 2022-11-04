@@ -10,7 +10,7 @@ T.MenuItem {
     id: control
 
     property color textColor: control.highlighted ? Theme.colorFontPrimary : Theme.colorFontPrimary
-    property color buttonColor: control.down ? Theme.colorBackground: control.highlighted ? "#331E74E6": "transparent"
+    property color buttonColor: control.down ? Theme.colorBackground: control.highlighted ? Qt.alpha(Theme.colorPrimary,0.3): "transparent"
     property color indicatorColor: "black"
     property color arrowColor: "black"
 

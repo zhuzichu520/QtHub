@@ -22,6 +22,7 @@ public:
         user.public_gists = val.public_gists;
         user.followers = val.followers;
         user.following = val.following;
+        user.login = QString::fromStdString(val.login);
         return user;
     };
 };

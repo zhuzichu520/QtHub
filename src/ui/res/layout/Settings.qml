@@ -130,7 +130,7 @@ CusWindow {
                     id:avatar
                     width: 50
                     height: 50
-                    source: "qrc:/image/ic_login_logo.png"
+                    source: userHelper.avatar
                     anchors{
                         verticalCenter: parent.verticalCenter
                         left: parent.left
@@ -145,7 +145,7 @@ CusWindow {
                 }
 
                 Text{
-                    text: "123"
+                    text: userHelper.name
                     anchors{
                         top: avatar.top
                         left: avatar.right
@@ -156,7 +156,7 @@ CusWindow {
                 }
 
                 Text{
-                    text:"账号："
+                    text:"账号："+userHelper.login
                     anchors{
                         bottom: avatar.bottom
                         left: avatar.right
@@ -223,7 +223,7 @@ CusWindow {
 
                     Text{
                         font.pixelSize: 12
-                        text:"边框圆角"
+                        text:"窗口圆角"
                         color:Theme.colorFontPrimary
                     }
 
@@ -265,7 +265,9 @@ CusWindow {
 
     CusTextDialog {
         id: dialog
+        message: "确定退出登录？"
         onClickLeft: {
+            userHelper.logout()
             uiHelper.restart()
         }
     }

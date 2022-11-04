@@ -13,6 +13,8 @@ Dialog {
     width: 260
     height: 160
 
+    property string message: "消息内容"
+
     signal clickLeft
     signal clickRight
 
@@ -29,7 +31,7 @@ Dialog {
     }
 
     Text{
-        text: "退出登录后将无法收到新消息，确定退出登录？"
+        text: message
         font.pixelSize: 14
         wrapMode: Text.WrapAnywhere
         color:Theme.colorFontPrimary

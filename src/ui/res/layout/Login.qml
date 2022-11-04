@@ -36,6 +36,7 @@ CusWindow {
             case 4:
                 finish()
                 navigate(Router.window_main)
+                loginStatus = 1
                 break;
             default:
                 break;

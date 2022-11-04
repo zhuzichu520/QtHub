@@ -26,9 +26,12 @@ ApplicationWindow {
     color: "#00000000"
     signal createView()
 
-    onClosing: (event)=>{
-        window.destroy()
-    }
+    onClosing:
+        (event)=>{
+            if(closeDestory){
+                window.destroy()
+            }
+        }
 
     Component.onCompleted: {
         if(isCenter){

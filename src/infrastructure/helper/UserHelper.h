@@ -12,7 +12,7 @@ class UserHelper : public QObject
     Q_OBJECT
     Q_PROPERTY_AUTO(QString,token)
     Q_PROPERTY_AUTO(QString,name)
-    Q_PROPERTY_AUTO(QString,login)
+    Q_PROPERTY_AUTO(QString,account)
     Q_PROPERTY_AUTO(QString,avatar)
     Q_PROPERTY_AUTO(QString,location)
     Q_PROPERTY_AUTO(QString,email)
@@ -33,7 +33,14 @@ public:
     }
 
     Q_INVOKABLE void logout(){
-        SettingsHelper::instance()->saveToken("");
+        token(""),name(""),account(""),avatar(""),location(""),email(""),blog(""),created_at(""),updated_at("");
+        public_repos(0),public_gists(0),followers(0),following(0);
+        SettingsHelper::instance()->saveToken(_token);
+    }
+
+    Q_INVOKABLE void login(const QString& val){
+        token(val);
+        SettingsHelper::instance()->saveToken(_token);
     }
 
     void updateUser(const User& user){
@@ -48,7 +55,7 @@ public:
         public_gists(user.public_gists);
         followers(user.followers);
         following(user.following);
-        login(user.login);
+        account(user.login);
     };
 
 };

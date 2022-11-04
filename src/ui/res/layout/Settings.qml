@@ -156,7 +156,7 @@ CusWindow {
                 }
 
                 Text{
-                    text:"账号："+userHelper.login
+                    text:"账号："+userHelper.account
                     anchors{
                         bottom: avatar.bottom
                         left: avatar.right
@@ -213,7 +213,7 @@ CusWindow {
                             cursorShape: Qt.PointingHandCursor
                             anchors.fill: parent
                             onClicked: {
-                                navigate(Router.window_colorpicker,true,2)
+                                navigate(Router.window_colorpicker,false,2)
                             }
                         }
                     }
@@ -268,7 +268,8 @@ CusWindow {
         message: "确定退出登录？"
         onClickLeft: {
             userHelper.logout()
-            uiHelper.restart()
+            Router.closeAllWindow()
+            navigate(Router.window_login)
         }
     }
 

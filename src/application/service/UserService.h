@@ -5,7 +5,7 @@
 #include <infrastructure/tool/CommonTool.h>
 #include <infrastructure/helper/UserHelper.h>
 #include <infrastructure/log/Logger.h>
-#include <infrastructure/helper/SettingsHelper.h>
+#include <infrastructure/helper/UserHelper.h>
 #include "BaseService.h"
 
 using namespace QInjection;

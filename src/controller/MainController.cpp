@@ -3,6 +3,7 @@
 MainController::MainController(QObject* parent) : BaseController{ parent }
 {
     connect(userService(),&UserService::loginSuccess,this,[this](){
+        loadUser();
         Q_EMIT loginSuccess();
     });
     if(UserHelper::instance()->isLogin()){

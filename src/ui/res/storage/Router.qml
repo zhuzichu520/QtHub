@@ -60,6 +60,12 @@ QtObject {
         return null
     }
 
+    function closeAllWindow(){
+        for(var key in windows){
+            windows[key].close()
+        }
+    }
+
     function addWindow(url,window){
         windows[url] = window
     }

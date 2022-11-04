@@ -28,7 +28,10 @@ CusWindow {
     }
 
     Component.onCompleted: {
-        //        navigate(Router.window_login)
+        if(!userHelper.isLogin()){
+            visible = false
+            navigate(Router.window_login)
+        }
     }
 
 

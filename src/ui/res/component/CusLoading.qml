@@ -1,5 +1,6 @@
 ﻿import QtQuick
 import QtQuick.Controls
+import "../storage"
 
 Item {
     id: control
@@ -7,7 +8,7 @@ Item {
     //item的宽度
     property int itemWidth: 6
     //item的颜色
-    property color itemColor: "#0486FF"
+    property color itemColor: Theme.colorPrimary
     //
     property double _rotate: _from
     property double _from: 30

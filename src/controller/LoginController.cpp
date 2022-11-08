@@ -7,8 +7,13 @@ LoginController::LoginController(QObject* parent) : BaseController{ parent }
         loginStatus(2);
         const QString& code = request.query().queryItemValue("code");
         return QtConcurrent::run([this,code] () {
-            userService()->login(code);
-            loginStatus(4);
+            try {
+                userService()->login(code);
+                loginStatus(4);
+            } catch (const BizException& e) {
+                loginStatus(1);
+                return QHttpServerResponse("QtHub authorization failed");
+            }
             return QHttpServerResponse("QtHub authorization succeeded. Welcome to log in");
         });
     });

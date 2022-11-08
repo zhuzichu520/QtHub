@@ -60,7 +60,7 @@ private:
         QByteArray bytes = reply->readAll();
         result = QString::fromUtf8(bytes);
         if(error != QNetworkReply::NoError){
-            LOGI(QString::fromStdString("【网络错误】%1").arg(error).toStdString());
+            LOGI(QString::fromStdString("【网络错误】code->%1").arg(error).toStdString());
             throw BizException(QString::fromStdString("网络出现异常，错误码：%1").arg(error));
         }
         return result;

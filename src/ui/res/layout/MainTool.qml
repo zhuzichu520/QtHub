@@ -1,4 +1,4 @@
-import QtQuick
+﻿import QtQuick
 import QtQuick.Controls
 import QtQuick.Window
 import "../storage"
@@ -50,7 +50,7 @@ Item {
                     width: d.iconWidth
                     height: d.iconWidth
                     radius: 8
-                    color: hoveMouseArea.containsMouse ? Qt.lighter(Theme.colorPrimary,1.4) : Theme.colorBackground
+                    color: hoveMouseArea.containsMouse ? Qt.alpha(Theme.colorPrimary,0.3) : Theme.colorBackground
                     border.color: "black"
                     border.width:1
                     antialiasing:true

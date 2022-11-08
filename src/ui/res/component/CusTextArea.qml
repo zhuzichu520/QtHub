@@ -6,10 +6,11 @@ import UI 1.0
 TextArea {
 
     id:input_text
-    selectionColor: "#9BCAEF"
+    selectionColor: Qt.alpha(Theme.colorPrimary,0.3)
     selectByMouse: true
     selectByKeyboard: true
     textFormat: Text.PlainText
+    wrapMode: Text.WrapAnywhere
 
     onLinkActivated: {
         console.debug("activated"+link)

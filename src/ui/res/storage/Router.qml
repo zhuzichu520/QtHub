@@ -1,15 +1,15 @@
 ﻿pragma Singleton
 
-import QtQml
+import QtQuick
+import QtQuick.Controls
 
 QtObject {
 
-    property string window_login: "qrc:/layout/Login.qml"
-    property string window_main: "qrc:/layout/MainWindow.qml"
-    property string window_single_chat: "qrc:/layout/SingleChatWindow.qml"
-    property string window_colorpicker: "qrc:/layout/ColorPickerWindow.qml"
-    property string window_settings: "qrc:/layout/Settings.qml"
-    property string window_screenshot: "qrc:/layout/ScreenShot.qml"
+    property string window_login: "qrc:/layout/WindowLogin.qml"
+    property string window_main: "qrc:/layout/WindowMain.qml"
+    property string window_colorpicker: "qrc:/layout/WindowColorPicker.qml"
+    property string window_settings: "qrc:/layout/WindowSettings.qml"
+    property string window_jsonformat: "qrc:/layout/WindowJsonFormat.qml"
 
     property var router_table: [
         {
@@ -29,14 +29,9 @@ QtObject {
             onlyOne:true
         },
         {
-            path:window_screenshot,
-            onlyOne:true
-        },
-        {
-            path:window_single_chat,
+            path:window_jsonformat,
             onlyOne:true
         }
-
     ]
 
     property var windows : new Map()
@@ -45,7 +40,7 @@ QtObject {
         for(var index in router_table){
             var item = router_table[index]
             if(item.path === path){
-               return Object.assign({},item)
+                return Object.assign({},item)
             }
         }
         return null

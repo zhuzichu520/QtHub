@@ -2,6 +2,7 @@
 
 MainWindow::MainWindow(char* argv[])
 {
+    QNetworkProxy::setApplicationProxy(QNetworkProxy::NoProxy);//如果不设置默认是QNetworkProxy::DefaultProxy
     // 初始化日志
     Logger::instance()->initGoogleLog(argv);
     // 依赖注入

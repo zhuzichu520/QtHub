@@ -57,6 +57,7 @@ Flickable{
         selectByMouse: true
         topPadding: 2
         bottomPadding: 2
+        selectionColor: Qt.alpha(Theme.colorPrimary,0.3)
         leftPadding: 2
         color:Theme.colorFontPrimary
         rightPadding: scroll.numberWidth + 2

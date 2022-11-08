@@ -5,10 +5,11 @@ import UI 1.0
 
 TextEdit {
     id:inputText
-    selectionColor: "#9BCAEF"
+    selectionColor: Qt.alpha(Theme.colorPrimary,0.3)
     selectByMouse: true
     selectByKeyboard: true
     selectedTextColor: color
+    color:Theme.colorFontPrimary
 
     onLinkActivated: {
         console.debug("activated"+link)

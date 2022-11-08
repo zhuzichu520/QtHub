@@ -11,6 +11,7 @@ TextArea {
     selectByKeyboard: true
     textFormat: Text.PlainText
     wrapMode: Text.WrapAnywhere
+    color: Theme.colorFontPrimary
 
     onLinkActivated: {
         console.debug("activated"+link)

@@ -22,6 +22,7 @@
 #include "MyNetworkAccessManagerFactory.h"
 #include "TextDocument.h"
 #include "ScreensHotHelper.h"
+#include "JsonFormartHelper.h"
 
 class Q_DECL_EXPORT MainWindow
 {

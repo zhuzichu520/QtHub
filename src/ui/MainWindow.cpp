@@ -34,6 +34,7 @@ MainWindow::MainWindow(char* argv[])
     qmlRegisterType<TextDocument>("UI", 1, 0, "TextDocument");
     qmlRegisterType<PixmapImage>("UI", 1, 0, "PixmapImage");
     qmlRegisterType<ScreensHotHelper>("UI", 1, 0, "ScreensHotHelper");
+     qmlRegisterType<JsonFormartHelper>("UI", 1, 0, "JsonFormartHelper");
 
     qmlRegisterType<LoginController>("Controller", 1, 0, "LoginController");
     qmlRegisterType<MainController>("Controller", 1, 0, "MainController");

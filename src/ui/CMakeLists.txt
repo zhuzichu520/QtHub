@@ -3,6 +3,7 @@
     TextDocument.h
     PixmapImage.h
     ScreensHotHelper.h
+    JsonFormartHelper.h
     MyNetworkAccessManagerFactory.h
 )
 
@@ -11,6 +12,7 @@ set(UI_SRS
     TextDocument.cpp
     PixmapImage.cpp
     ScreensHotHelper.cpp
+    JsonFormartHelper.cpp
     MyNetworkAccessManagerFactory.cpp
 )
 

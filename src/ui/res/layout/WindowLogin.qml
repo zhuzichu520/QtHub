@@ -71,7 +71,6 @@ CusWindow {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    showToast(settingsHelper.getToken())
                 }
             }
         }

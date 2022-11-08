@@ -3,7 +3,7 @@
         <file>font/iconfont.ttf</file>
         <file>global/global.js</file>
         <file>storage/AppStorage.qml</file>
-        <file>storage/ModelData.qml</file>
+        <file>storage/ToolData.qml</file>
         <file>storage/qmldir</file>
         <file>storage/Router.qml</file>
         <file>storage/Theme.qml</file>
@@ -16,7 +16,7 @@
         <file>third/colorpicker/PanelBorder.qml</file>
         <file>third/colorpicker/SBPicker.qml</file>
         <file>view/Rectangle.qml</file>
-        <file>layout/Login.qml</file>
+        <file>layout/WindowLogin.qml</file>
         <file>component/CusAvatar.qml</file>
         <file>component/CusButton.qml</file>
         <file>component/CusLineEditArea.qml</file>
@@ -39,7 +39,7 @@
         <file>component/ScreenShotArea.qml</file>
         <file>component/WindowResize.qml</file>
         <file>component/IconTextField.qml</file>
-        <file>layout/MainWindow.qml</file>
+        <file>layout/WindowMain.qml</file>
         <file>component/CusText.qml</file>
         <file>component/CusImageButton.qml</file>
         <file>component/CusMenuSelectItem.qml</file>
@@ -188,15 +188,17 @@
         <file>image/favicon.png</file>
         <file>image/ic_login_logo.png</file>
         <file>component/CusLoading.qml</file>
-        <file>layout/Settings.qml</file>
+        <file>layout/WindowSettings.qml</file>
         <file>component/Shadow.qml</file>
         <file>component/TextIcon.qml</file>
         <file>image/ic_arrow_left.png</file>
         <file>image/ic_arrow_right.png</file>
         <file>layout/MainHome.qml</file>
         <file>layout/MainSearch.qml</file>
-        <file>layout/ColorPickerWindow.qml</file>
+        <file>layout/WindowColorPicker.qml</file>
         <file>layout/App.qml</file>
         <file>component/CusRadioButton.qml</file>
+        <file>layout/MainTool.qml</file>
+        <file>layout/WindowJsonFormat.qml</file>
     </qresource>
 </RCC>

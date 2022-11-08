@@ -28,6 +28,9 @@
 
     dto/TokenDto.h
     dto/UserDto.h
+    dto/OwnerDto.h
+    dto/RepositoryDto.h
+    dto/SearchRepositoriesDto.h
 
 )
 

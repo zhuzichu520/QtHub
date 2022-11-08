@@ -53,6 +53,13 @@ CusWindow {
                 iconSize:20
                 url:"qrc:/layout/MainContact.qml"
             }
+            ListElement{
+                name:"工具箱"
+                icon:"\ue60a"
+                fontSize:14
+                iconSize:20
+                url:"qrc:/layout/MainTool.qml"
+            }
         }
 
         CusToolBar {
@@ -100,6 +107,9 @@ CusWindow {
             }
             MainSearch{
                 id:page_search
+            }
+            MainTool{
+                id:page_tool
             }
         }
 

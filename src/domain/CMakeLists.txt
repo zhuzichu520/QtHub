@@ -2,6 +2,7 @@
     repository/Repository.h
     exception/BizException.h
     entity/User.h
+    entity/Repositories.h
 )
 
 set(DOMAIN_SRS

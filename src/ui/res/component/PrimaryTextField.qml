@@ -43,4 +43,9 @@ Item {
         }
     }
 
+    function inputFocus(isFocus){
+        focus = isFocus
+        inputField.focus = isFocus
+    }
+
 }

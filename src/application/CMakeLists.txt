@@ -4,12 +4,14 @@
     di/ServiceInjector.h
     service/BaseService.h
     service/UserService.h
+    service/RepositoriesService.h
 )
 
 set(APPLICATION_SRS
     assembler/Assembler.cpp
     service/UserService.cpp
     service/BaseService.cpp
+    service/RepositoriesService.cpp
 )
 
 add_library(APPLICATION ${APPLICATION_HEADERS} ${APPLICATION_SRS})

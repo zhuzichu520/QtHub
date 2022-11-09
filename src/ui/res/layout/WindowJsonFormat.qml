@@ -36,7 +36,7 @@ CusWindow {
                 width: parent.width
                 CusButton{
                     text: "格式化"
-                    Layout.topMargin: 10
+                    Layout.topMargin: 100
                     Layout.alignment: Qt.AlignHCenter
                     onClicked: {
                         var formatJson = helper.format(edit_left.text)
@@ -53,7 +53,14 @@ CusWindow {
                     text:"导出"
                     Layout.alignment: Qt.AlignHCenter
                     onClicked: {
-                        console.debug("导出")
+                        helper.exportClass(edit_left.text)
+                    }
+                }
+                CusButton{
+                    text:"文件夹"
+                    Layout.alignment: Qt.AlignHCenter
+                    onClicked: {
+                        helper.openDir()
                     }
                 }
             }

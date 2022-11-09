@@ -1,0 +1,92 @@
+#pragma once
+
+#include <infrastructure/nlohmann/json.h>
+#include <infrastructure/dto/OwnerDto.h>
+#include <infrastructure/dto/LicenseDto.h>
+
+struct RepositoriesDto
+{
+    bool allow_forking;
+    std::string archive_url;
+    bool archived;
+    std::string assignees_url;
+    std::string blobs_url;
+    std::string branches_url;
+    std::string clone_url;
+    std::string collaborators_url;
+    std::string comments_url;
+    std::string commits_url;
+    std::string compare_url;
+    std::string contents_url;
+    std::string contributors_url;
+    std::string created_at;
+    std::string default_branch;
+    std::string deployments_url;
+    std::string description;
+    bool disabled;
+    std::string downloads_url;
+    std::string events_url;
+    bool fork;
+    int forks;
+    int forks_count;
+    std::string forks_url;
+    std::string full_name;
+    std::string git_commits_url;
+    std::string git_refs_url;
+    std::string git_tags_url;
+    std::string git_url;
+    bool has_discussions;
+    bool has_downloads;
+    bool has_issues;
+    bool has_pages;
+    bool has_projects;
+    bool has_wiki;
+    std::string homepage;
+    std::string hooks_url;
+    std::string html_url;
+    int id;
+    bool is_template;
+    std::string issue_comment_url;
+    std::string issue_events_url;
+    std::string issues_url;
+    std::string keys_url;
+    std::string labels_url;
+    std::string language;
+    std::string languages_url;
+    LicenseDto license;
+    std::string merges_url;
+    std::string milestones_url;
+    std::string mirror_url;
+    std::string name;
+    std::string node_id;
+    std::string notifications_url;
+    int open_issues;
+    int open_issues_count;
+    OwnerDto owner;
+    //    bool private;
+    std::string pulls_url;
+    std::string pushed_at;
+    std::string releases_url;
+    int score;
+    int size;
+    std::string ssh_url;
+    int stargazers_count;
+    std::string stargazers_url;
+    std::string statuses_url;
+    std::string subscribers_url;
+    std::string subscription_url;
+    std::string svn_url;
+    std::string tags_url;
+    std::string teams_url;
+    std::vector<std::string> topics;
+    std::string trees_url;
+    std::string updated_at;
+    std::string url;
+    std::string visibility;
+    int watchers;
+    int watchers_count;
+    bool web_commit_signoff_required;
+};
+
+//NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(RepositoryDto,allow_forking,archive_url,archived,assignees_url,blobs_url,branches_url,clone_url,collaborators_url,comments_url,commits_url,compare_url,contents_url,contributors_url,created_at,default_branch,deployments_url,description,disabled,downloads_url,events_url,fork,forks,forks_count,forks_url,full_name,git_commits_url,git_refs_url,git_tags_url,git_url,has_discussions,has_downloads,has_issues,has_pages,has_projects,has_wiki,homepage,hooks_url,html_url,id,is_template,issue_comment_url,issue_events_url,issues_url,keys_url,labels_url,language,languages_url,license,merges_url,milestones_url,mirror_url,name,node_id,notifications_url,open_issues,open_issues_count,owner,private,pulls_url,pushed_at,releases_url,score,size,ssh_url,stargazers_count,stargazers_url,statuses_url,subscribers_url,subscription_url,svn_url,tags_url,teams_url,topics,trees_url,updated_at,url,visibility,watchers,watchers_count,web_commit_signoff_required);
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(RepositoriesDto,full_name,description,language,license,updated_at);

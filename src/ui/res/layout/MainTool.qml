@@ -5,6 +5,7 @@ import "../storage"
 
 Item {
 
+    anchors.fill: parent
 
     QtObject {
         id: d

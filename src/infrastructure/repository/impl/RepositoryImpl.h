@@ -16,6 +16,7 @@
 #include <infrastructure/tool/MainThread.h>
 #include <infrastructure/converter/Converter.h>
 #include <infrastructure/dto/TokenDto.h>
+#include <infrastructure/dto/SearchRepositoriesDto.h>
 
 using namespace AeaQt;
 using namespace nlohmann;
@@ -32,6 +33,9 @@ private:
   QString accessToken(const QString &id,const QString &secret,const QString &code) override;
 
   User user() override;
+
+  QList<Repositories> search(const QString& q,const QString& sort,const QString& order,int per_page,int page) override;
+
 
 public:
   explicit RepositoryImpl(QObject* parent = nullptr);

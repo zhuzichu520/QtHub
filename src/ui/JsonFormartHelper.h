@@ -4,6 +4,10 @@
 #include <QObject>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonArray>
+#include <QFile>
+#include <QDesktopServices>
+#include <infrastructure/config/AppConfig.h>
 
 class JsonFormartHelper: public QObject
 {
@@ -11,7 +15,14 @@ class JsonFormartHelper: public QObject
 public:
     explicit JsonFormartHelper(QObject* parent = nullptr);
 
-     Q_INVOKABLE QString format(const QString &json);
+    Q_INVOKABLE QString format(const QString &json);
+
+    Q_INVOKABLE void exportClass(const QString &json);
+
+    Q_INVOKABLE void openDir();
+
+private:
+    void loadCpp(const QString& name,const QJsonObject &object);
 };
 
 #endif // JSONFORMARTHELPER_H

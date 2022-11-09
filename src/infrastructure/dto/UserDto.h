@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <infrastructure/nlohmann/json.h>
+
 struct UserDto
 {
     std::string avatar_url;

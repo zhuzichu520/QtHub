@@ -12,5 +12,7 @@ copy third\win64\qolm\debug\*.dll  bin /y
 
 copy third\win64\openssl\*.dll  bin /y
 
+copy third\win64\nut\debug\*.dll  bin /y
+
 pause
  

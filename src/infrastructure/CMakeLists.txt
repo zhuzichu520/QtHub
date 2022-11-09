@@ -29,8 +29,10 @@
     dto/TokenDto.h
     dto/UserDto.h
     dto/OwnerDto.h
-    dto/RepositoryDto.h
+    dto/RepositoriesDto.h
     dto/SearchRepositoriesDto.h
+    dto/LicenseDto.h
+    db/QtHubDataBase.h
 
 )
 
@@ -53,6 +55,7 @@ set(INFRASTRUCTURE_SRS
     repository/impl/RepositoryImpl.cpp
 
     converter/Converter.cpp
+    db/QtHubDataBase.cpp
 
 )
 
@@ -79,6 +82,7 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
         target_link_libraries(INFRASTRUCTURE PUBLIC
             ${THIRD_DIR_PATH}/win64/glog/debug/glogd.lib
             ${THIRD_DIR_PATH}/win64/qolm/debug/QOlm.lib
+            ${THIRD_DIR_PATH}/win64/nut/debug/Qt6Nut.lib
         )
 endif ()
 
@@ -86,6 +90,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Release")
     target_link_libraries(INFRASTRUCTURE PUBLIC
         ${THIRD_DIR_PATH}/win64/glog/release/glog.lib
         ${THIRD_DIR_PATH}/win64/qolm/release/QOlm.lib
+        ${THIRD_DIR_PATH}/win64/nut/release/Qt6Nut.lib
     )
 endif ()
 
@@ -99,6 +104,7 @@ target_include_directories(
     ${THIRD_DIR_PATH}/win64/qolm/include
     ${THIRD_DIR_PATH}/win64/rxcpp/include
     ${THIRD_DIR_PATH}/win64/rxqt/include
+    ${THIRD_DIR_PATH}/win64/nut/include
 )
 
 endif ()

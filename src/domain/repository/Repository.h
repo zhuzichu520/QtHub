@@ -4,6 +4,7 @@
 #include <QObject>
 #include <windows.h>
 #include <domain/entity/User.h>
+#include <domain/entity/Repositories.h>
 
 class Repository : public QObject
 {
@@ -22,6 +23,8 @@ public:
     virtual QString accessToken(const QString &id,const QString &secret,const QString &code) = 0;
 
     virtual User user() = 0;
+
+    virtual QList<Repositories> search(const QString& q,const QString& sort,const QString& order,int per_page,int page) = 0;
 
 };
 

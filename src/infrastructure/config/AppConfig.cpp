@@ -37,6 +37,10 @@ QString AppConfig::getEmojiDir()
   return existsDir(appDir + "/hwdata/emojiFolder");
 }
 
+QString AppConfig::getJsonClassDir(){
+  return existsDir(appDir + "/temp/jsonClass");
+}
+
 QString AppConfig::existsDir(const QString& path)
 {
   QDir dir = path;

@@ -12,5 +12,7 @@ copy third\win64\qolm\release\*.dll  bin /y
 
 copy third\win64\openssl\*.dll  bin /y
 
+copy third\win64\nut\release\*.dll  bin /y
+
 pause
  

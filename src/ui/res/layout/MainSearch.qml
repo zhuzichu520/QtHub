@@ -1,4 +1,4 @@
-import QtQuick
+﻿import QtQuick
 import QtQuick.Controls
 import QtQuick.Window
 import "../storage"
@@ -8,7 +8,6 @@ import "../component"
 Item {
 
     id:root
-    anchors.fill: parent
 
     onVisibleChanged: {
         edit_search.inputFocus(visible)

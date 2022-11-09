@@ -13,14 +13,23 @@ set(PROJECT_SOURCES
     ui/res/qml.qrc
 )
 
-qt_add_executable(QtHub
-    ${PROJECT_SOURCES}
-)
+if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    add_executable(QtHub ${PROJECT_SOURCES})
+    message(${DEPLOYQT_EXECUTABLE})
+#    add_custom_command(TARGET ${PROJECT_NAME}
+#        POST_BUILD
+#        COMMAND ${DEPLOYQT_EXECUTABLE} "$<TARGET_FILE:${PROJECT_NAME}>"
+#        --$<LOWER_CASE:$<CONFIG>> --qmldir ${CMAKE_SOURCE_DIR}
+#    )
+else ()
+    add_executable(QtHub ${PROJECT_SOURCES})
+endif ()
 
 target_link_libraries(QtHub PRIVATE
     Qt${QT_VERSION_MAJOR}::QmlPrivate
     Qt${QT_VERSION_MAJOR}::QuickPrivate
     Qt${QT_VERSION_MAJOR}::QuickControls2Private
+    Qt${QT_VERSION_MAJOR}::Widgets
     UI
 )
 

@@ -63,6 +63,13 @@ CusWindow {
                         helper.openDir()
                     }
                 }
+                CusButton{
+                    text:"崩溃"
+                    Layout.alignment: Qt.AlignHCenter
+                    onClicked: {
+                        helper.crash()
+                    }
+                }
             }
 
         }

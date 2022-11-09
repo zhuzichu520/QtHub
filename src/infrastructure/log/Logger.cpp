@@ -2,6 +2,20 @@
 
 Q_GLOBAL_STATIC(Logger, logger)
 
+void handleDumpInfo(const char* data, size_t size)
+{
+    std::string str = std::string(data, size);
+
+    auto appDataDir = AppConfig::instance()->getLogDir();
+    std::ofstream fs(appDataDir.toStdString() + "/glog_dump.log", std::ios::app);
+
+    fs << str;
+    fs.close();
+
+    LOG(ERROR) << str;
+}
+
+
 Logger* Logger::instance()
 {
   return logger();
@@ -16,9 +30,12 @@ Logger::~Logger()
   google::ShutdownGoogleLogging();
 }
 
+
 void Logger::initGoogleLog(char* argv[])
 {
   google::InitGoogleLogging(argv[0]);
+//  google::InstallFailureSignalHandler();
+//  google::InstallFailureWriter(&handleDumpInfo);
   google::EnableLogCleaner(3);
   google::SetStderrLogging(google::GLOG_INFO);
   auto logDir = AppConfig::instance()->getLogDir();

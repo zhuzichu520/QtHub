@@ -33,6 +33,7 @@
     dto/SearchRepositoriesDto.h
     dto/LicenseDto.h
     db/QtHubDataBase.h
+    db/HistoryTable.h
 
 )
 
@@ -56,6 +57,7 @@ set(INFRASTRUCTURE_SRS
 
     converter/Converter.cpp
     db/QtHubDataBase.cpp
+    db/HistoryTable.cpp
 
 )
 
@@ -82,7 +84,7 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
         target_link_libraries(INFRASTRUCTURE PUBLIC
             ${THIRD_DIR_PATH}/win64/glog/debug/glogd.lib
             ${THIRD_DIR_PATH}/win64/qolm/debug/QOlm.lib
-            ${THIRD_DIR_PATH}/win64/nut/debug/Qt6Nut.lib
+            ${THIRD_DIR_PATH}/win64/nut/debug/Qt6Nutd.lib
         )
 endif ()
 

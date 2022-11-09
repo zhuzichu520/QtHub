@@ -1,4 +1,4 @@
-#ifndef DATABASE_H
+﻿#ifndef DATABASE_H
 #define DATABASE_H
 
 #include <QObject>
@@ -11,7 +11,7 @@ class QtHubDataBase : public NUT_WRAP_NAMESPACE(Database)
     NUT_DB_VERSION(1)
     NUT_DECLARE_TABLE(HistoryTable, items)
 public:
-    explicit QtHubDataBase(QObject *parent = nullptr);
+     QtHubDataBase();
 
 signals:
 

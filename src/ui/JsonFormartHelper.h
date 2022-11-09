@@ -21,6 +21,11 @@ public:
 
     Q_INVOKABLE void openDir();
 
+    Q_INVOKABLE void crash(){
+        QList<QString> data;
+        qDebug()<<data[0];
+    }
+
 private:
     void loadCpp(const QString& name,const QJsonObject &object);
 };

@@ -8,7 +8,7 @@ MainWindow::MainWindow(char* argv[])
     // 依赖注入
     ApplicationInjector::init();
 
-//        QGuiApplication::setQuitOnLastWindowClosed(true);
+    //        QGuiApplication::setQuitOnLastWindowClosed(true);
     QFont font;
     font.setFamily("Microsoft YaHei");
     QGuiApplication::setFont(font);
@@ -34,10 +34,11 @@ MainWindow::MainWindow(char* argv[])
     qmlRegisterType<TextDocument>("UI", 1, 0, "TextDocument");
     qmlRegisterType<PixmapImage>("UI", 1, 0, "PixmapImage");
     qmlRegisterType<ScreensHotHelper>("UI", 1, 0, "ScreensHotHelper");
-     qmlRegisterType<JsonFormartHelper>("UI", 1, 0, "JsonFormartHelper");
+    qmlRegisterType<JsonFormartHelper>("UI", 1, 0, "JsonFormartHelper");
 
     qmlRegisterType<LoginController>("Controller", 1, 0, "LoginController");
     qmlRegisterType<MainController>("Controller", 1, 0, "MainController");
+    qmlRegisterType<SearchController>("Controller", 1, 0, "SearchController");
 
     m_engine.setNetworkAccessManagerFactory(new MyNetworkAccessManagerFactory);
 }

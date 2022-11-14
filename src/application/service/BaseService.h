@@ -5,6 +5,7 @@
 #include <infrastructure/log/Logger.h>
 #include <infrastructure/injection/dependencyinjector.h>
 #include <domain/repository/Repository.h>
+#include <domain/repository/LocalRepository.h>
 
 class BaseService : public QObject
 {

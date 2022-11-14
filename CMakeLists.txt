@@ -35,8 +35,8 @@ add_definitions(-DBUILD_TYPE="${CMAKE_BUILD_TYPE}")
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Gui)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Gui)
 
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets Quick Qml QuickControls2 HttpServer Concurrent)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Quick Qml QuickControls2 HttpServer Concurrent)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets Quick Qml QuickControls2 HttpServer Concurrent Sql)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Quick Qml QuickControls2 HttpServer Concurrent Sql)
 
 get_target_property(_qmake_executable Qt${QT_VERSION_MAJOR}::qmake IMPORTED_LOCATION)
 get_filename_component(_qt_bin_dir "${_qmake_executable}" DIRECTORY)

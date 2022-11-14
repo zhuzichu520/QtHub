@@ -2,6 +2,7 @@
 
 RepositoryImpl::RepositoryImpl(QObject* parent) : Repository{ parent }
 {
+
 }
 
 template <typename T>
@@ -41,7 +42,7 @@ QList<Repositories> RepositoryImpl::search(const QString& q,const QString& sort,
         {"page",page}
     };
     SearchRepositoriesDto dto;
-    handleResult(RxHttp::get(html("/login/oauth/access_token"),data),dto);
+    handleResult(RxHttp::get(api("/search/repositories"),data),dto);
     QList<Repositories> list;
     foreach (auto item, dto.items) {
         list.append(Converter::dto2Repositories(item));

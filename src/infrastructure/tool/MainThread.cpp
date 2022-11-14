@@ -13,7 +13,6 @@ MainThread::MainThread(QObject* bindObject)
   : mBindObject(bindObject)
   , mIgnoreNullObject(bindObject == nullptr)
 {
-  qDebug()<<"MainThread->Create";
   qRegisterMetaType<std::function<void()>>("std::function<void()>");
 
   auto mainUIThread = qApp->thread();
@@ -25,7 +24,6 @@ MainThread::MainThread(QObject* bindObject)
 
 MainThread::~MainThread()
 {
-  qDebug()<<"MainThread->Delete";
 }
 
 void MainThread::handle(std::function<void()> func)

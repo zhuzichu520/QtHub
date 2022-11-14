@@ -19,7 +19,6 @@ public:
 
   Q_INVOKABLE QString getLogDir();
   Q_INVOKABLE QString getImageCacheDir();
-  Q_INVOKABLE QString getEmojiDir();
   Q_INVOKABLE QString getJsonClassDir();
 
 private:

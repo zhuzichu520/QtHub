@@ -1,12 +1,15 @@
 ﻿set(DOMAIN_HEADERS
     repository/Repository.h
+    repository/LocalRepository.h
     exception/BizException.h
     entity/User.h
     entity/Repositories.h
+    entity/History.h
 )
 
 set(DOMAIN_SRS
     repository/Repository.cpp
+    repository/LocalRepository.cpp
     exception/BizException.cpp
 )
 

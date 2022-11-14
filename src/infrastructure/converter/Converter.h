@@ -6,11 +6,20 @@
 #include <domain/entity/User.h>
 #include <infrastructure/dto/RepositoriesDto.h>
 #include <domain/entity/Repositories.h>
+#include <infrastructure/po/HistoryPo.h>
+#include <domain/entity/History.h>
 #include <QJsonDocument>
 
 class Converter
 {
 public:
+
+    static History po2Hisotory(const HistoryPo& val){
+        History obj;
+        obj.name = val.m_name;
+        return obj;
+    }
+
     static User dto2User(const UserDto& val){
         User obj;
         obj.name = QString::fromStdString(val.name);

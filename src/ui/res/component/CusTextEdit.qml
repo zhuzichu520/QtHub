@@ -11,6 +11,7 @@ TextEdit {
     selectedTextColor: color
     color:Theme.colorFontPrimary
 
+
     onLinkActivated: {
         console.debug("activated"+link)
     }

@@ -50,7 +50,7 @@ private:
         QNetworkReply::NetworkError error;
         QNetworkReply* reply = nullptr;
         if(operation == QNetworkAccessManager::GetOperation){
-            reply = client.get(url).headers(headers()).body(data).timeout(timeout()).block().exec()->reply();
+            reply = client.get(url).headers(headers()).queryParams(data).timeout(timeout()).block().exec()->reply();
         }else if(operation == QNetworkAccessManager::PostOperation){
             reply = client.post(url).headers(headers()).body(data).timeout(timeout()).block().exec()->reply();
         }else{

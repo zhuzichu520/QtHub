@@ -2,7 +2,6 @@
 #define REPOSITORY_H
 
 #include <QObject>
-#include <windows.h>
 #include <domain/entity/User.h>
 #include <domain/entity/Repositories.h>
 

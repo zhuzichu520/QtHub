@@ -13,6 +13,7 @@
 #include <infrastructure/config/AppConfig.h>
 #include <controller/LoginController.h>
 #include <controller/MainController.h>
+#include <controller/SearchController.h>
 #include <application/di/ApplicationInjector.h>
 #include <infrastructure/helper/UiHelper.h>
 #include <infrastructure/helper/UserHelper.h>

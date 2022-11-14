@@ -598,6 +598,7 @@ class HttpResponseTimeout : public QObject
 {
     Q_OBJECT
 public:
+
     HttpResponseTimeout(HttpResponse* parent, const int timeout = -1) : QObject(parent)
     {
         if (timeout > 0)

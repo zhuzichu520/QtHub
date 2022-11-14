@@ -41,14 +41,12 @@ Item {
                 anchors.centerIn: parent
                 width: d.iconWidth
                 height: d.iconWidth
-                radius: 8
                 color: "transparent"
                 border.color: "gray"
                 Rectangle {
                     id: btnIcon
                     width: d.iconWidth
                     height: d.iconWidth
-                    radius: 8
                     color: hoveMouseArea.containsMouse ? Qt.alpha(Theme.colorPrimary,0.3) : Theme.colorBackground
                     border.color: "black"
                     border.width:1

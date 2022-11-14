@@ -2,6 +2,7 @@
 #define SERVICEINJECTOR_H
 
 #include <application/service/UserService.h>
+#include <application/service/RepositoriesService.h>
 #include <infrastructure/injection/dependencyinjector.h>
 
 using namespace QInjection;
@@ -9,15 +10,21 @@ using namespace QInjection;
 class ServiceInjector
 {
 public:
-  static UserService* userService()
-  {
-    return new UserService();
-  }
+    static UserService* userService()
+    {
+        return new UserService();
+    }
 
-  static void init()
-  {
-    QInjection::addSingleton(userService);
-  }
+    static RepositoriesService* repositoriesService()
+    {
+        return new RepositoriesService();
+    }
+
+    static void init()
+    {
+        QInjection::addSingleton(userService);
+        QInjection::addSingleton(repositoriesService);
+    }
 };
 
 #endif  // SERVICEINJECTOR_H

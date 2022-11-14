@@ -1,6 +1,7 @@
 ﻿import QtQuick
 import QtQuick.Controls
 import QtQuick.Window
+import Controller
 import "../storage"
 import "../component"
 
@@ -13,8 +14,12 @@ Item {
         edit_search.inputFocus(visible)
     }
 
+    SearchController{
+        id:controller
+    }
+
     Item{
-        width: childrenRect.width
+        width: 300
         height: childrenRect.height
         anchors{
             top: parent.top
@@ -47,7 +52,39 @@ Item {
                     showErrorToast("请输入搜索关键字！")
                     return
                 }
+                controller.search(q)
                 layout_list.visible = true
+            }
+        }
+
+        Text{
+            id:text_history
+            text: "历史记录"
+            font.bold: true
+            anchors{
+                top: edit_search.bottom
+                topMargin: 20
+                left: parent.left
+            }
+            font.pixelSize: 12
+            color:Theme.colorFontPrimary
+        }
+
+        Flow{
+            id:layout_history
+            anchors{
+                top:text_history.bottom
+                topMargin: 5
+                left: parent.left
+                right: parent.right
+            }
+            spacing: 10
+
+            Repeater{
+                model:controller.historyList
+                delegate: CusButton{
+                    text: modelData
+                }
             }
         }
 

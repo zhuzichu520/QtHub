@@ -24,6 +24,7 @@
     converter/Converter.h
 
     repository/impl/RepositoryImpl.h
+    repository/impl/LocalRepositoryImpl.h
     di/RepositoryInjector.h
 
     dto/TokenDto.h
@@ -32,8 +33,9 @@
     dto/RepositoriesDto.h
     dto/SearchRepositoriesDto.h
     dto/LicenseDto.h
-    db/QtHubDataBase.h
-    db/HistoryTable.h
+
+    db/DB.h
+    po/HistoryPo.h
 
 )
 
@@ -54,11 +56,10 @@ set(INFRASTRUCTURE_SRS
     helper/SettingsHelper.cpp
 
     repository/impl/RepositoryImpl.cpp
+    repository/impl/LocalRepositoryImpl.cpp
 
     converter/Converter.cpp
-    db/QtHubDataBase.cpp
-    db/HistoryTable.cpp
-
+    db/DB.cpp
 )
 
 add_library(INFRASTRUCTURE ${INFRASTRUCTURE_HEADERS} ${INFRASTRUCTURE_SRS})
@@ -71,6 +72,8 @@ target_link_libraries(INFRASTRUCTURE PUBLIC
     Qt${QT_VERSION_MAJOR}::CorePrivate
     Qt${QT_VERSION_MAJOR}::NetworkPrivate
     Qt${QT_VERSION_MAJOR}::QuickPrivate
+    Qt${QT_VERSION_MAJOR}::WidgetsPrivate
+    Qt${QT_VERSION_MAJOR}::SqlPrivate
     DOMAIN
 )
 

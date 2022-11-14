@@ -2,12 +2,14 @@
     BaseController.h
     LoginController.h
     MainController.h
+    SearchController.h
 )
 
 set(CONTROLLER_SRS
     BaseController.cpp
     LoginController.cpp
     MainController.cpp
+    SearchController.cpp
 )
 
 add_library(CONTROLLER ${CONTROLLER_HEADERS} ${CONTROLLER_SRS})

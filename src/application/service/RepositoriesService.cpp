@@ -1,4 +1,4 @@
-#include "RepositoriesService.h"
+﻿#include "RepositoriesService.h"
 
 
 QList<Repositories> RepositoriesService::search(const QString& q,const QString& sort,const QString& order,int per_page,int page){

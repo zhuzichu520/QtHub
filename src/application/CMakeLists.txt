@@ -5,6 +5,8 @@
     service/BaseService.h
     service/UserService.h
     service/RepositoriesService.h
+    vo/RepositoriesVo.h
+    vo/RepositoriesListVo.h
 )
 
 set(APPLICATION_SRS
@@ -12,9 +14,12 @@ set(APPLICATION_SRS
     service/UserService.cpp
     service/BaseService.cpp
     service/RepositoriesService.cpp
+    vo/RepositoriesVo.cpp
+    vo/RepositoriesListVo.cpp
 )
 
 add_library(APPLICATION ${APPLICATION_HEADERS} ${APPLICATION_SRS})
+
 
 install(TARGETS APPLICATION LIBRARY DESTINATION lib)
 install(FILES ${APPLICATION_HEADERS} DESTINATION include/application)
@@ -25,7 +30,23 @@ target_link_libraries(APPLICATION PUBLIC
     INFRASTRUCTURE
 )
 
+if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+        target_link_libraries(INFRASTRUCTURE PUBLIC
+            ${THIRD_DIR_PATH}/win64/qolm/debug/QOlm.lib
+        )
+endif ()
+if (CMAKE_BUILD_TYPE STREQUAL "Release")
+    target_link_libraries(INFRASTRUCTURE PUBLIC
+        ${THIRD_DIR_PATH}/win64/qolm/release/QOlm.lib
+    )
+endif ()
+
 target_include_directories(APPLICATION PUBLIC
     ${CMAKE_SOURCE_DIR}/src
-    ${CMAKE_SOURCE_DIR}/qolm/include
+    ${THIRD_DIR_PATH}/win64/qolm/include
 )
+
+endif ()
+
+

@@ -106,7 +106,6 @@ message(${THIRD_DIR_PATH})
 target_include_directories(
     INFRASTRUCTURE PUBLIC
     ${THIRD_DIR_PATH}/win64/glog/include
-    ${THIRD_DIR_PATH}/win64/qolm/include
     ${THIRD_DIR_PATH}/win64/rxcpp/include
     ${THIRD_DIR_PATH}/win64/rxqt/include
     ${THIRD_DIR_PATH}/win64/nut/include

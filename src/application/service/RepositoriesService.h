@@ -1,4 +1,4 @@
-#ifndef REPOSITORIESSERVICE_H
+﻿#ifndef REPOSITORIESSERVICE_H
 #define REPOSITORIESSERVICE_H
 
 #include <QObject>

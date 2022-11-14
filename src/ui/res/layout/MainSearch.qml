@@ -84,6 +84,10 @@ Item {
                 model:controller.historyList
                 delegate: CusButton{
                     text: modelData
+                    onClicked: {
+                        controller.search(modelData)
+                        layout_list.visible = true
+                    }
                 }
             }
         }
@@ -104,11 +108,28 @@ Item {
             }
         }
 
+        ListView{
+            id:listview_serach
+            anchors.fill: parent
+            model: controller.searchListModel
+            clip: true
+            delegate: Rectangle{
+                height: 100
+                color: "#33ff0000"
+                width:listview_serach.width
+                Text {
+                    anchors.centerIn: parent
+                    text: qsTr(model.fullName)
+                }
+            }
+        }
+
         PrimaryButton{
             text:"返回"
             width: 60
             height: 30
             onClicked: {
+                controller.releaseSearch()
                 layout_list.visible = false
             }
         }

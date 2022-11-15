@@ -201,5 +201,7 @@
         <file>layout/MainTool.qml</file>
         <file>layout/WindowJsonFormat.qml</file>
         <file>layout/WindowFeedback.qml</file>
+        <file>component/ItemLayout.qml</file>
+        <file>layout/WindowWebView.qml</file>
     </qresource>
 </RCC>

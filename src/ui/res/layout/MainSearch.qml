@@ -2,6 +2,7 @@
 import QtQuick.Controls
 import QtQuick.Window
 import QtQuick.Layouts
+import QtQuick.Controls.Material as M
 import Controller
 import "../storage"
 import "../component"
@@ -117,9 +118,13 @@ Item {
             model: controller.searchListModel
             clip: true
             boundsBehavior: ListView.StopAtBounds
-            delegate: Item{
-                height: 100
+            ScrollBar.vertical: ScrollBar {}
+            delegate: ItemLayout{
+                height: childrenRect.height
                 width:listview_serach.width
+                onClicked: {
+                    navigate(Router.window_webview,{url:"https://github.com/zhuzichu520/NiceHub"})
+                }
                 Rectangle{
                     height: 1
                     anchors{
@@ -138,15 +143,26 @@ Item {
                         leftMargin: 60
                         rightMargin: 60
                     }
-                    Text{
-                        text: qsTr(model.fullName)
-                        color:"#0969dc"
+                    Row{
+
                         Layout.topMargin: 20
-                        font.pixelSize: 15
+                        Text{
+                            text: qsTr(model.login+"/")
+                            color:"#0969dc"
+                            font.pixelSize: 15
+                        }
+                        Text{
+                            text: qsTr(model.name)
+                            color:"#0969dc"
+                            font.pixelSize: 15
+                            font.bold: true
+                        }
                     }
                     Text{
                         text: qsTr(model.description)
                         color:Theme.colorFontSecondary
+                        Layout.fillWidth: true
+                        wrapMode: Text.WrapAnywhere
                         visible: text !== ""
                     }
                     RowLayout{
@@ -162,7 +178,9 @@ Item {
                             color:Theme.colorFontSecondary
                         }
                     }
-
+                    Item{
+                        height: 20
+                    }
                 }
             }
         }
@@ -175,22 +193,19 @@ Item {
                 anchors.centerIn: parent
             }
         }
-
-
-
     }
 
-    CusButton{
-        text:"返回"
-        height: 30
+    CusToolButton{
+        icon:"\ue63b"
+        tipText:"返回"
         anchors{
             top: parent.top
-            topMargin: -20
-            leftMargin: 10
+            topMargin: -30
+            leftMargin: 5
             left: parent.left
         }
         visible: layout_list.visible
-        onClicked: {
+        onClickEvent: {
             controller.releaseSearch()
             layout_list.visible = false
         }

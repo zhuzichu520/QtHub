@@ -150,9 +150,9 @@ ApplicationWindow {
         layoutLoading.visible = false
     }
 
-    function navigate(url,attach=false,requestCode = 0){
+    function navigate(url,param={},attach=false,requestCode = 0){
         if (url.indexOf('?') < 0){
-            url = Router.toUrl(url,attach)
+            url = Router.toUrl(url,attach,param)
         }
         var obj = Router.parseUrl(url)
         var path = obj.path;

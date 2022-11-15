@@ -19,12 +19,7 @@
 #include <infrastructure/helper/UiHelper.h>
 #include <infrastructure/helper/UserHelper.h>
 #include <infrastructure/helper/SettingsHelper.h>
-
-#include "PixmapImage.h"
-#include "MyNetworkAccessManagerFactory.h"
-#include "TextDocument.h"
-#include "ScreensHotHelper.h"
-#include "JsonFormartHelper.h"
+#include <QtWebView>
 
 class Q_DECL_EXPORT MainWindow
 {

@@ -213,7 +213,7 @@ CusWindow {
                             cursorShape: Qt.PointingHandCursor
                             anchors.fill: parent
                             onClicked: {
-                                navigate(Router.window_colorpicker,false,2)
+                                navigate(Router.window_colorpicker,{},false,2)
                             }
                         }
                     }

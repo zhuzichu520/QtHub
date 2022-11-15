@@ -1,4 +1,9 @@
 ﻿#include "MainWindow.h"
+#include "PixmapImage.h"
+#include "MyNetworkAccessManagerFactory.h"
+#include "TextDocument.h"
+#include "ScreensHotHelper.h"
+#include "JsonFormartHelper.h"
 
 MainWindow::MainWindow(char* argv[])
 {

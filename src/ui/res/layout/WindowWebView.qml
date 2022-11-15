@@ -26,8 +26,6 @@ CusWindow {
             title:window.title
         }
 
-
-
         WebView{
             anchors{
                 top: toolBar.bottom
@@ -37,9 +35,5 @@ CusWindow {
             }
             url:window.url
         }
-
-
     }
-
-
 }

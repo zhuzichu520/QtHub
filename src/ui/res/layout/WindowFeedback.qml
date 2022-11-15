@@ -1,4 +1,4 @@
-import QtQuick
+﻿import QtQuick
 import QtQuick.Controls
 import QtQuick.Window
 import QtQuick.Layouts
@@ -63,7 +63,6 @@ CusWindow {
                     color: "#00000000"
                     border.width: 1
                     border.color: Theme.colorPrimary
-                    radius: 5
                     anchors{
                         left: item_avatar.right
                         leftMargin: 10
@@ -78,7 +77,6 @@ CusWindow {
                         id:item_layout_top
                         height: 36
                         width: parent.width
-                        radius: 5
                         border.color: Theme.colorPrimary
                         color: Qt.alpha(Theme.colorPrimary,0.3)
                         Text{

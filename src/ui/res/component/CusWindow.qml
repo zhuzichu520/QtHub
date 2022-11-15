@@ -165,11 +165,6 @@ ApplicationWindow {
         }
         var win = Router.obtWindow(url)
         if(win !== null && data.onlyOne){
-            for(var key in options){
-                win[key] = options[key]
-            }
-            options.requestCode = requestCode
-            options.prevWindow = window
             win.show()
             win.raise()
             win.requestActivate()

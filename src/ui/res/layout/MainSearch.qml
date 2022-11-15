@@ -123,7 +123,7 @@ Item {
                 height: childrenRect.height
                 width:listview_serach.width
                 onClicked: {
-                    navigate(Router.window_webview,{url:"https://github.com/zhuzichu520/NiceHub"})
+                    navigate(Router.window_webview,{url:"https://github.com/%1/%2".arg(model.login).arg(model.name)})
                 }
                 Rectangle{
                     height: 1

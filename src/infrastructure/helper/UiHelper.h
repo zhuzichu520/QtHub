@@ -6,27 +6,31 @@
 #include <QCursor>
 #include <QDateTime>
 #include <QScreen>
+#include <QJsonObject>
 #include <QGuiApplication>
 #include <infrastructure/stdafx.h>
+#include <infrastructure/tool/CommonTool.h>
+#include <QFile>
 
 class UiHelper : public QObject
 {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  explicit UiHelper(QObject* parent = nullptr);
-  static UiHelper* instance();
+    explicit UiHelper(QObject* parent = nullptr);
+    static UiHelper* instance();
 
-  Q_INVOKABLE QPoint mousePos();
+    Q_INVOKABLE QPoint mousePos();
 
-  Q_INVOKABLE int getWH(bool isWidth, int width, int height, int ref = 200);
+    Q_INVOKABLE int getScreenIndex();
 
-  Q_INVOKABLE QString getStringBySecretValue(int val);
+    Q_INVOKABLE void restart();
 
-  Q_INVOKABLE QString getResBySecretValue(int val);
+    Q_INVOKABLE QString getLanguageColor(const QString& name);
 
-  Q_INVOKABLE int getScreenIndex();
-
-  Q_INVOKABLE void restart();
+    Q_INVOKABLE int getWH(bool isWidth, int width, int height, int ref = 200);
+private:
+    QJsonObject languageColor;
+    QString unkownColor = "#aaaaaa";
 };
 
 #endif  // UIHELPER_H

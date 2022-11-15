@@ -44,6 +44,7 @@ Item {
         color: "#FFF7F8F9"
     }
 
+
     OpacityMask {
         anchors.fill: parent
         source: avatar_image

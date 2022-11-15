@@ -9,7 +9,6 @@
 
     nlohmann/json.h
     http/HttpClient.h
-    http/httplib.h
     log/Logger.h
     config/AppConfig.h
     tool/CommonTool.h
@@ -30,6 +29,8 @@
     dto/TokenDto.h
     dto/UserDto.h
     dto/OwnerDto.h
+    dto/ReactionsDto.h
+    dto/IssuesDto.h
     dto/RepositoriesDto.h
     dto/SearchRepositoriesDto.h
     dto/LicenseDto.h

@@ -20,11 +20,13 @@ void JsonFormartHelper::exportClass(const QString &json){
     if(error->error!=QJsonParseError::NoError){
         return;
     }
-    if(!jdc.isObject()){
-        return;
+    if(jdc.isObject()){
+        const QJsonObject &object = jdc.object();
+        loadCpp("ResultDto",object);
+    }else{
+        const QJsonArray &arr =  jdc.array();
+        loadCpp("ResultDto",jdc[0].toObject());
     }
-    const QJsonObject &object = jdc.object();
-    loadCpp("ResultDto",object);
 }
 
 
@@ -54,21 +56,22 @@ void JsonFormartHelper::loadCpp(const QString& name,const QJsonObject &object){
                 stream<<QString("int %1;").arg(key)<<"\n";
             }else if(value.isArray()){
                 auto arr = value.toArray();
-                if(arr.isEmpty()){
-                    continue;
-                }
-                auto item = arr[0];
-                if(item.isObject()){
-                    loadCpp(key,arr[0].toObject());
-                    stream<<QString("std::vector<%1> %1;").arg(key)<<"\n";
-                }else if(item.isString()){
-                    stream<<QString("std::vector<std::string> %1;").arg(key)<<"\n";
-                }else if(item.isBool()){
-                    stream<<QString("std::vector<bool> %1;").arg(key)<<"\n";
-                }else if(item.isDouble()){
-                    stream<<QString("std::vector<int> %1;").arg(key)<<"\n";
+                if(!arr.isEmpty()){
+                    auto item = arr[0];
+                    if(item.isObject()){
+                        loadCpp(key,arr[0].toObject());
+                        stream<<QString("std::vector<%1> %1;").arg(key)<<"\n";
+                    }else if(item.isString()){
+                        stream<<QString("std::vector<std::string> %1;").arg(key)<<"\n";
+                    }else if(item.isBool()){
+                        stream<<QString("std::vector<bool> %1;").arg(key)<<"\n";
+                    }else if(item.isDouble()){
+                        stream<<QString("std::vector<int> %1;").arg(key)<<"\n";
+                    }else{
+                        stream<<QString("std::vector<any> %1;").arg(key)<<"\n";
+                    }
                 }else{
-                    stream<<QString("std::vector<any> %1;").arg(key)<<"\n";
+                     stream<<QString("std::vector<any> %1;").arg(key)<<"\n";
                 }
             }else{
                 stream<<QString("std::any %1;").arg(key)<<"\n";

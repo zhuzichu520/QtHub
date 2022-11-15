@@ -200,5 +200,6 @@
         <file>component/CusRadioButton.qml</file>
         <file>layout/MainTool.qml</file>
         <file>layout/WindowJsonFormat.qml</file>
+        <file>layout/WindowFeedback.qml</file>
     </qresource>
 </RCC>

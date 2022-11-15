@@ -1,9 +1,11 @@
 ﻿import QtQuick
 import QtQuick.Controls
 import QtQuick.Window
+import QtQuick.Layouts
 import Controller
 import "../storage"
 import "../component"
+import "../view"
 
 
 Item {
@@ -101,6 +103,7 @@ Item {
         MouseArea{
             anchors.fill: parent
         }
+        color:Theme.colorBackground
 
         Behavior on width{
             NumberAnimation{
@@ -113,27 +116,84 @@ Item {
             anchors.fill: parent
             model: controller.searchListModel
             clip: true
-            delegate: Rectangle{
+            boundsBehavior: ListView.StopAtBounds
+            delegate: Item{
                 height: 100
-                color: "#33ff0000"
                 width:listview_serach.width
-                Text {
-                    anchors.centerIn: parent
-                    text: qsTr(model.fullName)
+                Rectangle{
+                    height: 1
+                    anchors{
+                        left: parent.left
+                        right: parent.right
+                        leftMargin: 60
+                        rightMargin: 60
+                    }
+                    visible: index !== 0
+                    color: Theme.colorDivider
+                }
+                ColumnLayout {
+                    anchors{
+                        left: parent.left
+                        right: parent.right
+                        leftMargin: 60
+                        rightMargin: 60
+                    }
+                    Text{
+                        text: qsTr(model.fullName)
+                        color:"#0969dc"
+                        Layout.topMargin: 20
+                        font.pixelSize: 15
+                    }
+                    Text{
+                        text: qsTr(model.description)
+                        color:Theme.colorFontSecondary
+                        visible: text !== ""
+                    }
+                    RowLayout{
+                        visible: model.language !== ""
+                        Rectangle{
+                            width: 12
+                            height: 12
+                            radius: 6
+                            color:uiHelper.getLanguageColor(model.language)
+                        }
+                        Text{
+                            text: qsTr(model.language)
+                            color:Theme.colorFontSecondary
+                        }
+                    }
+
                 }
             }
         }
 
-        PrimaryButton{
-            text:"返回"
-            width: 60
-            height: 30
-            onClicked: {
-                controller.releaseSearch()
-                layout_list.visible = false
+        Rectangle{
+            anchors.fill: listview_serach
+            visible: controller.showLoading
+            color:Theme.colorBackground
+            CusLoading{
+                anchors.centerIn: parent
             }
         }
 
+
+
+    }
+
+    CusButton{
+        text:"返回"
+        height: 30
+        anchors{
+            top: parent.top
+            topMargin: -20
+            leftMargin: 10
+            left: parent.left
+        }
+        visible: layout_list.visible
+        onClicked: {
+            controller.releaseSearch()
+            layout_list.visible = false
+        }
     }
 
 

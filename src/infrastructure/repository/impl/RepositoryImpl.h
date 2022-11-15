@@ -36,6 +36,7 @@ private:
 
   QList<Repositories> search(const QString& q,const QString& sort,const QString& order,int per_page,int page) override;
 
+  QList<Issues> getIssuesList(const QString& owner,const QString& repo) override;
 
 public:
   explicit RepositoryImpl(QObject* parent = nullptr);

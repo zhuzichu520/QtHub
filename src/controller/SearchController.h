@@ -13,6 +13,7 @@ class SearchController : public BaseController
     Q_PROPERTY_AUTO(QJsonArray,historyList)
     Q_PROPERTY_AUTO(int,page)
     Q_PROPERTY_AUTO(RepositoriesListVo*,searchListModel)
+    Q_PROPERTY_AUTO(bool,showLoading)
 public:
     explicit SearchController(QObject *parent = nullptr);
 

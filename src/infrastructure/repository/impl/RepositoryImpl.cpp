@@ -14,9 +14,9 @@ void RepositoryImpl::handleResult(QString result, T& data)
         LOGD(result);
         throw BizException(-1, "服务器异常");
     }else{
-       CommonTool::instance()->jsonNonNull(result);
-       const QJsonObject& obj = CommonTool::instance()->string2JsonObject(result.toStdString());
-       LOGD(obj);
+        CommonTool::instance()->jsonNonNull(result);
+        const QJsonObject& obj = CommonTool::instance()->string2JsonObject(result.toStdString());
+        LOGD(obj);
     }
     json j = json::parse(result.toStdString());
     data = j.get<T>();
@@ -48,6 +48,16 @@ QList<Repositories> RepositoryImpl::search(const QString& q,const QString& sort,
         list.append(Converter::dto2Repositories(item));
     }
     return list;
+}
+
+QList<Issues> RepositoryImpl::getIssuesList(const QString& owner,const QString& repo){
+    std::vector<IssuesDto> dto;
+    handleResult(RxHttp::get(api(QString::fromStdString("/repos/%1/%2/issues").arg(owner,repo)),{}),dto);
+    QList<Issues> data;
+    foreach (auto item, dto) {
+        data.append(Converter::dto2Issues(item));
+    }
+    return data;
 }
 
 User RepositoryImpl::user(){

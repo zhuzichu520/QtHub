@@ -8,6 +8,8 @@
 #include <domain/entity/Repositories.h>
 #include <infrastructure/po/HistoryPo.h>
 #include <domain/entity/History.h>
+#include <infrastructure/dto/IssuesDto.h>
+#include <domain/entity/Issues.h>
 #include <QJsonDocument>
 
 class Converter
@@ -17,6 +19,17 @@ public:
     static History po2Hisotory(const HistoryPo& val){
         History obj;
         obj.name = val.m_name;
+        return obj;
+    }
+
+    static Issues dto2Issues(const IssuesDto& val){
+        Issues obj;
+        obj.title = QString::fromStdString(val.title);
+        obj.avatar = QString::fromStdString(val.user.avatar_url);
+        obj.login = QString::fromStdString(val.user.login);
+        obj.body = QString::fromStdString(val.body);
+        obj.createTime = QString::fromStdString(val.created_at);
+        obj.updateTime = QString::fromStdString(val.updated_at);
         return obj;
     }
 
@@ -44,6 +57,8 @@ public:
         obj.language = QString::fromStdString(val.language);
         obj.license = QString::fromStdString(val.license.name);
         obj.updated_at = QString::fromStdString(val.updated_at);
+        obj.name = QString::fromStdString(val.name);
+        obj.login = QString::fromStdString(val.owner.login);
         return obj;
     }
 

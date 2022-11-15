@@ -39,6 +39,7 @@ MainWindow::MainWindow(char* argv[])
     qmlRegisterType<LoginController>("Controller", 1, 0, "LoginController");
     qmlRegisterType<MainController>("Controller", 1, 0, "MainController");
     qmlRegisterType<SearchController>("Controller", 1, 0, "SearchController");
+    qmlRegisterType<FeedbackController>("Controller", 1, 0, "FeedbackController");
 
     m_engine.setNetworkAccessManagerFactory(new MyNetworkAccessManagerFactory);
 }

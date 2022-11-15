@@ -5,6 +5,7 @@
     entity/User.h
     entity/Repositories.h
     entity/History.h
+    entity/Issues.h
 )
 
 set(DOMAIN_SRS

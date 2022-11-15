@@ -6,6 +6,7 @@ import UI
 import Qt5Compat.GraphicalEffects
 import "../storage"
 import "../global/global.js" as Global
+import "../view"
 
 ApplicationWindow {
     id:window
@@ -25,6 +26,10 @@ ApplicationWindow {
     visible: true
     color: "#00000000"
     signal createView()
+
+    background: Rectangle{
+        color : window.visibility === Window.Maximized ? Theme.colorBackground : "#00000000"
+    }
 
     onClosing:
         (event)=>{

@@ -4,18 +4,24 @@
     di/ServiceInjector.h
     service/BaseService.h
     service/UserService.h
+    service/IssuesService.h
     service/RepositoriesService.h
     vo/RepositoriesVo.h
     vo/RepositoriesListVo.h
+    vo/FeedbackVo.h
+    vo/FeedbackListVo.h
 )
 
 set(APPLICATION_SRS
     assembler/Assembler.cpp
     service/UserService.cpp
     service/BaseService.cpp
+    service/IssuesService.cpp
     service/RepositoriesService.cpp
     vo/RepositoriesVo.cpp
     vo/RepositoriesListVo.cpp
+    vo/FeedbackVo.cpp
+    vo/FeedbackListVo.cpp
 )
 
 add_library(APPLICATION ${APPLICATION_HEADERS} ${APPLICATION_SRS})

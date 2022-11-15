@@ -12,4 +12,11 @@ public:
     QString language;
     QString license;
     QString updated_at;
+    QString name;
+    QString login;
+
+public:
+    QString getStyleName() const{
+        return QString::fromStdString("%1/<b>%2</b>").arg(login,name);
+    }
 };

@@ -176,7 +176,7 @@ CusWindow {
         CusMenuItem{
             text:"意见反馈"
             onClicked: {
-
+                navigate(Router.window_feedback)
             }
         }
         CusMenuItem{

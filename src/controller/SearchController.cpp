@@ -41,6 +41,9 @@ void SearchController::addHistory(const QString& keyword) {
 void SearchController::search(const QString& keyword) {
     releaseSearch();
     addHistory(keyword);
+    if(page() == 1){
+        showLoading(true);
+    }
     subscriptionSearch =
         rxs::create<QList<Repositories>>([this, keyword](subscriber<QList<Repositories>> subscriber) {
             QList<Repositories> data = repositoriesService()->search(keyword, "", "", 30, page());
@@ -60,11 +63,13 @@ void SearchController::search(const QString& keyword) {
             .subscribe(
                 [this](const QList<RepositoriesVo*>& data) {
                     if (page() == 1) {
+                        showLoading(false);
                         searchListModel()->clear();
                     };
                     searchListModel()->append(data);
                 },
                 [this](const rxu::error_ptr& error) {
+                    showLoading(false);
                     handleError(error, [](const BizException& e) {
 
                     });

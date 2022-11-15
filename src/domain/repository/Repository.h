@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <domain/entity/User.h>
+#include <domain/entity/Issues.h>
 #include <domain/entity/Repositories.h>
 
 class Repository : public QObject
@@ -25,6 +26,7 @@ public:
 
     virtual QList<Repositories> search(const QString& q,const QString& sort,const QString& order,int per_page,int page) = 0;
 
+    virtual QList<Issues> getIssuesList(const QString& owner,const QString& repo) = 0;
 };
 
 #endif  // REPOSITORY_H

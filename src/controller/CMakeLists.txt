@@ -3,6 +3,7 @@
     LoginController.h
     MainController.h
     SearchController.h
+    FeedbackController.h
 )
 
 set(CONTROLLER_SRS
@@ -10,6 +11,7 @@ set(CONTROLLER_SRS
     LoginController.cpp
     MainController.cpp
     SearchController.cpp
+    FeedbackController.cpp
 )
 
 add_library(CONTROLLER ${CONTROLLER_HEADERS} ${CONTROLLER_SRS})

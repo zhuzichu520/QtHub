@@ -10,6 +10,7 @@ QtObject {
     property string window_colorpicker: "qrc:/layout/WindowColorPicker.qml"
     property string window_settings: "qrc:/layout/WindowSettings.qml"
     property string window_jsonformat: "qrc:/layout/WindowJsonFormat.qml"
+    property string window_feedback: "qrc:/layout/WindowFeedback.qml"
 
     property var router_table: [
         {
@@ -30,6 +31,10 @@ QtObject {
         },
         {
             path:window_jsonformat,
+            onlyOne:true
+        },
+        {
+            path:window_feedback,
             onlyOne:true
         }
     ]

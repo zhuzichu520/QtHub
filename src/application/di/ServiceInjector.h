@@ -2,6 +2,7 @@
 #define SERVICEINJECTOR_H
 
 #include <application/service/UserService.h>
+#include <application/service/IssuesService.h>
 #include <application/service/RepositoriesService.h>
 #include <infrastructure/injection/dependencyinjector.h>
 
@@ -20,10 +21,16 @@ public:
         return new RepositoriesService();
     }
 
+    static IssuesService* issuesService()
+    {
+        return new IssuesService();
+    }
+
     static void init()
     {
         QInjection::addSingleton(userService);
         QInjection::addSingleton(repositoriesService);
+        QInjection::addSingleton(issuesService);
     }
 };
 

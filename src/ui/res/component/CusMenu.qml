@@ -41,6 +41,11 @@ T.Menu {
         implicitWidth: 94
         implicitHeight: 30
 
+        Rectangle{
+            anchors.fill: parent
+            color:Theme.colorBackground
+        }
+
         Shadow{
             shadowColor: "#999999"
         }

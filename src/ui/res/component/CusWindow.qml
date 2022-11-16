@@ -6,6 +6,7 @@ import UI
 import Qt5Compat.GraphicalEffects
 import "../storage"
 import "../global/global.js" as Global
+import "../js/Router.js" as R
 import "../view"
 
 ApplicationWindow {
@@ -44,14 +45,14 @@ ApplicationWindow {
             y = (Screen.height-height)/2
         }
         createView()
-        if(window.router !== undefined){
-            Router.addWindow(router.url,window)
+        if(router !== undefined){
+            R.addWindow(router,window)
         }
     }
 
     Component.onDestruction: {
         if(router !== undefined){
-            Router.removeWindow(window.router.url)
+            R.removeWindow(router)
         }
     }
 
@@ -150,49 +151,63 @@ ApplicationWindow {
         layoutLoading.visible = false
     }
 
-    function navigate(url,param={},attach=false,requestCode = 0){
-        if (url.indexOf('?') < 0){
-            url = Router.toUrl(url,attach,param)
-        }
-        var obj = Router.parseUrl(url)
-        var path = obj.path;
-        var isAttach = obj.isAttach.bool();
-        var options = JSON.parse(obj.options)
-        var data = Router.obtRouter(path)
-        if(data === null){
-            console.error("没有注册当前路由："+path)
-            return
-        }
-        var win = Router.obtWindow(url)
-        if(win !== null && data.onlyOne){
+    function navigate(router){
+        var win = R.obtWindow(router)
+        if(win !== null){
             win.show()
             win.raise()
             win.requestActivate()
             return
         }
-        options.requestCode = requestCode
-        options.prevWindow = window
-        var comp = app.createWindow(data.path)
+        var comp = app.createComponent(router)
         if (comp.status !== Component.Ready){
-            console.error("组件创建错误："+path)
+            console.error("组件创建错误："+router)
             return
         }
-        data.url = url
-        options.router = data
-
-        if(!isAttach){
-            win =comp.createObject(null,options)
-        }else{
-            win = comp.createObject(window,options)
-        }
+        var options = {router:router}
+        comp.createObject(null,options)
     }
+
+    //    function navigate(url,param={},attach=false,requestCode = 0){
+    //        if (url.indexOf('?') < 0){
+    //            url = Router.toUrl(url,attach,param)
+    //        }
+    //        var obj = Router.parseUrl(url)
+    //        var path = obj.path;
+    //        var isAttach = obj.isAttach.bool();
+    //        var options = JSON.parse(obj.options)
+    //        var data = Router.obtRouter(path)
+    //        if(data === null){
+    //            console.error("没有注册当前路由："+path)
+    //            return
+    //        }
+    //        var win = Router.obtWindow(url)
+    //        console.debug("------------>"+data.onlyOne)
+    //        if(win !== null && data.onlyOne){
+    //            win.show()
+    //            win.raise()
+    //            win.requestActivate()
+    //            return
+    //        }
+    //        options.requestCode = requestCode
+    //        options.prevWindow = window
+    //        var comp = app.createWindow(data.path)
+    //        if (comp.status !== Component.Ready){
+    //            console.error("组件创建错误："+path)
+    //            return
+    //        }
+    //        data.url = url
+    //        options.router = data
+
+    //        if(!isAttach){
+    //            win =comp.createObject(null,options)
+    //        }else{
+    //            win = comp.createObject(window,options)
+    //        }
+    //    }
 
     function setResult(resultCode,data){
         prevWindow.windowResult(requestCode,resultCode,data)
-    }
-
-    function setHitTestVisible(view,isHit){
-
     }
 
     function getToolBarHeight(){

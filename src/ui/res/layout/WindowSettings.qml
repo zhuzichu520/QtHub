@@ -19,7 +19,6 @@ CusWindow {
             id:toolBar
             darkEnable: false
             topEnable: false
-            isTop: false
             title:window.title
         }
 

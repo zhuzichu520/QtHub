@@ -12,6 +12,7 @@ QtObject {
     property string window_jsonformat: "qrc:/layout/WindowJsonFormat.qml"
     property string window_feedback: "qrc:/layout/WindowFeedback.qml"
     property string window_webview: "qrc:/layout/WindowWebView.qml"
+    property string window_search: "qrc:/layout/WindowSearch.qml"
 
     property var router_table: [
         {
@@ -41,6 +42,10 @@ QtObject {
         {
             path:window_webview,
             onlyOne:true
+        },
+        {
+            path:window_search,
+            onlyOne:false
         }
     ]
 

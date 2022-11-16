@@ -206,5 +206,7 @@
         <file>component/PageButton.qml</file>
         <file>component/Pagination.qml</file>
         <file>component/Pagination2.qml</file>
+        <file>layout/WindowSearch.qml</file>
+        <file>js/Router.js</file>
     </qresource>
 </RCC>

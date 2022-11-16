@@ -3,16 +3,18 @@ import QtQuick.Controls
 import QtQuick.Window
 import "../component"
 import "../storage"
+import "../js/Router.js" as R
 
- CusWindow{
+CusWindow{
     id:app
     visible: false
     Component.onCompleted: {
-        navigate(Router.window_main)
+        R.init(app)
+        navigate(R.WINDOW_MAIN)
     }
 
-    function createWindow(url){
-        return Qt.createComponent(url)
+    function createComponent(path){
+        return Qt.createComponent(path)
     }
 
 }

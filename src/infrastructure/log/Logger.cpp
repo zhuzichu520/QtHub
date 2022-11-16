@@ -38,7 +38,7 @@ void GetExceptionDescription(DWORD errCode,QString& err)
 
 LONG ApplicationCrashHandler(EXCEPTION_POINTERS *pException){//程式异常捕获
     CountDownLatch latch(1);
-    MainThread::handle([pException,&latch](){
+    MainThread::post([pException,&latch](){
         /*
           ***保存数据代码***
         */

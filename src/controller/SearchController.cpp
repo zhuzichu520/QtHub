@@ -1,8 +1,8 @@
 ﻿#include "SearchController.h"
 
 SearchController::SearchController(QObject* parent) : BaseController{parent} {
-    page(1);
     searchListModel(new RepositoriesListVo(this));
+    totalCount(1);
     loadHistoryList();
 }
 
@@ -38,42 +38,36 @@ void SearchController::addHistory(const QString& keyword) {
                                     }));
 }
 
-void SearchController::search(const QString& keyword) {
+void SearchController::search(const QString& keyword, int page, int pageCount) {
     releaseSearch();
     addHistory(keyword);
-    if(page() == 1){
-        showLoading(true);
-    }
-    subscriptionSearch =
-        rxs::create<QList<Repositories>>([this, keyword](subscriber<QList<Repositories>> subscriber) {
-            QList<Repositories> data = repositoriesService()->search(keyword, "", "", 30, page());
-            subscriber.on_next(data);
-            subscriber.on_completed();
-        })
-            .flat_map([](const QList<Repositories>& data) { return rxcpp::observable<>::iterate(data); })
-            .subscribe_on(Rx->IO())
-            .observe_on(Rx->mainThread())
-            .map(
-                [this](const Repositories& item) { return Assembler::repositories2Vo(item, new RepositoriesVo(this)); })
-            .reduce(QList<RepositoriesVo*>(),
-                    [this](QList<RepositoriesVo*> data, RepositoriesVo* vo) {
-                        data.append(vo);
-                        return data;
-                    })
-            .subscribe(
-                [this](const QList<RepositoriesVo*>& data) {
-                    if (page() == 1) {
-                        showLoading(false);
-                        searchListModel()->clear();
-                    };
-                    searchListModel()->append(data);
-                },
-                [this](const rxu::error_ptr& error) {
-                    showLoading(false);
-                    handleError(error, [](const BizException& e) {
+    showLoading(true);
+    subscriptionSearch = rxs::create<Pager<QList<Repositories>>>(
+                             [this, keyword, page, pageCount](subscriber<Pager<QList<Repositories>>> subscriber) {
+                                 Pager<QList<Repositories>> data =
+                                     repositoriesService()->search(keyword, "", "", pageCount, page);
+                                 subscriber.on_next(data);
+                                 subscriber.on_completed();
+                             })
+                             .subscribe_on(Rx->IO())
+                             .observe_on(Rx->mainThread())
+                             .subscribe(
+                                 [this,page](const Pager<QList<Repositories>>& pager) {
+                                     QList<RepositoriesVo*> data;
+                                     foreach (auto item, pager.data) {
+                                         data.append(Assembler::repositories2Vo(item, new RepositoriesVo(this)));
+                                     }
+                                     totalCount(pager.totalCount);
+                                     searchListModel()->clear();
+                                     searchListModel()->append(data);
+                                     showLoading(false);
+                                 },
+                                 [this](const rxu::error_ptr& error) {
+                                     showLoading(false);
+                                     handleError(error, [](const BizException& e) {
 
-                    });
-                });
+                                     });
+                                 });
 }
 
 void SearchController::releaseSearch() {

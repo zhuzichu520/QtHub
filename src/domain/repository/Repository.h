@@ -5,6 +5,7 @@
 #include <domain/entity/User.h>
 #include <domain/entity/Issues.h>
 #include <domain/entity/Repositories.h>
+#include <domain/entity/Pager.h>
 
 class Repository : public QObject
 {
@@ -24,7 +25,7 @@ public:
 
     virtual User user() = 0;
 
-    virtual QList<Repositories> search(const QString& q,const QString& sort,const QString& order,int per_page,int page) = 0;
+    virtual Pager<QList<Repositories>> search(const QString& q,const QString& sort,const QString& order,int per_page,int page) = 0;
 
     virtual QList<Issues> getIssuesList(const QString& owner,const QString& repo) = 0;
 };

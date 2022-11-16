@@ -10,7 +10,7 @@ class MainThread : public QObject
   Q_OBJECT
 public:
 
-  static void handle(std::function<void()> func);
+  static void post(std::function<void()> func);
   ~MainThread();
 private:
   static std::shared_ptr<MainThread> createShared(QObject* bindObject = nullptr);

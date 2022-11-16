@@ -17,8 +17,15 @@ Item {
         edit_search.inputFocus(visible)
     }
 
+    property string keyword;
+
     SearchController{
         id:controller
+        onShowLoadingChanged: {
+            if(!showLoading){
+                listview_serach.positionViewAtBeginning()
+            }
+        }
     }
 
     Item{
@@ -55,7 +62,9 @@ Item {
                     showErrorToast("请输入搜索关键字！")
                     return
                 }
-                controller.search(q)
+                keyword = q
+                listview_serach.footerItem.resetPage()
+                controller.search(keyword,1,20)
                 layout_list.visible = true
             }
         }
@@ -88,7 +97,9 @@ Item {
                 delegate: CusButton{
                     text: modelData
                     onClicked: {
-                        controller.search(modelData)
+                        keyword = modelData
+                        listview_serach.footerItem.resetPage()
+                        controller.search(keyword,1,20)
                         layout_list.visible = true
                     }
                 }
@@ -112,12 +123,34 @@ Item {
             }
         }
 
+
         ListView{
             id:listview_serach
             anchors.fill: parent
             model: controller.searchListModel
             clip: true
             boundsBehavior: ListView.StopAtBounds
+            footer: Item{
+                width: listview_serach.width
+                height: 50
+
+                Pagination2{
+                    id:pagination
+                    height: 40
+                    anchors.centerIn: parent
+                    anchors{
+                        bottom: parent.bottom
+                    }
+                    textColor:Theme.colorFontSecondary
+                    itemCount: controller.totalCount
+                    onRequestPage: {
+                        controller.search(keyword,page,count)
+                    }
+                }
+                function resetPage(){
+                    pagination.pageCurrent = 1
+                }
+            }
             ScrollBar.vertical: ScrollBar {}
             delegate: ItemLayout{
                 height: childrenRect.height
@@ -184,7 +217,6 @@ Item {
                 }
             }
         }
-
         Rectangle{
             anchors.fill: listview_serach
             visible: controller.showLoading

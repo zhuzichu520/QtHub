@@ -33,7 +33,7 @@ QString RepositoryImpl::accessToken(const QString &id,const QString &secret,cons
     return QString::fromStdString(dto.access_token);
 }
 
-QList<Repositories> RepositoryImpl::search(const QString& q,const QString& sort,const QString& order,int per_page,int page){
+Pager<QList<Repositories>> RepositoryImpl::search(const QString& q,const QString& sort,const QString& order,int per_page,int page){
     const QVariantMap& data = {
         {"q",q},
         {"sort",sort},
@@ -47,7 +47,10 @@ QList<Repositories> RepositoryImpl::search(const QString& q,const QString& sort,
     foreach (auto item, dto.items) {
         list.append(Converter::dto2Repositories(item));
     }
-    return list;
+    Pager<QList<Repositories>> pager;
+    pager.totalCount = dto.total_count;
+    pager.data = list;
+    return pager;
 }
 
 QList<Issues> RepositoryImpl::getIssuesList(const QString& owner,const QString& repo){

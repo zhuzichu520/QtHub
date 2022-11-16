@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <domain/entity/Repositories.h>
+#include <domain/entity/Pager.h>
 #include <QJsonArray>
 #include "BaseService.h"
 
@@ -18,7 +19,7 @@ public:
 
     Repository* repository(){return QInjection::Inject; }
 
-    QList<Repositories> search(const QString& q,const QString& sort="",const QString& order="",int per_page=30,int page=1);
+    Pager<QList<Repositories>> search(const QString& q,const QString& sort="",const QString& order="",int per_page=30,int page=1);
 
     QJsonArray getSearchHistory();
 

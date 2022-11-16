@@ -26,7 +26,7 @@ MainThread::~MainThread()
 {
 }
 
-void MainThread::handle(std::function<void()> func)
+void MainThread::post(std::function<void()> func)
 {
   QMetaObject::invokeMethod(createShared().get(), "mainThreadSlot", Q_ARG(std::function<void()>, func));
 }

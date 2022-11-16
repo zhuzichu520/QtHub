@@ -203,5 +203,8 @@
         <file>layout/WindowFeedback.qml</file>
         <file>component/ItemLayout.qml</file>
         <file>layout/WindowWebView.qml</file>
+        <file>component/PageButton.qml</file>
+        <file>component/Pagination.qml</file>
+        <file>component/Pagination2.qml</file>
     </qresource>
 </RCC>

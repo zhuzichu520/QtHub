@@ -19,6 +19,9 @@ CusWindow {
 
     SearchController{
         id:controller
+        onShowLoadingChanged: {
+            listview_serach.positionViewAtBeginning()
+        }
     }
 
     Component.onCompleted: {

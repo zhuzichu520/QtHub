@@ -57,7 +57,7 @@ Item {
                     return
                 }
                 controller.addHistory(q)
-                navigateRestart(R.WINDOW_SEARCH,{keyword:modelData})
+                navigateRestart(R.WINDOW_SEARCH,{keyword:q})
             }
         }
 

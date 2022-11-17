@@ -14,11 +14,11 @@ MainWindow::MainWindow(char* argv[])
     ApplicationInjector::init();
 
 //    QGuiApplication::setQuitOnLastWindowClosed(true);
-//    QFont font;
-//    font.setFamily("Microsoft YaHei");
-//    QGuiApplication::setFont(font);
-//    QQuickWindow::setTextRenderType(QQuickWindow::NativeTextRendering);
-    QGuiApplication::setWindowIcon(QIcon(":/image/favicon.png"));
+    QFont font;
+    font.setFamily("Microsoft YaHei");
+    QGuiApplication::setFont(font);
+    QQuickWindow::setTextRenderType(QQuickWindow::NativeTextRendering);
+//    QGuiApplication::setWindowIcon(QIcon("qrc:/image/favicon2.ico"));
     QQuickStyle::setStyle("Basic");
 
     CommonTool* commonTool = CommonTool::instance();

@@ -102,7 +102,7 @@ Item {
                             var pos = gridView.mapFromItem(btnIcon, 0, 0);
                             var idx = gridView.indexAt(pos.x, pos.y);
                             if (idx > -1 && idx < gridView.count) {
-                                ToolData.move(d.dragIndex, idx, 1)
+                                ToolModel.move(d.dragIndex, idx, 1)
                                 d.dragIndex = idx;
                             }
 

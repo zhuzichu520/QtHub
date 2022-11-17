@@ -56,8 +56,8 @@ Item {
                     showErrorToast("请输入搜索关键字！")
                     return
                 }
-                controller.addHistory(q)
                 navigateRestart(R.WINDOW_SEARCH,{keyword:q})
+                controller.addHistory(q)
             }
         }
 
@@ -89,8 +89,8 @@ Item {
                 delegate: CusButton{
                     text: modelData
                     onClicked: {
-                        controller.addHistory(modelData)
                         navigateRestart(R.WINDOW_SEARCH,{keyword:modelData})
+                        controller.addHistory(modelData)
                     }
                 }
             }

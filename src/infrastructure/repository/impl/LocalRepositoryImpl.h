@@ -1,4 +1,4 @@
-#ifndef LOCALREPOSITORYIMPL_H
+﻿#ifndef LOCALREPOSITORYIMPL_H
 #define LOCALREPOSITORYIMPL_H
 
 #include <QObject>
@@ -7,6 +7,8 @@
 #include <infrastructure/log/Logger.h>
 #include <infrastructure/tool/CommonTool.h>
 #include <infrastructure/converter/Converter.h>
+#include <infrastructure/po/HistoryPo.h>
+#include <infrastructure/config/AppConfig.h>
 #include <QtNut/Query>
 
 class LocalRepositoryImpl : public LocalRepository

@@ -14,7 +14,7 @@ set(PROJECT_SOURCES
 )
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
-    add_executable(QtHub ${PROJECT_SOURCES})
+    add_executable(QtHub ${PROJECT_SOURCES} ${PROJECT_SOURCE_DIR}/rc/version.rc)
     message(${DEPLOYQT_EXECUTABLE})
     add_custom_command(TARGET ${PROJECT_NAME}
         POST_BUILD

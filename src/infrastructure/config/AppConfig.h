@@ -20,6 +20,8 @@ public:
   Q_INVOKABLE QString getLogDir();
   Q_INVOKABLE QString getImageCacheDir();
   Q_INVOKABLE QString getJsonClassDir();
+  Q_INVOKABLE QString getDatabseDir();
+  Q_INVOKABLE QString getConfigDir();
 
 private:
   QString existsDir(const QString& path);

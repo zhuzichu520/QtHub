@@ -12,7 +12,7 @@ SettingsHelper::SettingsHelper(QObject *parent) : QObject(parent)
 {
     const QFileInfo fileInfo(QCoreApplication::applicationFilePath());
     const QString iniFileName = fileInfo.completeBaseName() + ".ini";
-    const QString iniFilePath = fileInfo.canonicalPath() + QDir::separator() + iniFileName;
+    const QString iniFilePath = AppConfig::instance()->getConfigDir() + QDir::separator() + iniFileName;
     m_settings.reset(new QSettings(iniFilePath, QSettings::IniFormat));
 }
 

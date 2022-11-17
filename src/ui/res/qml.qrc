@@ -184,7 +184,6 @@
         <file>emoji/138.png</file>
         <file>emoji/139.png</file>
         <file>component/Toast.qml</file>
-        <file>image/favicon.png</file>
         <file>image/ic_login_logo.png</file>
         <file>component/CusLoading.qml</file>
         <file>layout/WindowSettings.qml</file>
@@ -208,5 +207,6 @@
         <file>layout/WindowSearch.qml</file>
         <file>js/Router.js</file>
         <file>component/TextSelection.qml</file>
+        <file>image/favicon.ico</file>
     </qresource>
 </RCC>

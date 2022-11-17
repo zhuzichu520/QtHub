@@ -87,8 +87,9 @@ CusWindow {
                 }
                 ScrollBar.vertical: ScrollBar {}
                 delegate: ItemLayout{
-                    height: childrenRect.height
+                    height: layout_item.height
                     width:listview_serach.width
+                    color:"#00000000"
                     onClicked: {
                         navigate(R.WINDOW_WEBVIEW,{url:"https://github.com/%1/%2".arg(model.login).arg(model.name)})
                     }
@@ -104,6 +105,7 @@ CusWindow {
                         color: Theme.colorDivider
                     }
                     ColumnLayout {
+                        id:layout_item
                         anchors{
                             left: parent.left
                             right: parent.right
@@ -111,16 +113,16 @@ CusWindow {
                             rightMargin: 60
                         }
                         TextSelection{
-                            text: qsTr(model.fullName)
+                            text:qsTr(model.fullName)
                             color:"#0969dc"
                             font.pixelSize: 15
-                            width: Math.min(implicitWidth,parent.width)
+                            width: layout_item.width
                             Layout.topMargin: 20
                         }
                         TextSelection{
-                            text: qsTr(model.description)
+                            text:qsTr(model.description)
                             color:Theme.colorFontSecondary
-                            width: Math.min(implicitWidth,parent.width)
+                            width: layout_item.width
                             visible: model.description !== ""
                         }
                         RowLayout{

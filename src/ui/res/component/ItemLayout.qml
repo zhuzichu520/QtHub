@@ -20,6 +20,7 @@ Rectangle {
         id:item_mouse
         hoverEnabled: true
         anchors.fill: parent
+        cursorShape: Qt.PointingHandCursor
         onClicked:root.clicked()
     }
 

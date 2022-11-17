@@ -6,6 +6,7 @@
 #include <QScopedPointer>
 #include <QFileInfo>
 #include <QCoreApplication>
+#include <infrastructure/config/AppConfig.h>
 #include <QDir>
 
 class SettingsHelper : public QObject

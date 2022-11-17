@@ -11,7 +11,7 @@ class Assembler {
 public:
     static RepositoriesVo* repositories2Vo(const Repositories& val, RepositoriesVo* vo) {
         vo->fullName(val.getStyleName());
-        vo->description(CommonTool::instance()->maxString(val.description,150)+"...");
+        vo->description(CommonTool::instance()->maxString(val.description,150));
         vo->language(val.language);
         vo->license(val.license);
         vo->updatedAt(val.updated_at);

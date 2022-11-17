@@ -1,4 +1,3 @@
 ﻿singleton AppStorage 1.0 AppStorage.qml
 singleton Theme 1.0 Theme.qml
-singleton Router 1.0 Router.qml
-singleton ToolData 1.0 ToolData.qml
+singleton ToolModel 1.0 ToolModel.qml

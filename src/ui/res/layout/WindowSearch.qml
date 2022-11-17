@@ -2,32 +2,27 @@
 import QtQuick.Controls
 import QtQuick.Window
 import QtQuick.Layouts
+import "../js/Router.js" as R
 import Controller
 import "../component"
 import "../storage"
 
 CusWindow {
     id:window
-    width: 560
-    height: 740
-    minimumWidth: 560
-    minimumHeight: 740
+    width: 450
+    height: 640
+    minimumWidth: 450
+    minimumHeight: 640
     title: "搜索"
 
     property string keyword
 
     SearchController{
         id:controller
-        onShowLoadingChanged: {
-            if(!showLoading){
-                listview_serach.positionViewAtBeginning()
-            }
-        }
     }
 
     Component.onCompleted: {
-        console.debug("------>"+keyword)
-       controller.search(keyword,1,20)
+        controller.search(keyword,1,20)
     }
 
     page: CusPage{
@@ -76,6 +71,7 @@ CusWindow {
                         anchors{
                             bottom: parent.bottom
                         }
+                        pageCurrent: 1
                         textColor:Theme.colorFontSecondary
                         itemCount: controller.totalCount
                         onRequestPage: {
@@ -91,7 +87,7 @@ CusWindow {
                     height: childrenRect.height
                     width:listview_serach.width
                     onClicked: {
-                        navigate(Router.window_webview,{url:"https://github.com/%1/%2".arg(model.login).arg(model.name)})
+                        navigate(R.WINDOW_WEBVIEW,{url:"https://github.com/%1/%2".arg(model.login).arg(model.name)})
                     }
                     Rectangle{
                         height: 1
@@ -111,29 +107,21 @@ CusWindow {
                             leftMargin: 60
                             rightMargin: 60
                         }
-                        Row{
-
+                        TextSelection{
+                            text: qsTr(model.fullName)
+                            color:"#0969dc"
+                            font.pixelSize: 15
+                            width: Math.min(implicitWidth,parent.width)
                             Layout.topMargin: 20
-                            Text{
-                                text: qsTr(model.login+"/")
-                                color:"#0969dc"
-                                font.pixelSize: 15
-                            }
-                            Text{
-                                text: qsTr(model.name)
-                                color:"#0969dc"
-                                font.pixelSize: 15
-                                font.bold: true
-                            }
                         }
-                        Text{
+                        TextSelection{
                             text: qsTr(model.description)
                             color:Theme.colorFontSecondary
-                            Layout.fillWidth: true
-                            wrapMode: Text.WrapAnywhere
-                            visible: text !== ""
+                            width: Math.min(implicitWidth,parent.width)
+                            visible: model.description !== ""
                         }
                         RowLayout{
+                            Layout.leftMargin: 3
                             visible: model.language !== ""
                             Rectangle{
                                 width: 12

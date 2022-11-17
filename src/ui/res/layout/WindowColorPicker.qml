@@ -17,12 +17,7 @@ CusWindow {
     maximumHeight: 260
     title:"颜色选择器"
 
-    onWindowResult:
-        (requestCode,resultCode,data)=> {
-            if(resultCode === 2){
-                colorPicker.finderColor = data
-            }
-        }
+    property var onColorFunc
 
     page: CusPage{
 
@@ -74,16 +69,13 @@ CusWindow {
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
                     onClicked: {
-                        if(requestCode === 2){
-                            AppStorage.colorPrimary = colorPicker.colorValue
-                        }else{
-
+                        if(onColorFunc){
+                            onColorFunc(colorPicker.colorValue)
                         }
                         window.close()
                     }
                 }
             }
         }
-
     }
 }

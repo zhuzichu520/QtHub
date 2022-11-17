@@ -85,6 +85,15 @@ int UiHelper::getWH(bool isWidth, int width, int height, int ref)
     }
 }
 
+QString UiHelper::uuid(){
+    QUuid id = QUuid::createUuid();
+    QString strId = id.toString();
+    qDebug() << strId;
+    //输出结果："{b5eddbaf-984f-418e-88eb-cf0b8ff3e775}"
+    strId.remove("{").remove("}").remove("-");
+    return strId;
+}
+
 // 获取当前屏幕索引
 int UiHelper::getScreenIndex()
 {

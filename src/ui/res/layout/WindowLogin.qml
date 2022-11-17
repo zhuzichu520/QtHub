@@ -3,6 +3,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Window 2.15
 import Qt.labs.platform 1.1
 import Controller 1.0
+import "../js/Router.js" as R
 import "../component"
 import "../storage"
 
@@ -35,7 +36,7 @@ CusWindow {
                 break;
             case 4:
                 finish()
-                navigate(Router.window_main)
+                navigate(R.WINDOW_MAIN)
                 loginStatus = 1
                 break;
             default:

@@ -13,11 +13,11 @@ MainWindow::MainWindow(char* argv[])
     // 依赖注入
     ApplicationInjector::init();
 
-    //        QGuiApplication::setQuitOnLastWindowClosed(true);
-    QFont font;
-    font.setFamily("Microsoft YaHei");
-    QGuiApplication::setFont(font);
-    QQuickWindow::setTextRenderType(QQuickWindow::NativeTextRendering);
+//    QGuiApplication::setQuitOnLastWindowClosed(true);
+//    QFont font;
+//    font.setFamily("Microsoft YaHei");
+//    QGuiApplication::setFont(font);
+//    QQuickWindow::setTextRenderType(QQuickWindow::NativeTextRendering);
     QGuiApplication::setWindowIcon(QIcon(":/image/favicon.png"));
     QQuickStyle::setStyle("Basic");
 

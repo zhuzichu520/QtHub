@@ -12,11 +12,8 @@ import "../view"
 ApplicationWindow {
     id:window
 
-    property var router
+    property var winId
     property alias page: container.children
-    property int requestCode
-    property var prevWindow
-    signal windowResult(int requestCode,int resultCode,var data)
     property bool closeDestory: true
     property int titleBarHeight: 30
     property bool isCenter:true
@@ -45,14 +42,14 @@ ApplicationWindow {
             y = (Screen.height-height)/2
         }
         createView()
-        if(router !== undefined){
-            R.addWindow(router,window)
+        if(winId !== undefined){
+            R.addWindow(winId,window)
         }
     }
 
     Component.onDestruction: {
-        if(router !== undefined){
-            R.removeWindow(router)
+        if(winId !== undefined){
+            R.removeWindow(winId)
         }
     }
 
@@ -151,63 +148,39 @@ ApplicationWindow {
         layoutLoading.visible = false
     }
 
-    function navigate(router){
-        var win = R.obtWindow(router)
-        if(win !== null){
-            win.show()
-            win.raise()
-            win.requestActivate()
-            return
-        }
-        var comp = app.createComponent(router)
-        if (comp.status !== Component.Ready){
-            console.error("组件创建错误："+router)
-            return
-        }
-        var options = {router:router}
-        comp.createObject(null,options)
+    function navigateMulti(path,arg={},isChild=false){
+        navigate(path,arg,isChild,0);
     }
 
-    //    function navigate(url,param={},attach=false,requestCode = 0){
-    //        if (url.indexOf('?') < 0){
-    //            url = Router.toUrl(url,attach,param)
-    //        }
-    //        var obj = Router.parseUrl(url)
-    //        var path = obj.path;
-    //        var isAttach = obj.isAttach.bool();
-    //        var options = JSON.parse(obj.options)
-    //        var data = Router.obtRouter(path)
-    //        if(data === null){
-    //            console.error("没有注册当前路由："+path)
-    //            return
-    //        }
-    //        var win = Router.obtWindow(url)
-    //        console.debug("------------>"+data.onlyOne)
-    //        if(win !== null && data.onlyOne){
-    //            win.show()
-    //            win.raise()
-    //            win.requestActivate()
-    //            return
-    //        }
-    //        options.requestCode = requestCode
-    //        options.prevWindow = window
-    //        var comp = app.createWindow(data.path)
-    //        if (comp.status !== Component.Ready){
-    //            console.error("组件创建错误："+path)
-    //            return
-    //        }
-    //        data.url = url
-    //        options.router = data
+    function navigateRestart(path,arg={},isChild=false){
+        navigate(path,arg,isChild,2);
+    }
 
-    //        if(!isAttach){
-    //            win =comp.createObject(null,options)
-    //        }else{
-    //            win = comp.createObject(window,options)
-    //        }
-    //    }
-
-    function setResult(resultCode,data){
-        prevWindow.windowResult(requestCode,resultCode,data)
+    function navigate(path,arg={},isChild=false,mode = 1){
+        var win = R.obtWindow(path)
+        if(win !== null){
+            if(mode === 1){
+                win.show()
+                win.raise()
+                win.requestActivate()
+                return
+            }
+            if(mode === 2){
+                win.close()
+            }
+        }
+        var comp = app.createComponent(path)
+        if (comp.status !== Component.Ready){
+            console.error("组件创建错误："+path)
+            return
+        }
+        var options = {winId:path+"_"+uiHelper.uuid()}
+        Object.assign(options,arg)
+        if(isChild){
+            comp.createObject(window,options)
+        }else{
+            comp.createObject(null,options)
+        }
     }
 
     function getToolBarHeight(){
@@ -216,11 +189,6 @@ ApplicationWindow {
 
     function finish(){
         window.close()
-    }
-
-    function updateWindow(){
-        width =- 1
-        width =+ 1
     }
 
 }

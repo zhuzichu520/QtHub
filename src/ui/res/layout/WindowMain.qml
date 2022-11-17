@@ -7,6 +7,7 @@ import Controller 1.0
 import "../component"
 import "../storage"
 import "../global/global.js" as Global
+import "../js/Router.js" as R
 import UI 1.0
 
 CusWindow {
@@ -30,7 +31,7 @@ CusWindow {
     Component.onCompleted: {
         if(!userHelper.isLogin()){
             visible = false
-            navigate(Router.window_login)
+            navigate(R.WINDOW_LOGIN)
         }
     }
 
@@ -75,7 +76,7 @@ CusWindow {
             avatar: userHelper.avatar
             onClickAvatar:{
                 if(!userHelper.isLogin()){
-                    navigate(Router.window_login)
+                    navigate(R.WINDOW_LOGIN)
                     return
                 }
                 showToast(userHelper.token)
@@ -176,13 +177,13 @@ CusWindow {
         CusMenuItem{
             text:"意见反馈"
             onClicked: {
-                navigate(Router.window_feedback)
+                navigate(R.WINDOW_FEEDBACK)
             }
         }
         CusMenuItem{
             text:"设置"
             onClicked: {
-                navigate(Router.window_settings)
+                navigate(R.WINDOW_SETTINGS)
             }
         }
     }

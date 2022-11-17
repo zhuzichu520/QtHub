@@ -10,11 +10,11 @@ using namespace QInjection;
 class ApplicationInjector
 {
 public:
-  static void init()
-  {
-    ServiceInjector::init();
-    RepositoryInjector::init();
-  }
+    static void init()
+    {
+        ServiceInjector::init();
+        RepositoryInjector::init();
+    }
 };
 
 #endif  // APPLICATIONINJECTOR_H

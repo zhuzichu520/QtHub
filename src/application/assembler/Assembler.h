@@ -1,19 +1,17 @@
 ﻿#pragma once
 
-#ifndef ASSEMBLER_H
-#    define ASSEMBLER_H
-
-#    include <application/vo/FeedbackVo.h>
-#    include <application/vo/RepositoriesVo.h>
-#    include <domain/entity/Issues.h>
-#    include <domain/entity/Repositories.h>
-#    include <infrastructure/helper/UserHelper.h>
+#include <application/vo/FeedbackVo.h>
+#include <application/vo/RepositoriesVo.h>
+#include <domain/entity/Issues.h>
+#include <domain/entity/Repositories.h>
+#include <infrastructure/helper/UserHelper.h>
+#include <infrastructure/tool/CommonTool.h>
 
 class Assembler {
-  public:
+public:
     static RepositoriesVo* repositories2Vo(const Repositories& val, RepositoriesVo* vo) {
         vo->fullName(val.getStyleName());
-        vo->description(val.description);
+        vo->description(CommonTool::instance()->maxString(val.description,150)+"...");
         vo->language(val.language);
         vo->license(val.license);
         vo->updatedAt(val.updated_at);
@@ -31,5 +29,3 @@ class Assembler {
         return vo;
     }
 };
-
-#endif  // Assembler_H

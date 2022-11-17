@@ -3,9 +3,8 @@
         <file>font/iconfont.ttf</file>
         <file>global/global.js</file>
         <file>storage/AppStorage.qml</file>
-        <file>storage/ToolData.qml</file>
+        <file>storage/ToolModel.qml</file>
         <file>storage/qmldir</file>
-        <file>storage/Router.qml</file>
         <file>storage/Theme.qml</file>
         <file>third/colorpicker/Checkerboard.qml</file>
         <file>third/colorpicker/ColorPicker.qml</file>
@@ -208,5 +207,6 @@
         <file>component/Pagination2.qml</file>
         <file>layout/WindowSearch.qml</file>
         <file>js/Router.js</file>
+        <file>component/TextSelection.qml</file>
     </qresource>
 </RCC>

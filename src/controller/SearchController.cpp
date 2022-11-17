@@ -6,6 +6,10 @@ SearchController::SearchController(QObject* parent) : BaseController{parent} {
     loadHistoryList();
 }
 
+SearchController::~SearchController(){
+    releaseSearch();
+}
+
 void SearchController::loadHistoryList() {
     subscription.add(rxs::create<QJsonArray>([this](subscriber<QJsonArray> subscriber) {
                          auto data = repositoriesService()->getSearchHistory();
@@ -40,7 +44,6 @@ void SearchController::addHistory(const QString& keyword) {
 
 void SearchController::search(const QString& keyword, int page, int pageCount) {
     releaseSearch();
-    addHistory(keyword);
     showLoading(true);
     subscriptionSearch = rxs::create<Pager<QList<Repositories>>>(
                              [this, keyword, page, pageCount](subscriber<Pager<QList<Repositories>>> subscriber) {

@@ -27,6 +27,8 @@ public:
     Q_INVOKABLE QString sha512(const QString&);
     Q_INVOKABLE qint64 currentTimeMillis();
 
+    Q_INVOKABLE QString maxString(const QString&,int max);
+
     Q_INVOKABLE QJsonObject string2JsonObject(const std::string&);
     Q_INVOKABLE void jsonNonNull(QString& val);
 };

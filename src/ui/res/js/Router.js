@@ -1,5 +1,9 @@
 ﻿.pragma library
 
+const RouteTable = []
+const Windows = {}
+var App
+
 const WINDOW_LOGIN = "qrc:/layout/WindowLogin.qml"
 const WINDOW_MAIN = "qrc:/layout/WindowMain.qml"
 const WINDOW_COLORPICKER = "qrc:/layout/WindowColorPicker.qml"
@@ -9,11 +13,6 @@ const WINDOW_FEEDBACK = "qrc:/layout/WindowFeedback.qml"
 const WINDOW_WEBVIEW = "qrc:/layout/WindowWebView.qml"
 const WINDOW_SEARCH = "qrc:/layout/WindowSearch.qml"
 
-const RouteTable = []
-
-const Windows = {}
-
-var App
 
 function init(app) {
     App = app
@@ -27,18 +26,24 @@ function init(app) {
     RouteTable.push(WINDOW_SEARCH)
 }
 
-function addWindow(router,window){
-    Windows[router] = window
+function addWindow(winId,window){
+    Windows[winId] = window
 }
 
-function removeWindow(router){
-    delete Windows[router]
+function removeWindow(winId){
+    delete Windows[winId]
 }
 
-function obtWindow(router){
+function closeAllWindow(){
     for(var key in Windows){
-        if (key === router) {
-            return Windows[url]
+        Windows[key].close()
+    }
+}
+
+function obtWindow(path){
+    for(var key in Windows){
+        if (key.startsWith(path)) {
+            return Windows[key]
         }
     }
     return null

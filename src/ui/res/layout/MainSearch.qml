@@ -4,6 +4,7 @@ import QtQuick.Window
 import QtQuick.Layouts
 import QtQuick.Controls.Material as M
 import Controller
+import "../js/Router.js" as R
 import "../storage"
 import "../component"
 import "../view"
@@ -55,7 +56,8 @@ Item {
                     showErrorToast("请输入搜索关键字！")
                     return
                 }
-                navigate(Router.window_search,{keyword:q})
+                controller.addHistory(q)
+                navigateRestart(R.WINDOW_SEARCH,{keyword:modelData})
             }
         }
 
@@ -87,14 +89,11 @@ Item {
                 delegate: CusButton{
                     text: modelData
                     onClicked: {
-                        navigate(Router.window_search,{keyword:modelData})
+                        controller.addHistory(modelData)
+                        navigateRestart(R.WINDOW_SEARCH,{keyword:modelData})
                     }
                 }
             }
         }
-
     }
-
-
-
 }

@@ -31,7 +31,7 @@ Item {
             NumberAnimation { properties: "x"; duration: 300; easing.type: Easing.OutCubic}
             NumberAnimation { properties: "y"; duration: 100;  easing.type: Easing.OutCubic }
         }
-        model: ToolData
+        model: ToolModel
         delegate: Item {
             width: d.cellWidth
             height: d.cellHeight

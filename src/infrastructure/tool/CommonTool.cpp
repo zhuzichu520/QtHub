@@ -13,6 +13,13 @@ CommonTool::CommonTool(QObject* parent) : QObject{ parent }
 {
 }
 
+QString CommonTool::maxString(const QString& text,int max){
+    if(text.length()>max){
+        return text.mid(0,max);
+    }
+    return text;
+}
+
 bool CommonTool::isJson(const QString& val)
 {
     QJsonParseError err;

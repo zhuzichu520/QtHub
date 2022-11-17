@@ -2,6 +2,7 @@
 import QtQuick.Controls
 import QtQuick.Window
 import QtQuick.Layouts
+import "../js/Router.js" as R
 import "../component"
 import "../storage"
 
@@ -212,7 +213,9 @@ CusWindow {
                             cursorShape: Qt.PointingHandCursor
                             anchors.fill: parent
                             onClicked: {
-                                navigate(Router.window_colorpicker,{},false,2)
+                                navigate(R.WINDOW_COLORPICKER,{onColorFunc:function(color){
+                                    AppStorage.colorPrimary = color
+                                }})
                             }
                         }
                     }
@@ -267,8 +270,8 @@ CusWindow {
         message: "确定退出登录？"
         onClickLeft: {
             userHelper.logout()
-            Router.closeAllWindow()
-            navigate(Router.window_login)
+            R.closeAllWindow()
+            navigate(R.WINDOW_LOGIN)
         }
     }
 

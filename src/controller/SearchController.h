@@ -19,6 +19,8 @@ class SearchController : public BaseController
 public:
     explicit SearchController(QObject *parent = nullptr);
 
+    ~SearchController();
+
     RepositoriesService* repositoriesService()  { return QInjection::Inject;}
 
     Q_INVOKABLE void search(const QString&,int page,int pageCount);

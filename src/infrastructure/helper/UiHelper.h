@@ -28,6 +28,8 @@ public:
     Q_INVOKABLE QString getLanguageColor(const QString& name);
 
     Q_INVOKABLE int getWH(bool isWidth, int width, int height, int ref = 200);
+
+    Q_INVOKABLE QString uuid();
 private:
     QJsonObject languageColor;
     QString unkownColor = "#aaaaaa";

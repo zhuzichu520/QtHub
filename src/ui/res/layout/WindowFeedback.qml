@@ -37,6 +37,7 @@ CusWindow {
             }
             clip: true
             boundsBehavior: ListView.StopAtBounds
+            ScrollBar.vertical: ScrollBar {}
             footer: Item {
                 height: 20
             }

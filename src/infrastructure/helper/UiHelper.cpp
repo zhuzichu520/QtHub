@@ -94,6 +94,14 @@ QString UiHelper::uuid(){
     return strId;
 }
 
+void UiHelper::checkUpdate(){
+    QString path = QCoreApplication::applicationDirPath()+QDir::separator()+"maintenancetool.exe";
+    bool isSuccess = QProcess::startDetached(path,QStringList());
+    if(!isSuccess){
+        LOGI(QString::fromStdString("打开maintenancetool.exe失败:%1").arg(QCoreApplication::applicationVersion()).toStdString());
+    }
+}
+
 // 获取当前屏幕索引
 int UiHelper::getScreenIndex()
 {

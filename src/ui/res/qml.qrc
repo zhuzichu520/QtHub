@@ -208,5 +208,6 @@
         <file>js/Router.js</file>
         <file>component/TextSelection.qml</file>
         <file>image/favicon.ico</file>
+        <file>layout/WindowAbout.qml</file>
     </qresource>
 </RCC>

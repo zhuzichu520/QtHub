@@ -12,6 +12,7 @@ const WINDOW_JSONFORMAT = "qrc:/layout/WindowJsonFormat.qml"
 const WINDOW_FEEDBACK = "qrc:/layout/WindowFeedback.qml"
 const WINDOW_WEBVIEW = "qrc:/layout/WindowWebView.qml"
 const WINDOW_SEARCH = "qrc:/layout/WindowSearch.qml"
+const WINDOW_ABOUT = "qrc:/layout/WindowAbout.qml"
 
 
 function init(app) {
@@ -24,6 +25,7 @@ function init(app) {
     RouteTable.push(WINDOW_FEEDBACK)
     RouteTable.push(WINDOW_WEBVIEW)
     RouteTable.push(WINDOW_SEARCH)
+    RouteTable.push(WINDOW_ABOUT)
 }
 
 function addWindow(winId,window){

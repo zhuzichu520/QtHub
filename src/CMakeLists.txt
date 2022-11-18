@@ -13,6 +13,8 @@ set(PROJECT_SOURCES
     ui/res/qml.qrc
 )
 
+add_definitions(-DVERSION=1,0,0,4)
+
 if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
     add_executable(QtHub ${PROJECT_SOURCES} ${PROJECT_SOURCE_DIR}/rc/version.rc)
     message(${DEPLOYQT_EXECUTABLE})

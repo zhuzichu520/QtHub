@@ -2,6 +2,7 @@
 import QtQuick.Controls
 import QtQuick.Window
 import QtQuick.Layouts
+import QtQml
 import "../js/Router.js" as R
 import "../component"
 import "../storage"
@@ -262,6 +263,64 @@ CusWindow {
         id:comp_about
         Item{
             anchors.fill: parent
+            ColumnLayout{
+                anchors{
+                    top: parent.top
+                    left: parent.left
+                    topMargin: 24
+                    leftMargin: 24
+                }
+
+                RowLayout{
+
+                    Text{
+                        font.pixelSize: 12
+                        text:"版本信息"
+                        color:Theme.colorFontPrimary
+                    }
+
+                    Column{
+                        Text{
+                            font.pixelSize: 12
+                            text:"Qthub "+Qt.application.version
+                            color:Theme.colorFontPrimary
+                        }
+                        CusButton{
+                            text: "检查更新"
+                            onClicked: {
+                                uiHelper.checkUpdate()
+                            }
+                        }
+                    }
+
+
+                }
+
+
+
+                RowLayout{
+
+                    Text{
+                        font.pixelSize: 12
+                        text:"个人博客"
+                        color:Theme.colorFontPrimary
+                    }
+
+                    Text{
+                        text: "zhuzichu520.github.io"
+                        color:Theme.colorPrimary
+                        font.underline: true
+                        MouseArea{
+                            cursorShape: Qt.PointingHandCursor
+                            anchors.fill: parent
+                            onClicked: {
+                                Qt.openUrlExternally("https://zhuzichu520.github.io")
+                            }
+                        }
+                    }
+                }
+
+            }
         }
     }
 

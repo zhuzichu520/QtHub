@@ -9,7 +9,10 @@
 #include <QJsonObject>
 #include <QGuiApplication>
 #include <infrastructure/stdafx.h>
+#include <QDir>
+#include <infrastructure/log/Logger.h>
 #include <infrastructure/tool/CommonTool.h>
+#include <QProcess>
 #include <QFile>
 
 class UiHelper : public QObject
@@ -30,6 +33,8 @@ public:
     Q_INVOKABLE int getWH(bool isWidth, int width, int height, int ref = 200);
 
     Q_INVOKABLE QString uuid();
+
+    Q_INVOKABLE void checkUpdate();
 private:
     QJsonObject languageColor;
     QString unkownColor = "#aaaaaa";

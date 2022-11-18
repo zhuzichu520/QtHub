@@ -19,9 +19,6 @@ CusWindow {
 
     SearchController{
         id:controller
-        onShowLoadingChanged: {
-            listview_serach.positionViewAtBeginning()
-        }
     }
 
     Component.onCompleted: {
@@ -63,6 +60,7 @@ CusWindow {
                 model: controller.searchListModel
                 clip: true
                 boundsBehavior: ListView.StopAtBounds
+                ScrollBar.vertical: ScrollBar {}
                 footer: Item{
                     width: listview_serach.width
                     height: 50
@@ -85,7 +83,6 @@ CusWindow {
                         pagination.pageCurrent = 1
                     }
                 }
-                ScrollBar.vertical: ScrollBar {}
                 delegate: ItemLayout{
                     height: layout_item.height
                     width:listview_serach.width

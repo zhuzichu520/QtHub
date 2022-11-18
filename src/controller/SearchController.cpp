@@ -61,7 +61,7 @@ void SearchController::search(const QString& keyword, int page, int pageCount) {
                                          data.append(Assembler::repositories2Vo(item, new RepositoriesVo(this)));
                                      }
                                      totalCount(pager.totalCount);
-                                     searchListModel()->clear();
+                                     searchListModel(new RepositoriesListVo(this));
                                      searchListModel()->append(data);
                                      showLoading(false);
                                  },

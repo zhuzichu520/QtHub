@@ -2,9 +2,14 @@
 
 IDI_ICON1 ICON "favicon.ico"
 
+#define STR(x) #x
+#define VER_JOIN(a,b,c,d) STR(a.b.c.d)
+#define VER_JOIN_(x) VER_JOIN x
+#define VER_STR VER_JOIN_((VERSION))
+
 VS_VERSION_INFO VERSIONINFO
-FILEVERSION     1,0,0,0
-PRODUCTVERSION  1,0,0,0
+FILEVERSION     VERSION
+PRODUCTVERSION  VERSION
 FILEFLAGSMASK   0x3fL
 #ifdef _DEBUG
 FILEFLAGS       VS_FF_DEBUG
@@ -22,12 +27,12 @@ BEGIN
             VALUE "Comments",         "Built by the Qt Toolkit."
             VALUE "CompanyName",      "zhuzichu"
             VALUE "FileDescription",  "QtHub"
-            VALUE "FileVersion",      "1.0.0.0"
+            VALUE "FileVersion",      VER_STR
             VALUE "InternalName",     ""
             VALUE "LegalCopyright",   "Copyright (C) 2022"
             VALUE "OriginalFilename", ""
             VALUE "ProductName",      "QtHub"
-            VALUE "ProductVersion",   "1.0.0.0"
+            VALUE "ProductVersion",   VER_STR
         END
     END
     BLOCK "VarFileInfo"

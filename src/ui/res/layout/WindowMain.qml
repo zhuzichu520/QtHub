@@ -41,18 +41,18 @@ CusWindow {
         ListModel{
             id:sliderModel
             ListElement{
-                name:"首页"
-                icon:"\ue68d"
-                fontSize:14
-                iconSize:20
-                url:"qrc:/layout/MainSession.qml"
-            }
-            ListElement{
                 name:"搜索"
                 icon:"\ue608"
                 fontSize:14
                 iconSize:20
                 url:"qrc:/layout/MainContact.qml"
+            }
+            ListElement{
+                name:"首页"
+                icon:"\ue68d"
+                fontSize:14
+                iconSize:20
+                url:"qrc:/layout/MainSession.qml"
             }
             ListElement{
                 name:"工具箱"
@@ -103,11 +103,11 @@ CusWindow {
                 right:parent.right
             }
             currentIndex: slider.getIndex()
-            MainHome{
-                id:page_home
-            }
             MainSearch{
                 id:page_search
+            }
+            MainHome{
+                id:page_home
             }
             MainTool{
                 id:page_tool

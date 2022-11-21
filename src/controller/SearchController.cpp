@@ -64,6 +64,7 @@ void SearchController::search(const QString& keyword, int page, int pageCount) {
                                      showLoading(false);
                                  },
                                  [this](const rxu::error_ptr& error) {
+                                     searchListModel(new RepositoriesListVo(this));
                                      showLoading(false);
                                      handleError(error, [](const BizException& e) {
 

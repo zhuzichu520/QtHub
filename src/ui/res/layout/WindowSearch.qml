@@ -64,7 +64,6 @@ CusWindow {
                 footer: Item{
                     width: listview_serach.width
                     height: 50
-
                     Pagination2{
                         id:pagination
                         height: 40
@@ -86,9 +85,9 @@ CusWindow {
                 delegate: ItemLayout{
                     height: layout_item.height
                     width:listview_serach.width
-                    color:"#00000000"
+                    color:Theme.colorBackground1
                     onClicked: {
-                        navigate(R.WINDOW_WEBVIEW,{url:"https://github.com/%1/%2".arg(model.login).arg(model.name)})
+                        navigate(R.WINDOW_REPOSITORIES_DETAIL,{login:model.login,name:model.name})
                     }
                     Rectangle{
                         height: 1

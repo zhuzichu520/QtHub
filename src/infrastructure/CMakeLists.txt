@@ -30,6 +30,7 @@
     dto/UserDto.h
     dto/OwnerDto.h
     dto/ReactionsDto.h
+    dto/ReadmeDto.h
     dto/IssuesDto.h
     dto/RepositoriesDto.h
     dto/SearchRepositoriesDto.h

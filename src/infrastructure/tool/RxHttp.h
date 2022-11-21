@@ -20,6 +20,9 @@ class RxHttp {
     static QString post(const QString& url, const QVariantMap& data = {}) {
         return handle(QNetworkAccessManager::PostOperation, url, data);
     }
+    static QString postJson(const QString& url, const QVariantMap& data = {}) {
+        return handle(QNetworkAccessManager::PostOperation, url, data, true);
+    }
 
     static void download(const QString& url, const QString& filePath, const std::function<void(QByteArray)>& onSuccess,
                          const std::function<void(qint64, qint64)>& onDownloadProgress,
@@ -35,7 +38,7 @@ class RxHttp {
 
   private:
     static QString handle(const QNetworkAccessManager::Operation& operation, const QString& url,
-                          const QVariantMap& data) {
+                          const QVariantMap& data, const bool isJson = false) {
         qDebug() << "【HTTP】请求地址->" << url;
         qDebug() << "【HTTP】请求参数->" << data;
         HttpClient client;
@@ -45,7 +48,14 @@ class RxHttp {
         if (operation == QNetworkAccessManager::GetOperation) {
             reply = client.get(url).headers(headers()).queryParams(data).timeout(timeout()).block().exec()->reply();
         } else if (operation == QNetworkAccessManager::PostOperation) {
-            reply = client.post(url).headers(headers()).body(data).timeout(timeout()).block().exec()->reply();
+            if (isJson) {
+                QJsonObject obj =
+                    QJsonObject(QJsonDocument::fromJson(QJsonDocument::fromVariant(QVariant(data)).toJson()).object());
+                reply =
+                    client.post(url).headers(headers()).bodyWithJson(obj).timeout(timeout()).block().exec()->reply();
+            } else {
+                reply = client.post(url).headers(headers()).body(data).timeout(timeout()).block().exec()->reply();
+            }
         } else {
             throw BizException("QNetworkAccessManager::Operation 没有定义");
         }

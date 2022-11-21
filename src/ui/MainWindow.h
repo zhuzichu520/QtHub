@@ -14,6 +14,7 @@
 #include <controller/LoginController.h>
 #include <controller/MainController.h>
 #include <controller/SearchController.h>
+#include <controller/RepositoriesController.h>
 #include <controller/FeedbackController.h>
 #include <application/di/ApplicationInjector.h>
 #include <infrastructure/helper/UiHelper.h>

@@ -26,6 +26,30 @@ public:
   ~LoginController();
 private:
   QHttpServer server;
+  std::string htmlError = R"(<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>QtHub</title>
+</head>
+<body>
+    <h1>QtHub授权</h1>
+    <p>网络异常，请刷新页面，重新授权。</p>
+</body>
+</html>
+)";
+  std::string htmlSuccess = R"(<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>QtHub</title>
+</head>
+<body>
+    <h1>QtHub授权</h1>
+    <p>授权成功，欢迎使用QtHub。</p>
+</body>
+</html>
+)";
 };
 
 #endif  // LOGINCONTROLLER_H

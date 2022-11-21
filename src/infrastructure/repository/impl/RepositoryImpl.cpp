@@ -68,3 +68,22 @@ User RepositoryImpl::user(){
     handleResult(RxHttp::get(api("/user")),dto);
     return Converter::dto2User(dto);
 }
+
+QString RepositoryImpl::getReadme(const QString& login,const QString& name){
+    return RxHttp::get(html(QString::fromStdString("/%1/%2").arg(login,name)));
+}
+
+QString RepositoryImpl::getReadme2(const QString& login,const QString& name){
+    ReadmeDto dto;
+    handleResult(RxHttp::get(api(QString::fromStdString("/repos/%1/%2/readme").arg(login,name))),dto);
+    QString readme = CommonTool::instance()->fromBase64(QString::fromStdString(dto.content));
+    return readme2Html(readme);
+}
+
+QString RepositoryImpl::readme2Html(const QString& text){
+    const QVariantMap& data = {
+        {"text",text}
+    };
+    QString html = RxHttp::postJson(api(QString::fromStdString("/markdown")),data);
+    return html;
+}

@@ -17,3 +17,19 @@ QJsonArray RepositoriesService::getSearchHistory(){
     }
     return arr;
 }
+
+QString RepositoriesService::getReadme(const QString& login,const QString& name){
+    QString html = repository()->getReadme(login,name);
+    QRegularExpression rx(QString::fromStdString(R"(<readme-toc>([\s\S]*)</readme-toc>)"));
+    QRegularExpressionMatch match = rx.match(html);
+    if (match.hasMatch())
+    {
+        QString readme = match.captured(1);
+        return readme;
+    }
+    return "该仓库还没有README.md文件";
+}
+
+QString RepositoriesService::getReadme2(const QString& login,const QString& name){
+    return repository()->getReadme2(login,name);
+}

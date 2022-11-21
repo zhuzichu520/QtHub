@@ -13,12 +13,12 @@ MainWindow::MainWindow(char* argv[])
     // 依赖注入
     ApplicationInjector::init();
 
-//    QGuiApplication::setQuitOnLastWindowClosed(true);
+    //    QGuiApplication::setQuitOnLastWindowClosed(true);
     QFont font;
     font.setFamily("Microsoft YaHei");
     QGuiApplication::setFont(font);
     QQuickWindow::setTextRenderType(QQuickWindow::NativeTextRendering);
-//    QGuiApplication::setWindowIcon(QIcon("qrc:/image/favicon2.ico"));
+    //    QGuiApplication::setWindowIcon(QIcon("qrc:/image/favicon2.ico"));
     QQuickStyle::setStyle("Basic");
 
     CommonTool* commonTool = CommonTool::instance();
@@ -45,6 +45,7 @@ MainWindow::MainWindow(char* argv[])
     qmlRegisterType<MainController>("Controller", 1, 0, "MainController");
     qmlRegisterType<SearchController>("Controller", 1, 0, "SearchController");
     qmlRegisterType<FeedbackController>("Controller", 1, 0, "FeedbackController");
+    qmlRegisterType<RepositoriesController>("Controller", 1, 0, "RepositoriesController");
 
     m_engine.setNetworkAccessManagerFactory(new MyNetworkAccessManagerFactory);
 }

@@ -4,6 +4,7 @@
     MainController.h
     SearchController.h
     FeedbackController.h
+    RepositoriesController.h
 )
 
 set(CONTROLLER_SRS
@@ -12,6 +13,7 @@ set(CONTROLLER_SRS
     MainController.cpp
     SearchController.cpp
     FeedbackController.cpp
+    RepositoriesController.cpp
 )
 
 add_library(CONTROLLER ${CONTROLLER_HEADERS} ${CONTROLLER_SRS})

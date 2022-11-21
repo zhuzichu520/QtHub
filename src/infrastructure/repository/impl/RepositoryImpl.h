@@ -16,6 +16,7 @@
 #include <infrastructure/tool/MainThread.h>
 #include <infrastructure/converter/Converter.h>
 #include <infrastructure/dto/TokenDto.h>
+#include <infrastructure/dto/ReadmeDto.h>
 #include <infrastructure/dto/SearchRepositoriesDto.h>
 
 using namespace AeaQt;
@@ -24,22 +25,28 @@ using namespace nlohmann;
 
 class RepositoryImpl : public Repository
 {
-  Q_OBJECT
+    Q_OBJECT
 
 private:
-  template <typename T>
-  void handleResult(QString result, T& data);
+    template <typename T>
+    void handleResult(QString result, T& data);
 
-  QString accessToken(const QString &id,const QString &secret,const QString &code) override;
+    QString accessToken(const QString &id,const QString &secret,const QString &code) override;
 
-  User user() override;
+    User user() override;
 
-  Pager<QList<Repositories>> search(const QString& q,const QString& sort,const QString& order,int per_page,int page) override;
+    Pager<QList<Repositories>> search(const QString& q,const QString& sort,const QString& order,int per_page,int page) override;
 
-  QList<Issues> getIssuesList(const QString& owner,const QString& repo) override;
+    QList<Issues> getIssuesList(const QString& owner,const QString& repo) override;
+
+    QString getReadme(const QString& login,const QString& name) override;
+
+    QString getReadme2(const QString& login,const QString& name) override;
+
+    QString readme2Html(const QString& text) override;
 
 public:
-  explicit RepositoryImpl(QObject* parent = nullptr);
+    explicit RepositoryImpl(QObject* parent = nullptr);
 
 };
 

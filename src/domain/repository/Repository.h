@@ -28,6 +28,12 @@ public:
     virtual Pager<QList<Repositories>> search(const QString& q,const QString& sort,const QString& order,int per_page,int page) = 0;
 
     virtual QList<Issues> getIssuesList(const QString& owner,const QString& repo) = 0;
+
+    virtual QString getReadme(const QString& login,const QString& name) = 0;
+
+    virtual QString getReadme2(const QString& login,const QString& name) = 0;
+
+    virtual  QString readme2Html(const QString& text) = 0;
 };
 
 #endif  // REPOSITORY_H

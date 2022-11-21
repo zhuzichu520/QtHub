@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QGlobalStatic>
 #include <QStandardPaths>
+#include <QCoreApplication>
 #include <QDir>
 
 class AppConfig : public QObject
@@ -22,6 +23,8 @@ public:
   Q_INVOKABLE QString getJsonClassDir();
   Q_INVOKABLE QString getDatabseDir();
   Q_INVOKABLE QString getConfigDir();
+  Q_INVOKABLE QString getApplicationDir();
+  Q_INVOKABLE QString getHtmlDir();
 
 private:
   QString existsDir(const QString& path);

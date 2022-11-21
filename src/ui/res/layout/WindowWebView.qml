@@ -34,6 +34,9 @@ CusWindow {
                 bottom: parent.bottom
             }
             url:window.url
+            onLoadingChanged: (request)=>{
+                console.debug(request.url)
+            }
         }
     }
 }

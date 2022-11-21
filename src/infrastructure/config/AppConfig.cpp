@@ -14,6 +14,10 @@ bool AppConfig::isLinux() { return strcmp(SYSTEM_NAME, "Linux") == 0; }
 
 QString AppConfig::getLogDir() { return existsDir(appDir + "/logs"); }
 
+QString AppConfig::getApplicationDir() { return QCoreApplication::applicationDirPath(); }
+
+QString AppConfig::getHtmlDir() { return getApplicationDir()+"/html"; }
+
 QString AppConfig::getDatabseDir() { return existsDir(appDir + "/db"); }
 
 QString AppConfig::getConfigDir() { return existsDir(appDir + "/config"); }

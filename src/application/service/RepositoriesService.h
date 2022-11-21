@@ -24,6 +24,11 @@ public:
     QJsonArray getSearchHistory();
 
     void addSearchHistory(const QString&);
+
+    QString getReadme(const QString&,const QString&);
+
+    QString getReadme2(const QString&,const QString&);
+
 };
 
 #endif // REPOSITORIESSERVICE_H

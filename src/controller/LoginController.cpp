@@ -12,9 +12,9 @@ LoginController::LoginController(QObject* parent) : BaseController{ parent }
                 loginStatus(4);
             } catch (const BizException& e) {
                 loginStatus(1);
-                return QHttpServerResponse("QtHub authorization failed");
+                return QHttpServerResponse(QString::fromStdString(htmlError));
             }
-            return QHttpServerResponse("QtHub authorization succeeded. Welcome to log in");
+            return QHttpServerResponse(QString::fromStdString(htmlSuccess));
         });
     });
     server.listen(QHostAddress("127.0.0.1"),8080);

@@ -5,6 +5,8 @@ Rectangle {
 
     signal clicked
 
+    signal rightClicked
+
     id:root
     color:  {
         if(item_mouse.containsPress){
@@ -21,7 +23,14 @@ Rectangle {
         hoverEnabled: true
         anchors.fill: parent
         cursorShape: Qt.PointingHandCursor
-        onClicked:root.clicked()
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
+        onClicked:{
+            if(mouse.button === Qt.LeftButton){
+                root.clicked()
+            }else{
+                root.rightClicked()
+            }
+        }
     }
 
 }

@@ -13,7 +13,7 @@ const WINDOW_FEEDBACK = "qrc:/layout/WindowFeedback.qml"
 const WINDOW_WEBVIEW = "qrc:/layout/WindowWebView.qml"
 const WINDOW_SEARCH = "qrc:/layout/WindowSearch.qml"
 const WINDOW_ABOUT = "qrc:/layout/WindowAbout.qml"
-const WINDOW_REPOSITORIES_DETAIL = "qrc:/layout/WindowRepositoriesDetail.qml"
+const WINDOW_REPOSITORIES = "qrc:/layout/WindowRepositories.qml"
 
 
 function init(app) {
@@ -27,7 +27,7 @@ function init(app) {
     RouteTable.push(WINDOW_WEBVIEW)
     RouteTable.push(WINDOW_SEARCH)
     RouteTable.push(WINDOW_ABOUT)
-    RouteTable.push(WINDOW_REPOSITORIES_DETAIL)
+    RouteTable.push(WINDOW_REPOSITORIES)
 }
 
 function addWindow(winId,window){

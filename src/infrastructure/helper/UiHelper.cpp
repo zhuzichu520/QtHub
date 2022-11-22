@@ -13,7 +13,7 @@ UiHelper::UiHelper(QObject* parent) : QObject{ parent }
     if(!file.open(QIODevice::ReadOnly))
         return;
     QByteArray data(file.readAll());
-    languageColor = CommonTool::instance()->string2JsonObject(data.toStdString());
+    languageColor = CommonTool::instance()->json2Object(data.toStdString());
     file.close();
 }
 

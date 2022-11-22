@@ -2,7 +2,7 @@
 import QtQuick.Controls
 import QtQuick.Window
 import QtQuick.Layouts
-import QtWebView 1.1
+import QtWebEngine
 import "../component"
 import "../storage"
 
@@ -26,13 +26,14 @@ CusWindow {
             title:window.title
         }
 
-        WebView{
+        WebEngineView{
             anchors{
                 top: toolBar.bottom
                 left: parent.left
                 right: parent.right
                 bottom: parent.bottom
             }
+
             url:window.url
             onLoadingChanged: (request)=>{
                 console.debug(request.url)

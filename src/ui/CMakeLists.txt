@@ -29,7 +29,7 @@ target_link_libraries(UI PUBLIC
     Qt${QT_VERSION_MAJOR}::QmlPrivate
     Qt${QT_VERSION_MAJOR}::QuickPrivate
     Qt${QT_VERSION_MAJOR}::QuickControls2Private
-    Qt${QT_VERSION_MAJOR}::WebViewPrivate
+    Qt${QT_VERSION_MAJOR}::WebEngineQuickPrivate
     INFRASTRUCTURE
     DOMAIN
     APPLICATION

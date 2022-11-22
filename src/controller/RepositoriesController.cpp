@@ -22,9 +22,11 @@ void RepositoriesController::loadReadMe(const QString& login, const QString& nam
                                  originalReadme(data);
                                  readme(htmlMarkdown(data, isDark));
                              },
-                             [this](const rxu::error_ptr& error) {
-                                 handleError(error, [](const BizException& e) {
-
+                             [this,isDark](const rxu::error_ptr& error) {
+                                 handleError(error, [this,isDark](const BizException& e) {
+                                    if(e.code == 404){
+                                        showEmpty(isDark);
+                                    }
                                  });
                              }));
 }

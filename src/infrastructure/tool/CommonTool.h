@@ -29,7 +29,10 @@ public:
 
     Q_INVOKABLE QString maxString(const QString&,int max);
 
-    Q_INVOKABLE QJsonObject string2JsonObject(const std::string&);
+    Q_INVOKABLE QJsonObject json2Object(const std::string&);
+    Q_INVOKABLE QJsonObject json2Object(const QString&);
+    Q_INVOKABLE QString object2Json(const QJsonObject&);
+
     Q_INVOKABLE void jsonNonNull(QString& val);
 };
 

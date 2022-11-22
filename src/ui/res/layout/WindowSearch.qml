@@ -73,7 +73,7 @@ CusWindow {
                         }
                         pageCurrent: 1
                         textColor:Theme.colorFontSecondary
-                        itemCount: controller.totalCount
+                        itemCount: Math.min(controller.totalCount,1000)
                         onRequestPage: {
                             controller.search(keyword,page,count)
                         }
@@ -87,7 +87,10 @@ CusWindow {
                     width:listview_serach.width
                     color:Theme.colorBackground1
                     onClicked: {
-                        navigate(R.WINDOW_REPOSITORIES_DETAIL,{login:model.login,name:model.name})
+                        navigateRestart(R.WINDOW_REPOSITORIES,{login:model.login,name:model.name})
+                    }
+                    onRightClicked: {
+                        menu_item.showMenu(model)
                     }
                     Rectangle{
                         height: 1
@@ -144,17 +147,30 @@ CusWindow {
             Rectangle{
                 anchors.fill: listview_serach
                 visible: controller.showLoading
-                color:Theme.colorBackground
+                color:Theme.colorBackground1
                 CusLoading{
                     anchors.centerIn: parent
                 }
             }
         }
-
-
     }
 
+    CusMenu{
+        id:menu_item
+        property var model
 
+        CusMenuItem{
+            text:"浏览器打开"
+            onClicked: {
+                Qt.openUrlExternally("https://github.com/%1/%2".arg(menu_item.model.login).arg(menu_item.model.name))
+            }
+        }
+
+        function showMenu(val){
+            model = val
+            popup()
+        }
+    }
 
 
 }

@@ -15,7 +15,7 @@ void RepositoryImpl::handleResult(QString result, T& data)
         throw BizException(-1, "服务器异常");
     }else{
         CommonTool::instance()->jsonNonNull(result);
-        const QJsonObject& obj = CommonTool::instance()->string2JsonObject(result.toStdString());
+        const QJsonObject& obj = CommonTool::instance()->json2Object(result.toStdString());
         LOGD(obj);
     }
     json j = json::parse(result.toStdString());

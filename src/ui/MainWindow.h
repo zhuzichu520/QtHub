@@ -20,7 +20,7 @@
 #include <infrastructure/helper/UiHelper.h>
 #include <infrastructure/helper/UserHelper.h>
 #include <infrastructure/helper/SettingsHelper.h>
-#include <QtWebView>
+#include <QtWebEngineQuick>
 
 class Q_DECL_EXPORT MainWindow
 {

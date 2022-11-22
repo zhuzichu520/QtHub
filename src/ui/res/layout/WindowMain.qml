@@ -35,7 +35,6 @@ CusWindow {
         }
     }
 
-
     page: CusPage{
 
         ListModel{

@@ -5,12 +5,14 @@
 #include <QMessageBox>
 #include <QNetworkAccessManager>
 #include <QProcess>
+#include <QWebEngineSettings>
 #include <QQmlApplicationEngine>
+
 
 int main(int argc, char* argv[]) {
     QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
     QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGLRhi);
-    QtWebView::initialize();
+    QtWebEngineQuick::initialize();
     QApplication app(argc, argv);
     QSharedMemory singleton(app.applicationName());
     if (!singleton.create(1)) {  // 已经存在的

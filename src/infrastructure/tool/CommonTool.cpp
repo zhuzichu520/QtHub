@@ -76,10 +76,9 @@ qint64 CommonTool::currentTimeMillis()
     return QDateTime::currentDateTimeUtc().toMSecsSinceEpoch();
 }
 
-QJsonObject CommonTool::string2JsonObject(const std::string& val)
-{
+QJsonObject CommonTool::json2Object(const QString& val){
     QJsonParseError jsonError;
-    QJsonDocument doucment = QJsonDocument::fromJson(QString::fromStdString(val).toUtf8(), &jsonError);
+    QJsonDocument doucment = QJsonDocument::fromJson(val.toUtf8(), &jsonError);
     if (!doucment.isNull() && (jsonError.error == QJsonParseError::NoError))
     {
         return doucment.object();
@@ -87,6 +86,15 @@ QJsonObject CommonTool::string2JsonObject(const std::string& val)
     return {};
 }
 
+QJsonObject CommonTool::json2Object(const std::string& val)
+{
+   return json2Object(QString::fromStdString(val));
+}
+
+QString CommonTool::object2Json(const QJsonObject& val){
+    QJsonDocument doc(val);
+    return QString(doc.toJson(QJsonDocument::Indented));
+}
 
 void CommonTool::jsonNonNull(QString& val){
     val.replace(Reg_JsonNonNull,"");

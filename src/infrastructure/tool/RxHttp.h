@@ -7,6 +7,7 @@
 #include <infrastructure/http/HttpClient.h>
 #include <infrastructure/log/Logger.h>
 #include <infrastructure/tool/MainThread.h>
+#include <infrastructure/tool/CommonTool.h>
 
 #include <QObject>
 
@@ -43,7 +44,6 @@ class RxHttp {
         qDebug() << "【HTTP】请求参数->" << data;
         HttpClient client;
         QString result;
-        QNetworkReply::NetworkError error;
         QNetworkReply* reply = nullptr;
         if (operation == QNetworkAccessManager::GetOperation) {
             reply = client.get(url).headers(headers()).queryParams(data).timeout(timeout()).block().exec()->reply();
@@ -59,12 +59,13 @@ class RxHttp {
         } else {
             throw BizException("QNetworkAccessManager::Operation 没有定义");
         }
-        error = reply->error();
         QByteArray bytes = reply->readAll();
         result = QString::fromUtf8(bytes);
-        if (error != QNetworkReply::NoError) {
-            LOGI(QString::fromStdString("【网络错误】code->%1").arg(error).toStdString());
-            throw BizException(QString::fromStdString("网络出现异常，错误码：%1").arg(error));
+        if (reply->error() != QNetworkReply::NoError) {
+            int httpStatus = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+            QJsonObject obj = QJsonObject(QJsonDocument::fromJson(QJsonDocument::fromVariant(QVariant(data)).toJson()).object());
+            LOGI(QString::fromStdString("【网络错误】请求地址->%1，状态码->%2，请求参数->%3，内容->%4").arg(url,QString::number(httpStatus),CommonTool::instance()->object2Json(obj),result).toStdString());
+            throw BizException(QString::fromStdString("网络出现异常，错误码：%1").arg(httpStatus),httpStatus);
         }
         return result;
     }

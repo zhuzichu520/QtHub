@@ -17,6 +17,12 @@ public:
         vo->updatedAt(val.updated_at);
         vo->name(val.name);
         vo->login(val.login);
+        vo->starNumber(val.starNumber);
+        QJsonArray arr;
+        foreach (auto item, val.topics) {
+            arr.append(item);
+        }
+        vo->topics(arr);
         return vo;
     }
 

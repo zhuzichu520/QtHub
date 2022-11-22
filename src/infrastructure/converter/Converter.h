@@ -59,6 +59,12 @@ public:
         obj.updated_at = QString::fromStdString(val.updated_at);
         obj.name = QString::fromStdString(val.name);
         obj.login = QString::fromStdString(val.owner.login);
+        obj.starNumber = val.stargazers_count;
+        QList<QString> topicList;
+        foreach (auto item, val.topics) {
+            topicList.append(QString::fromStdString(item));
+        }
+        obj.topics = topicList;
         return obj;
     }
 

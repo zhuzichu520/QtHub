@@ -1,4 +1,4 @@
-#include "RepositoriesController.h"
+﻿#include "RepositoriesController.h"
 
 RepositoriesController::RepositoriesController(QObject* parent) : BaseController{parent} {}
 
@@ -9,7 +9,7 @@ void RepositoriesController::loadReadMe(const QString& login, const QString& nam
         readme(htmlMarkdown(originalReadme(), isDark));
         return;
     }
-    showLoading(isDark);
+    showType(1);
     subscription.add(rxs::create<QString>([this, login, name, isDark](subscriber<QString> subscriber) {
                          auto data = repositoriesService()->getReadme2(login, name);
                          subscriber.on_next(data);
@@ -25,7 +25,9 @@ void RepositoriesController::loadReadMe(const QString& login, const QString& nam
                              [this,isDark](const rxu::error_ptr& error) {
                                  handleError(error, [this,isDark](const BizException& e) {
                                     if(e.code == 404){
-                                        showEmpty(isDark);
+                                        showType(2);
+                                    }else{
+                                        showType(3);
                                     }
                                  });
                              }));

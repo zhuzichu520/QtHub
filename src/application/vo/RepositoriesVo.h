@@ -2,7 +2,7 @@
 #define REPOSITORIESVO_H
 
 #include <infrastructure/stdafx.h>
-
+#include <QJsonArray>
 #include <QObject>
 
 class RepositoriesVo : public QObject {
@@ -14,7 +14,9 @@ class RepositoriesVo : public QObject {
     Q_PROPERTY_AUTO(QString, updatedAt)
     Q_PROPERTY_AUTO(QString, name)
     Q_PROPERTY_AUTO(QString, login)
-  public:
+    Q_PROPERTY_AUTO(int, starNumber)
+    Q_PROPERTY_AUTO(QJsonArray,topics)
+public:
     explicit RepositoriesVo(QObject* parent = nullptr);
     ~RepositoriesVo();
 };

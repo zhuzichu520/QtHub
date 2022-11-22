@@ -307,14 +307,14 @@ CusWindow {
                     }
 
                     Text{
-                        text: "zhuzichu520.github.io"
+                        text: "zhu-zichu.gitee.io"
                         color:Theme.colorPrimary
                         font.underline: true
                         MouseArea{
                             cursorShape: Qt.PointingHandCursor
                             anchors.fill: parent
                             onClicked: {
-                                Qt.openUrlExternally("https://zhuzichu520.github.io")
+                                Qt.openUrlExternally("https://zhu-zichu.gitee.io")
                             }
                         }
                     }

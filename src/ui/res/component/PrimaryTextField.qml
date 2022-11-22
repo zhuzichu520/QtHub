@@ -29,10 +29,9 @@ Item {
             topMargin: 5
         }
         width: parent.width
-        selectionColor: "#9BCAEF"
+        selectionColor: Qt.alpha(Theme.colorPrimary,0.3)
         selectByMouse: true
         verticalAlignment: TextInput.AlignVCenter
-        selectedTextColor: color
         height: 32
         background: Rectangle{
             radius: 3

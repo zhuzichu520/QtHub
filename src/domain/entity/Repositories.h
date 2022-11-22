@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <QObject>
 
@@ -12,8 +12,10 @@ public:
     QString language;
     QString license;
     QString updated_at;
+    int starNumber;
     QString name;
     QString login;
+    QList<QString> topics;
 
 public:
     QString getStyleName() const{

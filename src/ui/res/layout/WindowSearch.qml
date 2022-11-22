@@ -9,9 +9,9 @@ import "../storage"
 
 CusWindow {
     id:window
-    width: 450
+    width: 560
     height: 640
-    minimumWidth: 450
+    minimumWidth: 560
     minimumHeight: 640
     title: "搜索"
 
@@ -22,6 +22,7 @@ CusWindow {
     }
 
     Component.onCompleted: {
+        edit_search.text = keyword
         controller.search(keyword,1,20)
     }
 
@@ -34,10 +35,59 @@ CusWindow {
             title:window.title
         }
 
+        Item{
+            id:layout_bar
+            height: 42
+            width: parent.width
+            anchors.top: toolBar.bottom
+
+            TextField{
+                id:edit_search
+                anchors{
+                    verticalCenter: parent.verticalCenter
+                    left: parent.left
+                    leftMargin: 15
+                }
+                width: 200
+                selectionColor: Qt.alpha(Theme.colorPrimary,0.3)
+                selectByMouse: true
+                verticalAlignment: TextInput.AlignVCenter
+                selectedTextColor: color
+                height: 30
+                background: Rectangle{
+                    radius: 3
+                    border{
+                        width: 1
+                        color: edit_search.focus ? Theme.colorPrimary : "#BBBBBB"
+                    }
+                }
+            }
+
+            PrimaryButton{
+                text:"搜索"
+                width: 50
+                height: 25
+                anchors{
+                    left: edit_search.right
+                    leftMargin: 10
+                     verticalCenter: parent.verticalCenter
+                }
+                onClicked: {
+                    var q = edit_search.text
+                    if(q===""){
+                        showErrorToast("请输入搜索关键字！")
+                        return
+                    }
+                }
+            }
+
+
+        }
+
         Rectangle{
             id:layout_list
             anchors{
-                top: toolBar.bottom
+                top: layout_bar.bottom
                 left: parent.left
                 right: parent.right
                 bottom: parent.bottom
@@ -74,6 +124,7 @@ CusWindow {
                         pageCurrent: 1
                         textColor:Theme.colorFontSecondary
                         itemCount: Math.min(controller.totalCount,1000)
+                        highlightedColor:Theme.colorPrimary
                         onRequestPage: {
                             controller.search(keyword,page,count)
                         }
@@ -124,18 +175,52 @@ CusWindow {
                             width: layout_item.width
                             visible: model.description !== ""
                         }
+                        Flow{
+                            spacing: 10
+                            Layout.fillWidth: true
+                            Repeater{
+                                model:topics
+                                delegate: CusButton{
+                                    text: modelData
+                                    radius: 15
+                                    height: 30
+                                    onClicked: {
+                                        showToast("功能还在建设中...")
+                                    }
+                                }
+                            }
+                        }
                         RowLayout{
                             Layout.leftMargin: 3
                             visible: model.language !== ""
+                            spacing: 0
+                            TextIcon{
+                                text: "\ue8bc"
+                                color:Theme.colorFontSecondary
+                                font.pixelSize: 14
+                                Layout.alignment: Qt.AlignVCenter
+                            }
+                            Text{
+                                text: model.starNumber
+                                color:Theme.colorFontSecondary
+                                font.pixelSize: 12
+                                Layout.leftMargin: 2
+                                Layout.alignment: Qt.AlignVCenter
+                            }
                             Rectangle{
                                 width: 12
                                 height: 12
                                 radius: 6
+                                Layout.alignment: Qt.AlignVCenter
+                                Layout.leftMargin: 10
                                 color:uiHelper.getLanguageColor(model.language)
                             }
                             Text{
                                 text: qsTr(model.language)
+                                Layout.alignment: Qt.AlignVCenter
                                 color:Theme.colorFontSecondary
+                                Layout.leftMargin: 2
+                                font.pixelSize: 12
                             }
                         }
                         Item{
@@ -168,6 +253,41 @@ CusWindow {
 
         function showMenu(val){
             model = val
+            popup()
+        }
+    }
+
+    CusMenu{
+        id:menu_sort
+        property var model
+
+        CusMenuItem{
+            text:"最佳匹配"
+            onClicked: {
+            }
+        }
+        CusMenuItem{
+            text:"最多stars"
+            onClicked: {
+            }
+        }
+        CusMenuItem{
+            text:"最多forks"
+            onClicked: {
+            }
+        }
+        CusMenuItem{
+            text:"最多watches"
+            onClicked: {
+            }
+        }
+        CusMenuItem{
+            text:"最近更新"
+            onClicked: {
+            }
+        }
+
+        function showMenu(){
             popup()
         }
     }

@@ -1,4 +1,4 @@
-import QtQuick
+﻿import QtQuick
 import QtQuick.Controls
 import QtQuick.Window
 import QtQuick.Layouts
@@ -11,10 +11,10 @@ import "../storage"
 CusWindow {
     id:window
 
-    width: 500
-    height: 600
-    minimumWidth: 500
-    minimumHeight: 600
+    width: 560
+    height: 640
+    minimumWidth: 560
+    minimumHeight: 640
     title: login+"/"+name
 
     property string login : ""
@@ -23,6 +23,7 @@ CusWindow {
     RepositoriesController{
         id:controller
         onReadmeChanged: {
+            console.debug(readme)
             webview.loadHtml(readme,"file:///./html")
         }
     }
@@ -150,9 +151,19 @@ CusWindow {
                     right: parent.right
                     bottom: parent.bottom
                 }
+                onContextMenuRequested:
+                    (request)=>{
+                        request.accepted = false
+                    }
                 Behavior on opacity {
                     NumberAnimation{
                         duration: 300
+                    }
+                }
+                onLoadProgressChanged: {
+                    if(loadProgress === 100){
+                        opacity = 1
+                        controller.showType = 0
                     }
                 }
                 onLoadingChanged:
@@ -164,10 +175,29 @@ CusWindow {
                                 Qt.openUrlExternally(url)
                             }
                         }
-                        if(request.status === 2){
-                            opacity = 1
-                        }
                     }
+            }
+
+            Rectangle{
+                anchors.fill: webview
+                visible: controller.showType !== 0
+                color:Theme.colorBackground1
+                CusLoading{
+                    anchors.centerIn: parent
+                    visible: controller.showType === 1
+                }
+                Text{
+                    anchors.centerIn: parent
+                    color:Theme.colorFontPrimary
+                    font.pixelSize: 20
+                    visible: controller.showType === 2 || controller.showType === 3
+                    text: {
+                        if(controller.showType === 2){
+                            return "无Readme"
+                        }
+                        return "网路错误"
+                    }
+                }
             }
         }
     }

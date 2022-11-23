@@ -40,13 +40,13 @@ void SearchController::addHistory(const QString& keyword) {
                                     }));
 }
 
-void SearchController::search(const QString& keyword, int page, int pageCount) {
+void SearchController::search(const QString& keyword, int page, int pageCount ,const QString& sort) {
     releaseSearch();
     showLoading(true);
     subscriptionSearch = rxs::create<Pager<QList<Repositories>>>(
-                             [this, keyword, page, pageCount](subscriber<Pager<QList<Repositories>>> subscriber) {
+                             [this, keyword, page, pageCount,sort](subscriber<Pager<QList<Repositories>>> subscriber) {
                                  Pager<QList<Repositories>> data =
-                                     repositoriesService()->search(keyword, "", "", pageCount, page);
+                                     repositoriesService()->search(keyword, sort, "desc", pageCount, page);
                                  subscriber.on_next(data);
                                  subscriber.on_completed();
                              })

@@ -210,5 +210,10 @@
         <file>image/favicon.ico</file>
         <file>layout/WindowAbout.qml</file>
         <file>layout/WindowRepositories.qml</file>
+        <file>translations/qtwebengine_zh_CN.qm</file>
+        <file>component/TreeList.qml</file>
+        <file>js/TreeItem.js</file>
+        <file>image/ic_file.png</file>
+        <file>image/ic_folder.png</file>
     </qresource>
 </RCC>

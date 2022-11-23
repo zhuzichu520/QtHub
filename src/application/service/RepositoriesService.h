@@ -4,7 +4,9 @@
 #include <QObject>
 #include <domain/entity/Repositories.h>
 #include <domain/entity/Pager.h>
+#include <infrastructure/tool/CommonTool.h>
 #include <QJsonArray>
+#include <QJsonObject>
 #include "BaseService.h"
 
 using namespace QInjection;
@@ -28,6 +30,8 @@ public:
     QString getReadme(const QString&,const QString&);
 
     QString getReadme2(const QString&,const QString&);
+
+    QJsonObject getFileTree(const QString&,const QString&);
 
 };
 

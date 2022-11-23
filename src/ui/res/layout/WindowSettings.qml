@@ -37,7 +37,6 @@ CusWindow {
             }
         }
 
-
         Rectangle{
             id:divider
             width: 1

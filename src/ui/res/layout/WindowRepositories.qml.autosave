@@ -63,7 +63,6 @@ CusWindow {
                         _ret.push(obj);
                     }
                     if (obj.subNodes){
-
                         for (var m = 0; m < _ret.length; ++m) {
                             obj.appendChild(_ret[i])
                         }

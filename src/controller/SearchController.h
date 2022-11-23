@@ -23,7 +23,7 @@ public:
 
     RepositoriesService* repositoriesService()  { return QInjection::Inject;}
 
-    Q_INVOKABLE void search(const QString&,int page,int pageCount);
+    Q_INVOKABLE void search(const QString&,int page,int pageCount,const QString& sort);
 
     Q_INVOKABLE void addHistory(const QString&);
 

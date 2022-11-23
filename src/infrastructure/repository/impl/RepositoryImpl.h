@@ -45,6 +45,8 @@ private:
 
     QString readme2Html(const QString& text) override;
 
+    QString getFileTree(const QString& owner,const QString& repo,const QString& tree_sha,int recursive) override;
+
 public:
     explicit RepositoryImpl(QObject* parent = nullptr);
 

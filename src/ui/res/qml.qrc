@@ -210,5 +210,6 @@
         <file>image/favicon.ico</file>
         <file>layout/WindowAbout.qml</file>
         <file>layout/WindowRepositories.qml</file>
+        <file>component/TreeList2.qml</file>
     </qresource>
 </RCC>

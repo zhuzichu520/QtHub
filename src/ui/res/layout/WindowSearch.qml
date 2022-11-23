@@ -15,15 +15,20 @@ CusWindow {
     minimumHeight: 640
     title: "搜索"
 
+    property var model_sort: [{"text":"最佳匹配","sort":"best match"},{"text":"最多stars","sort":"stars"},{"text":"最多forks","sort":"forks"},{"text":"最多watches","sort":"watches"},{"text":"最近更新","sort":"updated"}]
+    property int sortIndex: 0
     property string keyword
 
     SearchController{
         id:controller
     }
 
+    function sort(){
+        return model_sort[sortIndex].sort
+    }
+
     Component.onCompleted: {
-        edit_search.text = keyword
-        controller.search(keyword,1,20)
+        controller.search(keyword,1,10,sort())
     }
 
     page: CusPage{
@@ -45,8 +50,8 @@ CusWindow {
                 id:edit_search
                 anchors{
                     verticalCenter: parent.verticalCenter
-                    left: parent.left
-                    leftMargin: 15
+                    right: btn_search.left
+                    rightMargin: 10
                 }
                 width: 200
                 selectionColor: Qt.alpha(Theme.colorPrimary,0.3)
@@ -64,13 +69,14 @@ CusWindow {
             }
 
             PrimaryButton{
+                id:btn_search
                 text:"搜索"
                 width: 50
                 height: 25
                 anchors{
-                    left: edit_search.right
-                    leftMargin: 10
-                     verticalCenter: parent.verticalCenter
+                    right: parent.right
+                    rightMargin: 15
+                    verticalCenter: parent.verticalCenter
                 }
                 onClicked: {
                     var q = edit_search.text
@@ -78,9 +84,23 @@ CusWindow {
                         showErrorToast("请输入搜索关键字！")
                         return
                     }
+                    keyword = q
+                    controller.search(keyword,1,10,sort())
                 }
             }
 
+            CusButton{
+                text: "排序：%1".arg(model_sort[sortIndex].text)
+                height: 30
+                anchors{
+                    verticalCenter: parent.verticalCenter
+                    left: parent.left
+                    leftMargin: 15
+                }
+                onClicked: {
+                    menu_sort.showMenu()
+                }
+            }
 
         }
 
@@ -126,11 +146,17 @@ CusWindow {
                         itemCount: Math.min(controller.totalCount,1000)
                         highlightedColor:Theme.colorPrimary
                         onRequestPage: {
-                            controller.search(keyword,page,count)
+                            controller.search(keyword,page,count,sort())
                         }
                     }
-                    function resetPage(){
-                        pagination.pageCurrent = 1
+                    Connections{
+                        target: window
+                        function onSortIndexChanged(val){
+                            pagination.pageCurrent = 1
+                        }
+                        function onKeywordChanged(val){
+                            pagination.pageCurrent = 1
+                        }
                     }
                 }
                 delegate: ItemLayout{
@@ -192,7 +218,6 @@ CusWindow {
                         }
                         RowLayout{
                             Layout.leftMargin: 3
-                            visible: model.language !== ""
                             spacing: 0
                             TextIcon{
                                 text: "\ue8bc"
@@ -211,6 +236,7 @@ CusWindow {
                                 width: 12
                                 height: 12
                                 radius: 6
+                                visible: model.language !== ""
                                 Layout.alignment: Qt.AlignVCenter
                                 Layout.leftMargin: 10
                                 color:uiHelper.getLanguageColor(model.language)
@@ -220,6 +246,13 @@ CusWindow {
                                 Layout.alignment: Qt.AlignVCenter
                                 color:Theme.colorFontSecondary
                                 Layout.leftMargin: 2
+                                font.pixelSize: 12
+                            }
+                            Text{
+                                text: qsTr(model.updatedAt)
+                                Layout.alignment: Qt.AlignVCenter
+                                color:Theme.colorFontSecondary
+                                Layout.leftMargin: 10
                                 font.pixelSize: 12
                             }
                         }
@@ -259,38 +292,20 @@ CusWindow {
 
     CusMenu{
         id:menu_sort
-        property var model
-
-        CusMenuItem{
-            text:"最佳匹配"
-            onClicked: {
+        width: 120
+        Repeater{
+            model: model_sort
+            delegate: CusMenuItem{
+                text:modelData.text
+                onClicked: {
+                    sortIndex = index
+                    controller.search(keyword,1,10,sort())
+                }
             }
         }
-        CusMenuItem{
-            text:"最多stars"
-            onClicked: {
-            }
-        }
-        CusMenuItem{
-            text:"最多forks"
-            onClicked: {
-            }
-        }
-        CusMenuItem{
-            text:"最多watches"
-            onClicked: {
-            }
-        }
-        CusMenuItem{
-            text:"最近更新"
-            onClicked: {
-            }
-        }
-
         function showMenu(){
             popup()
         }
     }
-
 
 }

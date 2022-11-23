@@ -1,4 +1,4 @@
-<RCC>
+﻿<RCC>
     <qresource prefix="/">
         <file>font/iconfont.ttf</file>
         <file>global/global.js</file>
@@ -211,5 +211,10 @@
         <file>layout/WindowAbout.qml</file>
         <file>layout/WindowRepositories.qml</file>
         <file>component/TreeList2.qml</file>
+        <file>translations/qtwebengine_zh_CN.qm</file>
+        <file>component/TreeList.qml</file>
+        <file>js/TreeItem.js</file>
+        <file>image/ic_file.png</file>
+        <file>image/ic_folder.png</file>
     </qresource>
 </RCC>

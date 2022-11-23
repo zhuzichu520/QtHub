@@ -87,3 +87,10 @@ QString RepositoryImpl::readme2Html(const QString& text){
     QString html = RxHttp::postJson(api(QString::fromStdString("/markdown")),data);
     return html;
 }
+
+QString RepositoryImpl::getFileTree(const QString& owner,const QString& repo,const QString& tree_sha,int recursive){
+    const QVariantMap& data = {
+        {"recursive",recursive}
+    };
+    return RxHttp::get(api(QString::fromStdString("/repos/%1/%2/git/trees/%3").arg(owner,repo,tree_sha)),data);
+}

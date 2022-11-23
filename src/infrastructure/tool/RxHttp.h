@@ -40,8 +40,8 @@ class RxHttp {
   private:
     static QString handle(const QNetworkAccessManager::Operation& operation, const QString& url,
                           const QVariantMap& data, const bool isJson = false) {
-        qDebug() << "【HTTP】请求地址->" << url;
-        qDebug() << "【HTTP】请求参数->" << data;
+//        LOGI(QString::fromStdString("【Http网络】请求地址->%1").arg(url).toStdString());
+//        LOGI(QString::fromStdString("【Http网络】参数->%1").arg(QJsonDocument::fromVariant(QVariant(data)).toJson()).toStdString());
         HttpClient client;
         QString result;
         QNetworkReply* reply = nullptr;
@@ -64,7 +64,7 @@ class RxHttp {
         if (reply->error() != QNetworkReply::NoError) {
             int httpStatus = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
             QJsonObject obj = QJsonObject(QJsonDocument::fromJson(QJsonDocument::fromVariant(QVariant(data)).toJson()).object());
-            LOGI(QString::fromStdString("【网络错误】请求地址->%1，状态码->%2，请求参数->%3，内容->%4").arg(url,QString::number(httpStatus),CommonTool::instance()->object2Json(obj),result).toStdString());
+            LOGE(QString::fromStdString("【网络错误】请求地址->%1，状态码->%2，请求参数->%3，内容->%4").arg(url,QString::number(httpStatus),CommonTool::instance()->object2Json(obj),result).toStdString());
             throw BizException(QString::fromStdString("网络出现异常，错误码：%1").arg(httpStatus),httpStatus);
         }
         return result;

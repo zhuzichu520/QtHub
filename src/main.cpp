@@ -14,6 +14,9 @@ int main(int argc, char* argv[]) {
     QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGLRhi);
     QtWebEngineQuick::initialize();
     QApplication app(argc, argv);
+    QTranslator translator;
+    translator.load(":/translations/qtwebengine_zh_CN.qm");
+    app.installTranslator(&translator);
     QSharedMemory singleton(app.applicationName());
     if (!singleton.create(1)) {  // 已经存在的
         QMessageBox::critical(nullptr, QObject::tr("错误"), QObject::tr("程序已经在运行，请先关闭！"));

@@ -19,13 +19,95 @@ CusWindow {
 
     property string login : ""
     property string name: ""
+    property string folderIcon : "qrc:/image/ic_folder.png"
+    property string fileIcon : "qrc:/image/ic_file.png"
 
     RepositoriesController{
         id:controller
         onReadmeChanged: {
-            console.debug(readme)
             webview.loadHtml(readme,"file:///./html")
         }
+        onFileTreeChanged: {
+            tree_file.addTopLevelItem(listToTree2(fileTree.tree))
+        }
+    }
+
+
+
+    function listToTree2(arr) {
+         var root = tree_file.createItem("根目录",folderIcon)
+        var ret = []
+        if (Array.isArray(arr)) {
+            for (var i = 0; i < arr.length; ++i) {
+                var item = arr[i];
+                var path = item.path.split("/");
+                var _ret = ret;
+                for (var j = 0; j < path.length; ++j) {
+                    var text = path[j];
+                    var size = item.size
+                    var type = item.type
+                    var url = item.url
+                    var obj = null;
+                    for (var k = 0; k < _ret.length; ++k) {
+                        var _obj = _ret[k];
+                        if (_obj.text === text) {
+                            obj = _obj;
+                            break;
+                        }
+                    }
+                    if (!obj) {
+                        obj =  tree_file.createItem(text,folderIcon)
+                        if (text.indexOf(".") < 0){
+                            obj.subNodes = [];
+                        }
+                        _ret.push(obj);
+                    }
+                    if (obj.subNodes){
+                        for (var m = 0; m < _ret.length; ++m) {
+                            obj.appendChild(_ret[i])
+                        }
+//                        _ret = obj.subNodes;
+                    }
+                }
+            }
+        }
+        return root;
+    }
+
+    function listToTree(arr) {
+        var ret = [];
+        if (Array.isArray(arr)) {
+            for (var i = 0; i < arr.length; ++i) {
+                var item = arr[i];
+                var path = item.path.split("/");
+                var _ret = ret;
+                for (var j = 0; j < path.length; ++j) {
+                    var name = path[j];
+                    var size = item.size
+                    var type = item.type
+                    var url = item.url
+                    var obj = null;
+                    for (var k = 0; k < _ret.length; ++k) {
+                        var _obj = _ret[k];
+                        if (_obj.name === name) {
+                            obj = _obj;
+                            break;
+                        }
+                    }
+                    if (!obj) {
+                        obj = {name:name,size:size,type:type,url:url};
+                        if (name.indexOf(".") < 0){
+                            obj.children = [];
+                        }
+                        _ret.push(obj);
+                    }
+                    if (obj.children){
+                        _ret = obj.children;
+                    }
+                }
+            }
+        }
+        return ret;
     }
 
     Connections{
@@ -69,6 +151,7 @@ CusWindow {
         WebEngine.settings.webGLEnabled = true
         WebEngine.settings.webRTCPublicInterfacesOnly = true
         controller.loadReadMe(login,name,AppStorage.isDark)
+        controller.loadFileTree(login,name)
     }
 
     page: CusPage{
@@ -139,63 +222,99 @@ CusWindow {
                         }
                     }
                 }
-
             }
 
-            WebEngineView{
-                id:webview
-                opacity: 0
+            Rectangle{
                 anchors{
                     top: layout_bar.bottom
                     left: parent.left
                     right: parent.right
                     bottom: parent.bottom
                 }
-                onContextMenuRequested:
-                    (request)=>{
-                        request.accepted = false
+
+                Item{
+                    anchors.fill: parent
+
+                    visible: list_tab.currentIndex === 0
+                    WebEngineView{
+                        id:webview
+                        anchors.fill: parent
+                        opacity: 0
+                        onContextMenuRequested:
+                            (request)=>{
+                                request.accepted = false
+                            }
+                        Behavior on opacity {
+                            NumberAnimation{
+                                duration: 300
+                            }
+                        }
+                        onLoadProgressChanged: {
+                            if(loadProgress === 100){
+                                opacity = 1
+                                controller.showType = 0
+                            }
+                        }
+                        onLoadingChanged:
+                            (request)=>{
+                                if(request.status === 0){
+                                    var url = request.url.toString()
+                                    if(url.startsWith("http") || url.startsWith("https")){
+                                        webview.stop()
+                                        Qt.openUrlExternally(url)
+                                    }
+                                }
+                            }
                     }
-                Behavior on opacity {
-                    NumberAnimation{
-                        duration: 300
-                    }
-                }
-                onLoadProgressChanged: {
-                    if(loadProgress === 100){
-                        opacity = 1
-                        controller.showType = 0
-                    }
-                }
-                onLoadingChanged:
-                    (request)=>{
-                        if(request.status === 0){
-                            var url = request.url.toString()
-                            if(url.startsWith("http") || url.startsWith("https")){
-                                webview.stop()
-                                Qt.openUrlExternally(url)
+
+                    Rectangle{
+                        anchors.fill: webview
+                        visible: controller.showType !== 0
+                        color:Theme.colorBackground1
+                        CusLoading{
+                            anchors.centerIn: parent
+                            visible: controller.showType === 1
+                        }
+                        Text{
+                            anchors.centerIn: parent
+                            color:Theme.colorFontPrimary
+                            font.pixelSize: 20
+                            visible: controller.showType === 2 || controller.showType === 3
+                            text: {
+                                if(controller.showType === 2){
+                                    return "无Readme"
+                                }
+                                return "网路错误"
                             }
                         }
                     }
-            }
-
-            Rectangle{
-                anchors.fill: webview
-                visible: controller.showType !== 0
-                color:Theme.colorBackground1
-                CusLoading{
-                    anchors.centerIn: parent
-                    visible: controller.showType === 1
                 }
-                Text{
-                    anchors.centerIn: parent
-                    color:Theme.colorFontPrimary
-                    font.pixelSize: 20
-                    visible: controller.showType === 2 || controller.showType === 3
-                    text: {
-                        if(controller.showType === 2){
-                            return "无Readme"
-                        }
-                        return "网路错误"
+
+
+
+                Item{
+                    anchors.fill: parent
+                    visible: list_tab.currentIndex === 1
+
+                    TreeList{
+                        id:tree_file
+                        anchors.fill: parent
+                        backgroundFill: Theme.colorBackground
+                        backgroundCurrent: "#00000000"
+                        backgroundHovered:  "#00000000"
+                        foregroundNormal: Theme.colorFontPrimary
+                        foregroundCurrent: Theme.colorFontPrimary
+                        foregroundHovered: Theme.colorFontPrimary
+                        //                        Component.onCompleted: {
+                        //                            var topItem1 = createItem("Item 1", folderIcon);
+                        //                            topItem1.setSelectionFlag(selectionCurrent);
+                        //                            topItem1.appendChild(createItem("Child 1", fileIcon));
+                        //                            topItem1.appendChild(createItem("Child 2", fileIcon));
+                        //                            topItem1.appendChild(createItem("Child 3", fileIcon));
+                        //                            addTopLevelItem(createItem("Item 2", folderIcon));
+                        //                            addTopLevelItem(createItem("Item 3", folderIcon));
+                        //                            addTopLevelItem(topItem1);
+                        //                        }
                     }
                 }
             }

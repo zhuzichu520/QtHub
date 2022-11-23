@@ -33,3 +33,7 @@ QString RepositoriesService::getReadme(const QString& login,const QString& name)
 QString RepositoriesService::getReadme2(const QString& login,const QString& name){
     return repository()->getReadme2(login,name);
 }
+
+QJsonObject RepositoriesService::getFileTree(const QString& owner,const QString& repo){
+    return CommonTool::instance()->json2Object(repository()->getFileTree(owner,repo,"master",1));
+}

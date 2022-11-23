@@ -1,28 +1,29 @@
 ﻿#pragma once
 
-#include <QObject>
-#include <infrastructure/tool/CommonTool.h>
-#include <infrastructure/dto/UserDto.h>
-#include <domain/entity/User.h>
-#include <infrastructure/dto/RepositoriesDto.h>
-#include <domain/entity/Repositories.h>
-#include <infrastructure/po/HistoryPo.h>
 #include <domain/entity/History.h>
-#include <infrastructure/dto/IssuesDto.h>
 #include <domain/entity/Issues.h>
+#include <domain/entity/Repositories.h>
+#include <domain/entity/User.h>
+#include <infrastructure/dto/IssuesDto.h>
+#include <infrastructure/dto/RepositoriesDto.h>
+#include <infrastructure/dto/UserDto.h>
+#include <infrastructure/po/HistoryPo.h>
+#include <infrastructure/tool/CommonTool.h>
+
+#include <QDateTime>
 #include <QJsonDocument>
+#include <QObject>
+#include <QTimeZone>
 
-class Converter
-{
-public:
-
-    static History po2Hisotory(const HistoryPo& val){
+class Converter {
+  public:
+    static History po2Hisotory(const HistoryPo& val) {
         History obj;
         obj.name = val.m_name;
         return obj;
     }
 
-    static Issues dto2Issues(const IssuesDto& val){
+    static Issues dto2Issues(const IssuesDto& val) {
         Issues obj;
         obj.title = QString::fromStdString(val.title);
         obj.avatar = QString::fromStdString(val.user.avatar_url);
@@ -33,7 +34,7 @@ public:
         return obj;
     }
 
-    static User dto2User(const UserDto& val){
+    static User dto2User(const UserDto& val) {
         User obj;
         obj.name = QString::fromStdString(val.name);
         obj.avatar = QString::fromStdString(val.avatar_url);
@@ -50,13 +51,14 @@ public:
         return obj;
     };
 
-    static Repositories dto2Repositories(const RepositoriesDto& val){
+    static Repositories dto2Repositories(const RepositoriesDto& val) {
         Repositories obj;
         obj.full_name = QString::fromStdString(val.full_name);
         obj.description = QString::fromStdString(val.description);
         obj.language = QString::fromStdString(val.language);
         obj.license = QString::fromStdString(val.license.name);
-        obj.updated_at = QString::fromStdString(val.updated_at);
+        QDateTime updateTime = QDateTime::fromString(QString::fromStdString(val.pushed_at), "yyyy-MM-dd'T'HH:mm:ss'Z'");
+        obj.updated_at = updateTime.toLocalTime().toString("yyyy-MM-dd HH:mm:ss");
         obj.name = QString::fromStdString(val.name);
         obj.login = QString::fromStdString(val.owner.login);
         obj.starNumber = val.stargazers_count;
@@ -67,5 +69,4 @@ public:
         obj.topics = topicList;
         return obj;
     }
-
 };

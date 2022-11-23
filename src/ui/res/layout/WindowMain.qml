@@ -13,9 +13,9 @@ import UI 1.0
 CusWindow {
     id:window
     title: "QtHub"
-    width: 700
+    width: 200
     height: 500
-    minimumWidth: 700
+    minimumWidth: 200
     minimumHeight: 500
     closeDestory: false
 

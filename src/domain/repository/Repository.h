@@ -33,7 +33,9 @@ public:
 
     virtual QString getReadme2(const QString& login,const QString& name) = 0;
 
-    virtual  QString readme2Html(const QString& text) = 0;
+    virtual QString readme2Html(const QString& text) = 0;
+
+    virtual QString getFileTree(const QString& owner,const QString& repo,const QString& tree_sha,int recursive) = 0;
 };
 
 #endif  // REPOSITORY_H

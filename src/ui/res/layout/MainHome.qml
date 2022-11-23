@@ -23,7 +23,7 @@ Item {
     TreeList2{
         id: item_tree
         anchors.fill: parent
-        color: Theme.colorBackground
+//        color: Theme.colorBackground
         //model: []
 
         //set model data
@@ -40,7 +40,7 @@ Item {
             "text":"1 one",
             "istitle":true,
             "subnodes":[
-                {"text":"1-1 two","istitle":true},
+                {"text":"1-1 two","istitle":true,"subnodes":[{"text":"1-1 two","istitle":true,"subnodes":[{"text":"1-1 two","istitle":true,"subnodes":[{"text":"1-1 two","istitle":true,"subnodes":[{"text":"1-1 two","istitle":true,"subnodes":[{"text":"1-1 two","istitle":true,"subnodes":[{"text":"1-1 two","istitle":true,"subnodes":[{"text":"1-1 isoptionisoption","isoption":true}]}]}]}]}]}]}]},
                 {
                     "text":"1-2 two",
                     "istitle":true,

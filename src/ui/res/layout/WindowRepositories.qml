@@ -28,86 +28,44 @@ CusWindow {
             webview.loadHtml(readme,"file:///./html")
         }
         onFileTreeChanged: {
-            tree_file.addTopLevelItem(listToTree2(fileTree.tree))
+            tree_file.model = listToTree(fileTree.tree)
         }
-    }
-
-
-
-    function listToTree2(arr) {
-         var root = tree_file.createItem("根目录",folderIcon)
-        var ret = []
-        if (Array.isArray(arr)) {
-            for (var i = 0; i < arr.length; ++i) {
-                var item = arr[i];
-                var path = item.path.split("/");
-                var _ret = ret;
-                for (var j = 0; j < path.length; ++j) {
-                    var text = path[j];
-                    var size = item.size
-                    var type = item.type
-                    var url = item.url
-                    var obj = null;
-                    for (var k = 0; k < _ret.length; ++k) {
-                        var _obj = _ret[k];
-                        if (_obj.text === text) {
-                            obj = _obj;
-                            break;
-                        }
-                    }
-                    if (!obj) {
-                        obj =  tree_file.createItem(text,folderIcon)
-                        if (text.indexOf(".") < 0){
-                            obj.subNodes = [];
-                        }
-                        _ret.push(obj);
-                    }
-                    if (obj.subNodes){
-                        for (var m = 0; m < _ret.length; ++m) {
-                            obj.appendChild(_ret[i])
-                        }
-//                        _ret = obj.subNodes;
-                    }
-                }
-            }
-        }
-        return root;
     }
 
     function listToTree(arr) {
-        var ret = [];
+        var tree = [];
         if (Array.isArray(arr)) {
             for (var i = 0; i < arr.length; ++i) {
                 var item = arr[i];
                 var path = item.path.split("/");
-                var _ret = ret;
+                var _tree = tree;
                 for (var j = 0; j < path.length; ++j) {
                     var name = path[j];
                     var size = item.size
                     var type = item.type
                     var url = item.url
                     var obj = null;
-                    for (var k = 0; k < _ret.length; ++k) {
-                        var _obj = _ret[k];
+                    for (var k = 0; k < _tree.length; ++k) {
+                        var _obj = _tree[k];
                         if (_obj.name === name) {
                             obj = _obj;
                             break;
                         }
                     }
                     if (!obj) {
-                        obj = {name:name,size:size,type:type,url:url};
+                        obj = {id:uiHelper.uuid(),name:name,size:size,type:type,url:url,expanded:true,icon:type==="tree"?folderIcon:fileIcon};
                         if (name.indexOf(".") < 0){
                             obj.children = [];
                         }
-                        _ret.push(obj);
+                        _tree.push(obj);
                     }
                     if (obj.children){
-                        _ret = obj.children;
+                        _tree = obj.children;
                     }
                 }
             }
         }
-        return ret;
+        return tree;
     }
 
     Connections{
@@ -296,15 +254,9 @@ CusWindow {
                     anchors.fill: parent
                     visible: list_tab.currentIndex === 1
 
-                    TreeList{
+                    TreeList2{
                         id:tree_file
                         anchors.fill: parent
-                        backgroundFill: Theme.colorBackground
-                        backgroundCurrent: "#00000000"
-                        backgroundHovered:  "#00000000"
-                        foregroundNormal: Theme.colorFontPrimary
-                        foregroundCurrent: Theme.colorFontPrimary
-                        foregroundHovered: Theme.colorFontPrimary
                         //                        Component.onCompleted: {
                         //                            var topItem1 = createItem("Item 1", folderIcon);
                         //                            topItem1.setSelectionFlag(selectionCurrent);

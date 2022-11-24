@@ -38,6 +38,7 @@ Item {
         item_tree.model=JSON.parse('[
     {
         "name":"文件夹",
+        "expanded":true,
         "children":[
             {
                 "name":"文件1",
@@ -53,6 +54,7 @@ Item {
             },
             {
                 "name":"文件3",
+
                 "children":[
 
                 ]

@@ -16,24 +16,22 @@ Rectangle {
     property var arr: []
 
     onModelChanged: {
-       arr = treeToArr(model)
+        arr = treeToArr(model)
     }
 
     function treeToArr(tree) {
-      var arr = []
-      let node, curTree = [...tree]
-      while ((node = curTree.shift())) {
-        arr.push(node)
-        node.children && curTree.unshift(...node.children)
-      }
-      return arr
+        var arr = []
+        var node, curTree = [...tree]
+        while ((node = curTree.shift())) {
+            arr.push(node)
+            node.children && curTree.unshift(...node.children)
+        }
+        return arr
     }
 
     ListView {
         id: list_root
         anchors.fill: parent
-        contentWidth: contentItem.childrenRect.width
-        flickableDirection: Flickable.HorizontalAndVerticalFlick
         delegate: list_delegate
         clip: true
     }
@@ -68,16 +66,14 @@ Rectangle {
                         MouseArea{
                             anchors.fill: parent
                             onClicked: {
-//                                modelData.expanded = !modelData.expanded
                                 for (var i = 0; i < arr.length; ++i) {
                                     var obj = arr[i]
                                     if(obj.id === modelData.id){
-                                        console.debug("---------------------->执行了")
                                         obj.expanded = !obj.expanded
+                                        console.debug(JSON.stringify(control.model))
                                         break
                                     }
                                 }
-//                                list_root.model = list_root.model
                             }
                         }
                     }
@@ -96,37 +92,33 @@ Rectangle {
                         MouseArea{
                             anchors.fill: parent
                             onClicked: {
-                                console.debug("list_root.width:"+list_root.width)
-                                console.debug("list_root.contentWidth:"+list_root.contentWidth)
-                                console.debug("item_text.width:"+item_text.width)
-                                console.debug("layout_item.width:"+layout_item.width)
-                                console.debug("level:"+layout_item.level)
-                                console.debug("modelData.expanded:"+modelData.expanded)
                                 showToast(list_root.contentWidth)
                             }
                         }
                     }
                 }
-
             }
 
-            ListView{
-                id:list_child
-                contentWidth: childrenRect.width
-                height: childrenRect.height
-                delegate: list_delegate
+
+            Item{
+                id: itemSubNodes
                 visible: {
                     if(!isChildData){
                         return false
                     }
                     return modelData.expanded??false
                 }
-                interactive: false
+                width: colSubNodes.implicitWidth
+                height: colSubNodes.implicitHeight
                 x:0.001
-                model: modelData.children
+                Column{
+                    id: colSubNodes
+                    Repeater{
+                        model: modelData.children
+                        delegate: list_delegate
+                    }
+                }
             }
-
         }
-
     }
 }

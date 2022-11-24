@@ -1,56 +1,63 @@
-import QtQuick
+﻿import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import "../js/TreeItem.js" as TreeItem
+import "../storage"
 
-Rectangle{
+Rectangle {
+    id: control
 
-    id: panel
+    property var treeData
 
-    property var rootItem: new TreeItem.TreeItem("", "", null)
-    property var currentItem: null
-    readonly property int selectionNone: TreeItem.SF_None
-    readonly property int selectionCurrent: TreeItem.SF_Current
-    readonly property int selectionSelected: TreeItem.SF_Selected
-    property size iconSize: Qt.size(14, 14)
-    property font font: Qt.font({family:"Monaco", pixelSize:14})
-    property color backgroundFill: Qt.rgba(33/255, 37/255, 43/255)
-    property color backgroundNormal: Qt.rgba(0.0, 0.0, 0.0, 0.0)
-    property color foregroundNormal: Qt.rgba(151/255, 165/255, 180/255)
-    property color backgroundHovered: Qt.rgba(44/255, 49/255, 58/255)
-    property color foregroundHovered: Qt.rgba(1.0, 1.0, 1.0)
-    property color backgroundCurrent: Qt.rgba(24/255, 26/255, 31/255)
-    property color foregroundCurrent: Qt.rgba(1.0, 1.0, 1.0)
-    property color selectionFlagColor: Qt.rgba(86/255, 138/255, 242/255)
-    property color displayIconColor: Qt.rgba(1.0, 1.0, 1.0)
+    color:Theme.colorBackground
 
-    readonly property string uriExpandIcon: "\ue892"
-    readonly property string uriCollapseIcon: "\ue87d"
+    property var arr: []
 
-    implicitWidth: 200
-    implicitHeight: parent.height
-    color: backgroundFill
 
-    //Model
-    ListModel{
-        id: listModel
+    onTreeDataChanged: {
+        list_model.clear()
+        var root = {name:"根目录",size:"0",type:"tree",url:"",expanded:true,icon:"qrc:/image/ic_folder.png"};
+        sortTree(treeData)
+        root.subNodes = treeData
+        list_model.append(root)
     }
 
-    //Delegate
+
+    function sortTree(tree){
+        tree.sort(function(s,t){
+            if(s.type==="tree" && t.type !== "tree"){
+                return -1
+            }
+            if(s.type!=="tree" && t.type === "tree"){
+                return 1
+            }
+            return s.name??"".localeCompare(t.name??"")
+        })
+        for(var i = 0; i < tree.length; ++i){
+            if(tree[i].subNodes && tree[i].length!==0){
+                sortTree(tree[i].subNodes)
+            }
+        }
+    }
+
+
+    ListModel{
+        id:list_model
+    }
+
     Component{
-        id: delegateRoot
+        id: delegate_root
         Column{
             width: calculateWidth()
             Repeater{
-                id: repeaterFirstLevelNodes
+                id: repeater_first_level
                 model: subNodes
-                delegate: delegateItems
+                delegate: delegate_items
             }
 
             function calculateWidth(){
                 var w = 0;
-                for(var i = 0; i < repeaterFirstLevelNodes.count; i++) {
-                    var child = repeaterFirstLevelNodes.itemAt(i)
+                for(var i = 0; i < repeater_first_level.count; i++) {
+                    var child = repeater_first_level.itemAt(i)
                     if(w < child.widthHint){
                         w = child.widthHint;
                     }
@@ -60,18 +67,21 @@ Rectangle{
         }
     }
 
-    Component{
-        id: delegateItems
+
+    Component {
+        id: delegate_items
 
         Column{
+            id:item_layout
+
 
             property int widthHint: calculateWidth()
 
             function calculateWidth(){
-                var w = Math.max(listView.width, itemRow.implicitWidth + 10);
+                var w = Math.max(list_root.width, item_layout_row.implicitWidth + 10);
                 if(expanded){
-                    for(var i = 0; i < repeaterSubNodes.count; i++) {
-                        var child = repeaterSubNodes.itemAt(i)
+                    for(var i = 0; i < repeater_subNodes.count; i++) {
+                        var child = repeater_subNodes.itemAt(i)
                         if(w < child.widthHint){
                             w = child.widthHint;
                         }
@@ -80,178 +90,100 @@ Rectangle{
                 return w;
             }
 
-            Rectangle{
-                id: itemRect
-                width: listView.contentWidth
-                height: itemRow.implicitHeight + 6
 
-                color: (selectionFlag == TreeItem.SF_Current) ? backgroundCurrent : backgroundNormal
+            property real level: mapToItem(list_root,0,0).x/0.001
+            property bool isChildData : (model.subNodes !== undefined) && (model.subNodes.count !== 0)
+            property var subNodes: model.subNodes??[]
+            property var icon: model.icon??""
+            property var name: model.name??""
+            property var expanded: model.expanded??false
+            property var size: model.size??""
 
-                function getItemByID(id){
-                    var item = parentNode, vPath = [itemID];
-                    while(item){
-                        vPath.splice(0, 0, item.itemID);
-                        item = item.parentNode;
-                    }
-
-                    var children = [rootItem];
-                    for(var i = 0; i < vPath.length; i++){
-                        var bFound = false;
-                        for(var j = 0; j < children.length; j++){
-                            var child = children[j];
-                            if(vPath[i] === child.itemID){
-                                if(i == vPath.length - 1){
-                                    return child;
-                                }else{
-                                    children = child.subNodes;
-                                    bFound = true;
-                                    break;
-                                }
-                            }
-                        }
-                        if(!bFound){
-                            return null;
-                        }
-                    }
-                }
-
-                MouseArea{
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    onEntered: {
-                        itemRect.color = backgroundHovered;
-                        textTitle.color = foregroundHovered;
-                    }
-                    onExited: {
-                        itemRect.color = Qt.binding(function(){return ((selectionFlag == TreeItem.SF_Current) ? backgroundCurrent : backgroundNormal);});
-                        textTitle.color = Qt.binding(function(){return ((selectionFlag == TreeItem.SF_Current) ? foregroundCurrent : foregroundNormal);});
-                    }
-                    onClicked: {
-                        var item = itemRect.getItemByID();
-                        if(currentItem) currentItem.setSelectionFlag(TreeItem.SF_None);
-                        if(item){
-                            item.setSelectionFlag(TreeItem.SF_Current);
-                        }
-                    }
-                }
+            Item{
+                id:item_layout_rect
+                width: list_root.contentWidth
+                height: item_layout_row.implicitHeight
 
                 RowLayout{
-                    id: itemRow
-                    anchors.verticalCenter: itemRect.verticalCenter
+                    id:item_layout_row
+                    anchors.verticalCenter: item_layout_rect.verticalCenter
 
                     Item{
-                        width: getIndent();
-                        height: parent.height
-
-                        function getIndent(){
-                            var item = itemRect.getItemByID();
-                            return (item ? item.level() - 1 : 0) * 20 + 10;
-                        }
+                        width: 15*level
+                        Layout.alignment: Qt.AlignVCenter
                     }
 
-                    MouseArea{
-                        id: itemIndicator
-                        width: imageIndicator.width + 4
-                        height: imageIndicator.height + 4
-                        Layout.alignment: Qt.AlignVCenter
-                        propagateComposedEvents: (subNodes.count === 0)
-                        onClicked: {
-                            if(subNodes.count > 0){
-                                var item = itemRect.getItemByID();
-                                item.setExpanded(!item.isExpanded());
-                            }else{
-                                mouse.accepted = false;
+                    TextIcon {
+                        id:item_expanded
+                        font.pixelSize: 16
+                        opacity: isChildData
+                        text: item_layout.expanded ? "\ue892" : "\ue87d"
+                        MouseArea{
+                            anchors.fill: parent
+                            onClicked: {
+                                item_layout.expanded = !item_layout.expanded
                             }
                         }
-
-                        TextIcon {
-                            id: imageIndicator
-                            visible: subNodes.count > 0
-                            anchors.centerIn: parent
-                            font.pixelSize: 14
-                            color: foregroundNormal
-                            text: expanded ? uriCollapseIcon : uriExpandIcon
-                        }
+                        color:Theme.colorFontPrimary
                     }
 
-                    Item{
-                        visible: (displayIcon !== "")
-                        width: imageIcon.width + 4
-                        height: imageIcon.height + 4
+                    Image {
+                        id:item_icon
+                        Layout.preferredHeight: 14
+                        Layout.preferredWidth: 14
                         Layout.alignment: Qt.AlignVCenter
-
-                        Image{
-                            id: imageIcon
-                            width: iconSize.width
-                            height: iconSize.height
-                            anchors.centerIn: parent
-                            source: displayIcon
-                        }
+                        source: item_layout.icon
                     }
 
-                    Text{
-                        id: textTitle
+                    Text {
+                        text:  item_layout.name
+                        font.pixelSize: 14
+                        color:Theme.colorFontPrimary
                         Layout.alignment: Qt.AlignVCenter
-                        color: foregroundNormal
-                        font: panel.font
-                        text: displayText
+                        MouseArea{
+                            anchors.fill: parent
+                            onClicked: {
+
+                            }
+                        }
                     }
                 }
             }
 
+
             Item{
-                id: itemSubNodes
-                visible: expanded
-                width: colSubNodes.implicitWidth
-                height: colSubNodes.implicitHeight
+                id: item_sub
+                visible: {
+                    if(!isChildData){
+                        return false
+                    }
+                    return item_layout.expanded??false
+                }
+                width: item_sub_layout.implicitWidth
+                height: item_sub_layout.implicitHeight
+                x:0.001
                 Column{
-                    id: colSubNodes
-                    Repeater {
-                        id: repeaterSubNodes
-                        model: subNodes
-                        delegate: delegateItems
+                    id: item_sub_layout
+                    Repeater{
+                        id:repeater_subNodes
+                        model: item_layout.subNodes
+                        delegate: delegate_items
                     }
                 }
             }
         }
     }
 
-    function createItem(text, icon, parent){
-        return new TreeItem.TreeItem(text, icon, parent);
-    }
-
-    function topLevelItem(index){
-        return rootItem.childItem(index);
-    }
-
-    function indexOfTopLevelItem(item){
-        return rootItem.indexOfChildItem(item);
-    }
-
-    function addTopLevelItem(item){
-        rootItem.appendChild(item);
-    }
-
-    function takeTopLevelItem(item){
-        rootItem.removeChild(indexOfItem(item));
-    }
-
-    function getCurrentItem(){
-        return currentItem;
-    }
-
-    ListView{
-        id: listView
+    ListView {
+        id: list_root
         anchors.fill: parent
-        model: listModel
-        delegate: delegateRoot
+        delegate: delegate_root
+        model:list_model
 
         contentWidth: contentItem.childrenRect.width;
         flickableDirection: Flickable.HorizontalAndVerticalFlick
+        clip: true
 
-        Component.onCompleted: {
-            rootItem.setExpanded(true);
-            listModel.append(rootItem);
-        }
     }
+
 }

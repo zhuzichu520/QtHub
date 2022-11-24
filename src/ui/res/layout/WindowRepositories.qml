@@ -11,9 +11,9 @@ import "../storage"
 CusWindow {
     id:window
 
-    width: 560
+    width: 800
     height: 640
-    minimumWidth: 560
+    minimumWidth: 800
     minimumHeight: 640
     title: login+"/"+name
 
@@ -28,9 +28,10 @@ CusWindow {
             webview.loadHtml(readme,"file:///./html")
         }
         onFileTreeChanged: {
-            tree_file.model = listToTree(fileTree.tree)
+            tree_file.treeData = listToTree(fileTree.tree)
         }
     }
+
 
     function listToTree(arr) {
         var tree = [];
@@ -53,14 +54,14 @@ CusWindow {
                         }
                     }
                     if (!obj) {
-                        obj = {id:uiHelper.uuid(),name:name,size:size,type:type,url:url,expanded:true,icon:type==="tree"?folderIcon:fileIcon};
+                        obj = {name:name,size:String(size),type:type,url:url,expanded:false,icon:type==="tree"?folderIcon:fileIcon};
                         if (name.indexOf(".") < 0){
-                            obj.children = [];
+                            obj.subNodes = [];
                         }
                         _tree.push(obj);
                     }
-                    if (obj.children){
-                        _tree = obj.children;
+                    if (obj.subNodes){
+                        _tree = obj.subNodes;
                     }
                 }
             }
@@ -254,20 +255,29 @@ CusWindow {
                     anchors.fill: parent
                     visible: list_tab.currentIndex === 1
 
-                    TreeList2{
+                    TreeList{
                         id:tree_file
-                        anchors.fill: parent
-                        //                        Component.onCompleted: {
-                        //                            var topItem1 = createItem("Item 1", folderIcon);
-                        //                            topItem1.setSelectionFlag(selectionCurrent);
-                        //                            topItem1.appendChild(createItem("Child 1", fileIcon));
-                        //                            topItem1.appendChild(createItem("Child 2", fileIcon));
-                        //                            topItem1.appendChild(createItem("Child 3", fileIcon));
-                        //                            addTopLevelItem(createItem("Item 2", folderIcon));
-                        //                            addTopLevelItem(createItem("Item 3", folderIcon));
-                        //                            addTopLevelItem(topItem1);
-                        //                        }
+                        height: parent.height
+                        width: 200
                     }
+
+                    Rectangle{
+                        height: parent.height
+                        anchors{
+                            left: tree_file.right
+                            right: parent.right
+                        }
+                    }
+
+
+                    Rectangle{
+                        height: parent.height
+                        width: 1
+                        color: Theme.colorDivider
+                        anchors.left: tree_file.right
+                    }
+
+
                 }
             }
         }

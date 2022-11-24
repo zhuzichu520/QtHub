@@ -20,49 +20,4 @@ Item {
         text: qsTr("正在建设中...")
     }
 
-    TreeList2{
-        id: item_tree
-        anchors.fill: parent
-//        color: Theme.colorBackground
-        //model: []
-
-        //set model data
-        Component.onCompleted: {
-            console.log(1)
-            setTestDataA();
-            console.log(2)
-        }
-    }
-
-    function setTestDataA(){
-        item_tree.model=JSON.parse('[
-    {
-        "name":"文件夹",
-        "expanded":true,
-        "children":[
-            {
-                "name":"文件1",
-                "children":[
-
-                ]
-            },
-            {
-                "name":"文件2",
-                "children":[
-
-                ]
-            },
-            {
-                "name":"文件3",
-
-                "children":[
-
-                ]
-            }
-        ]
-    }
-]')
-    }
-
-
 }

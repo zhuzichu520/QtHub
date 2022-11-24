@@ -9,9 +9,9 @@ import "../storage"
 
 CusWindow {
     id:window
-    width: 560
+    width: 800
     height: 640
-    minimumWidth: 560
+    minimumWidth: 800
     minimumHeight: 640
     title: "搜索"
 

@@ -6,11 +6,13 @@
 #include <QProcess>
 #include <FramelessHelper/Quick/framelessquickmodule.h>
 #include <FramelessHelper/Core/private/framelessconfig_p.h>
+#include "infrastructure/di/ApplicationInjector.h"
 
 FRAMELESSHELPER_USE_NAMESPACE
 
 int main(int argc, char *argv[])
 {
+    ApplicationInjector::init();
     //将样式设置为Basic，不然会导致组件显示异常
     qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
     FramelessHelper::Quick::initialize();

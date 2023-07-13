@@ -21,7 +21,7 @@ file(TO_CMAKE_PATH "/" PATH_SEPARATOR)
 #设置版本号
 add_definitions(-DVERSION=0,0,1,0)
 
-find_package(Qt6 REQUIRED COMPONENTS Quick Svg)
+find_package(Qt6 REQUIRED COMPONENTS Quick Svg HttpServer Concurrent)
 
 if(QT_VERSION VERSION_GREATER_EQUAL "6.3")
     qt_standard_project_setup()
@@ -67,9 +67,9 @@ endif ()
 #复制动态库到可执行文件同级目录下
 if(WIN32)
     if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-        set(DLLPATH ${CMAKE_SOURCE_DIR}/3rdparty/msvc/*.dll)
+        set(DLLPATH ${CMAKE_SOURCE_DIR}/3rdparty/dll/msvc/*.dll)
     else()
-        set(DLLPATH ${CMAKE_SOURCE_DIR}/3rdparty/mingw/*.dll)
+        set(DLLPATH ${CMAKE_SOURCE_DIR}/3rdparty/dll/mingw/*.dll)
     endif()
     string(REPLACE "/" ${PATH_SEPARATOR} DLLPATH "${DLLPATH}")
     file(GLOB DLL_FILES ${DLLPATH})
@@ -86,6 +86,7 @@ qt_add_qml_module(QtHub
     VERSION 1.0
     QML_FILES ${qml_files}
     RESOURCES ${resource_files}
+    OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/QtHub
 )
 
 #设置属性
@@ -97,10 +98,19 @@ set_target_properties(QtHub PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
+
+#导入头文件
+target_include_directories(QtHub PRIVATE
+    ${CMAKE_SOURCE_DIR}/3rdparty/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/controller
+)
+
 #链接库
 target_link_libraries(QtHub PRIVATE
-    Qt6::Quick
+    Qt::Quick
     Qt::Svg
+    Qt::HttpServer
+    Qt::Concurrent
     fluentuiplugin
     FramelessHelper::Core
     FramelessHelper::Quick

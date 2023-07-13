@@ -2,5 +2,5 @@
 	path = FluentUI
 	url = https://github.com/zhuzichu520/FluentUI.git
 [submodule "glog"]
-	path = FluentUI
+	path = glog
 	url = https://github.com/zhuzichu520/glog.git

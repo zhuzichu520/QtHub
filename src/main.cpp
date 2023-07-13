@@ -12,7 +12,6 @@ FRAMELESSHELPER_USE_NAMESPACE
 
 int main(int argc, char *argv[])
 {
-    ApplicationInjector::init();
     //将样式设置为Basic，不然会导致组件显示异常
     qputenv("QT_QUICK_CONTROLS_STYLE","Basic");
     FramelessHelper::Quick::initialize();
@@ -20,6 +19,7 @@ int main(int argc, char *argv[])
     QGuiApplication::setOrganizationDomain("https://zhuzichu520.github.io");
     QGuiApplication::setApplicationName("QtHub");
     QGuiApplication app(argc, argv);
+    ApplicationInjector::init();
 #ifdef Q_OS_WIN // 此设置仅在Windows下生效
     FramelessConfig::instance()->set(Global::Option::ForceHideWindowFrameBorder);
 #endif

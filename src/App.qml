@@ -12,9 +12,10 @@ Window {
         FluTheme.darkMode = FluDarkMode.System
         FluTheme.enableAnimation = true
         FluApp.routes = {
-            "/":"qrc:/QtHub/ui/window/LoginWindow.qml",
+            "/":"qrc:/QtHub/ui/window/MainWindow.qml",
+            "/login":"qrc:/QtHub/ui/window/LoginWindow.qml",
         }
-        FluApp.initialRoute = "/"
+        FluApp.initialRoute = "/login"
         FluApp.run()
     }
 }

@@ -1,5 +1,0 @@
-2023-07-14 11:49:24,867 - aqt.helper - DEBUG - helper 16964 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_650/Updates.xml.sha256
-2023-07-14 11:49:29,271 - aqt.helper - DEBUG - helper 16964 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_650_wasm_singlethread/Updates.xml.sha256
-2023-07-14 11:49:32,444 - aqt.helper - DEBUG - helper 16964 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_650_wasm_multithread/Updates.xml.sha256
-2023-07-14 11:49:47,430 - aqt.helper - DEBUG - helper 17792 Attempt to download checksum at https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_650/Updates.xml.sha256
-2023-07-14 11:52:41,275 - aqt.main - INFO - installer 15672 aqtinstall(aqt) v3.1.6 on Python 3.11.2 [CPython MSC v.1934 64 bit (AMD64)]

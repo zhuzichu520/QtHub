@@ -98,7 +98,6 @@ set_target_properties(QtHub PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
-
 #导入头文件
 target_include_directories(QtHub PRIVATE
     ${CMAKE_SOURCE_DIR}/3rdparty/include

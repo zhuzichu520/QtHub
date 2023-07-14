@@ -38,7 +38,6 @@ jobs:
           cache: ${{steps.cache-qt.outputs.cache-hit}}
           arch: ${{ matrix.qt_arch }}
           aqtversion: '==3.1.6'
-          archives: 'icu qtbase qtdeclarative qtsvg qttools qttranslations qtwayland'
           modules: 'qt3d qt5compat qtcharts qtconnectivity qtdatavis3d qtgrpc qthttpserver qtimageformats qtlanguageserver qtlocation qtlottie qtmultimedia qtnetworkauth qtpdf qtpositioning qtquick3d qtquick3dphysics qtquickeffectmaker qtquicktimeline qtremoteobjects qtscxml qtsensors qtserialbus qtserialport qtshadertools qtspeech qtvirtualkeyboard qtwaylandcompositor qtwebchannel qtwebengine qtwebsockets qtwebview'
       
       - name: Set up Ninja

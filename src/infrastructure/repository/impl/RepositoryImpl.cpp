@@ -1,6 +1,6 @@
 ﻿#include "RepositoryImpl.h"
 
-#include <infrastructure/nlohmann/json.h>
+#include <infrastructure/nlohmann/json.hpp>
 #include "domain/exception/BizException.h"
 #include "infrastructure/converter/Converter.h"
 #include "infrastructure/tool/CommonTool.h"

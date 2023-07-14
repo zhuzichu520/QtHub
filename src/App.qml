@@ -14,6 +14,7 @@ Window {
         FluApp.routes = {
             "/":"qrc:/QtHub/ui/window/MainWindow.qml",
             "/login":"qrc:/QtHub/ui/window/LoginWindow.qml",
+            "/settings":"qrc:/QtHub/ui/window/SettingsWindow.qml",
         }
         FluApp.initialRoute = "/"
         FluApp.run()

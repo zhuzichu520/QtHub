@@ -40,8 +40,9 @@ jobs:
           arch: ${{ matrix.qt_arch }}
           aqtversion: '==3.1.6'
           cache: ${{steps.cache-qt.outputs.cache-hit}}
-          modules: 'qt5compat qtmultimedia qtshadertools qtimageformats qthttpserver qtwebchannel qtwebview'
-      
+          archives: 'd3dcompiler_47 opengl32sw qtbase qtdeclarative qtsvg qttools qttranslations'
+          modules: 'qt3d qt5compat qtactiveqt qtcharts qtconnectivity qtdatavis3d qtgrpc qthttpserver qtimageformats qtlanguageserver qtlocation qtlottie qtmultimedia qtnetworkauth qtpositioning qtquick3d qtquick3dphysics qtquickeffectmaker qtquicktimeline qtremoteobjects qtscxml qtsensors qtserialbus qtserialport qtshadertools qtspeech qtvirtualkeyboard qtwebchannel qtwebsockets qtwebview'
+            
       - name: Qt6 environment configuration
         if: ${{ startsWith( matrix.qt_ver, 6 ) }}
         shell: pwsh

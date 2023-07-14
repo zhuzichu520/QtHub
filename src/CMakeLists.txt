@@ -32,7 +32,7 @@ else()
 endif()
 
 #遍历所有Cpp文件
-file(GLOB_RECURSE CPP_FILES *.cpp *.h)
+file(GLOB_RECURSE CPP_FILES *.cpp *.h *.hpp)
 foreach(filepath ${CPP_FILES})
     string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
     list(APPEND sources_files ${filename})

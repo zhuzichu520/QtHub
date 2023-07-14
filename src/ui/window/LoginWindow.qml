@@ -22,10 +22,13 @@ CustomWindow {
                 hideLoading()
                 break;
             case 2:
-                window.show()
-                window.raise()
-                window.requestActivate()
+                console.debug('-23412312')
                 showLoading()
+                window.show()
+                //将窗口置顶，等获取到焦点后再取消置顶
+                window.flags = window.flags | Qt.WindowStaysOnTopHint
+                window.requestActivate()
+                window.flags = window.flags &~ Qt.WindowStaysOnTopHint
                 break;
             case 3:
                 hideLoading()

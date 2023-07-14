@@ -36,7 +36,8 @@ jobs:
           version: ${{ matrix.qt_ver }}
           cache: ${{steps.cache-qt.outputs.cache-hit}}
           arch: ${{ matrix.qt_arch }}
-          modules: 'qt5compat qtmultimedia qtshadertools qtimageformats qthttpserver qtwebengine qtwebview'
+          aqtversion: '==3.1.6'
+          modules: 'qt5compat qtmultimedia qtshadertools qtimageformats qthttpserver qtwebview qtwebengine'
           
       - name: Set up Ninja
         uses: seanmiddleditch/gha-setup-ninja@v3

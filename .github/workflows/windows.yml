@@ -37,10 +37,11 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
         with:
+          aqtversion: '==3.1.6'
           version: ${{ matrix.qt_ver }}
           arch: ${{ matrix.qt_arch }}
           cache: ${{steps.cache-qt.outputs.cache-hit}}
-          modules: 'qt5compat qtmultimedia qtshadertools qtimageformats qtspeech qthttpserver qtwebengine qtwebview'
+          modules: 'qt5compat qtmultimedia qtshadertools qtimageformats qtspeech qthttpserver qtwebview qtwebengine'
           
       - name: msvc-build
         id: build

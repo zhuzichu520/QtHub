@@ -110,7 +110,6 @@ target_link_libraries(QtHub PRIVATE
     Qt6::Svg
     Qt6::HttpServer
     Qt6::Concurrent
-    fluentuiplugin
     FramelessHelper::Core
     FramelessHelper::Quick
 )

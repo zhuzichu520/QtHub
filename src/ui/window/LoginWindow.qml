@@ -9,6 +9,7 @@ CustomWindow {
     width: 278
     height: 378
     fixSize:true
+    launchMode: FluWindow.SingleTask
     showMaximize: false
     showMinimize: false
     closeDestory: false

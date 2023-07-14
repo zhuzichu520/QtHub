@@ -13,6 +13,7 @@ FluWindow {
     property alias showMinimize: title_bar.showMinimize
     property alias showMaximize: title_bar.showMaximize
     property bool appBarVisible: true
+    property bool autoShow: true
     default property alias content: container.data
 
     FluAppBar {
@@ -48,9 +49,12 @@ FluWindow {
             setHitTestVisible(title_bar.closeButton())
             setWindowFixedSize(fixSize)
             title_bar.maximizeButton.visible = !fixSize
-            if (blurBehindWindowEnabled)
+            if (blurBehindWindowEnabled){
                 window.backgroundVisible = false
-            window.show()
+            }
+            if(window.autoShow){
+                window.show()
+            }
         }
     }
     Connections{

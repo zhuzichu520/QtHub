@@ -9,4 +9,5 @@ set(FLUENTUI_BUILD_FRAMELESSHEPLER ON)
 
 add_subdirectory(src)
 add_subdirectory(FluentUI)
+set(WITH_GFLAGS OFF)
 add_subdirectory(glog)

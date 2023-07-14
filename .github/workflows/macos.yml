@@ -37,7 +37,8 @@ jobs:
           cache: ${{steps.cache-qt.outputs.cache-hit}}
           arch: ${{ matrix.qt_arch }}
           aqtversion: '==3.1.6'
-          modules: 'qt5compat qtmultimedia qtshadertools qtimageformats qthttpserver qtwebview qtwebengine'
+          archives: 'qtbase qtdeclarative qtsvg qttools qttranslations'
+          modules: 'qt3d qt5compat qtcharts qtconnectivity qtdatavis3d qtgrpc qthttpserver qtimageformats qtlanguageserver qtlocation qtlottie qtmultimedia qtnetworkauth qtpdf qtpositioning qtquick3d qtquick3dphysics qtquickeffectmaker qtquicktimeline qtremoteobjects qtscxml qtsensors qtserialbus qtserialport qtshadertools qtspeech qtvirtualkeyboard qtwebchannel qtwebengine qtwebsockets qtwebview'
           
       - name: Set up Ninja
         uses: seanmiddleditch/gha-setup-ninja@v3

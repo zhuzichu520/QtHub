@@ -86,6 +86,7 @@ qt_add_qml_module(QtHub
     VERSION 1.0
     QML_FILES ${qml_files}
     RESOURCES ${resource_files}
+    OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/QtHub
 )
 
 #设置属性
@@ -110,6 +111,7 @@ target_link_libraries(QtHub PRIVATE
     Qt6::Svg
     Qt6::HttpServer
     Qt6::Concurrent
+    fluentuiplugin
     FramelessHelper::Core
     FramelessHelper::Quick
 )

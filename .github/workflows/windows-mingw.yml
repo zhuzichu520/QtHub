@@ -40,7 +40,7 @@ jobs:
           arch: ${{ matrix.qt_arch }}
           aqtversion: '==3.1.6'
           cache: ${{steps.cache-qt.outputs.cache-hit}}
-          modules: 'qt5compat qtmultimedia qtshadertools qtimageformats qthttpserver qtwebchannel qtwebengine'
+          modules: 'qt5compat qtmultimedia qtshadertools qtimageformats qthttpserver qtwebchannel qtwebview'
       
       - name: Qt6 environment configuration
         if: ${{ startsWith( matrix.qt_ver, 6 ) }}

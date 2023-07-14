@@ -107,10 +107,10 @@ target_include_directories(QtHub PRIVATE
 
 #链接库
 target_link_libraries(QtHub PRIVATE
-    Qt::Quick
-    Qt::Svg
-    Qt::HttpServer
-    Qt::Concurrent
+    Qt6::Quick
+    Qt6::Svg
+    Qt6::HttpServer
+    Qt6::Concurrent
     fluentuiplugin
     FramelessHelper::Core
     FramelessHelper::Quick

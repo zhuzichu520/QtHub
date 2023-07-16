@@ -2,10 +2,8 @@
 
 Q_GLOBAL_STATIC(Logger, logger)
 
-#include <Windows.h>
-#include <DbgHelp.h>
-#include <qt_windows.h>
 #include <QCoreApplication>
+#include <fstream>
 
 Logger* Logger::instance()
 {

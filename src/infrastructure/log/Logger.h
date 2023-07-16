@@ -8,7 +8,6 @@
 #include <QDebug>
 #include <QDir>
 #include <QtGlobal>
-#include <fstream>
 #include <glog/logging.h>
 #include <infrastructure/config/AppConfig.h>
 

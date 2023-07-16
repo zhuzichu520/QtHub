@@ -111,6 +111,7 @@ target_link_libraries(QtHub PRIVATE
     Qt6::HttpServer
     Qt6::Concurrent
     fluentuiplugin
+    glog
     FramelessHelper::Core
     FramelessHelper::Quick
 )

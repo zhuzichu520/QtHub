@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <QObject>
 
@@ -19,4 +19,5 @@ public:
     int public_gists;
     int followers;
     int following;
+    QString token;
 };

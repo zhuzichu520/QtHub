@@ -6,7 +6,7 @@
 #include <QProcess>
 #include <FramelessHelper/Quick/framelessquickmodule.h>
 #include <FramelessHelper/Core/private/framelessconfig_p.h>
-#include "infrastructure/di/ApplicationInjector.h"
+#include "ApplicationStarter.h"
 
 FRAMELESSHELPER_USE_NAMESPACE
 
@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     QGuiApplication::setOrganizationDomain("https://zhuzichu520.github.io");
     QGuiApplication::setApplicationName("QtHub");
     QGuiApplication app(argc, argv);
-    ApplicationInjector::init();
+    ApplicationStarter::init(argv);
 #ifdef Q_OS_WIN // 此设置仅在Windows下生效
     FramelessConfig::instance()->set(Global::Option::ForceHideWindowFrameBorder);
 #endif

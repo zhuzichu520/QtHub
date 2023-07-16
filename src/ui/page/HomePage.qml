@@ -51,6 +51,9 @@ FluScrollablePage {
             delegate: FluControl{
                 width: 130
                 height: 80
+                onClicked: {
+                    console.debug("好")
+                }
                 ColumnLayout{
                     anchors.centerIn: parent
                     spacing: 10

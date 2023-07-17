@@ -2,11 +2,14 @@
 
 #include "infrastructure/config/AppConfig.h"
 
-Q_GLOBAL_STATIC(SettingsHelper, settingsHelper)
+SettingsHelper* SettingsHelper::m_instance = nullptr;
 
-SettingsHelper* SettingsHelper::instance()
+SettingsHelper *SettingsHelper::getInstance()
 {
-  return settingsHelper;
+    if(SettingsHelper::m_instance == nullptr){
+        SettingsHelper::m_instance = new SettingsHelper;
+    }
+    return SettingsHelper::m_instance;
 }
 
 SettingsHelper::SettingsHelper(QObject *parent) : QObject(parent)

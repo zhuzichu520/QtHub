@@ -1,6 +1,7 @@
 import QtQuick
 import FluentUI
 import Qt.labs.platform
+import QtHub
 import "qrc:///QtHub/ui/component"
 
 CustomWindow {
@@ -12,7 +13,7 @@ CustomWindow {
     minimumWidth: 520
     minimumHeight: 200
     appBarVisible: false
-    //    autoShow: false
+    autoShow: false
     launchMode: FluWindow.SingleTask
     title: qsTr("QtHub")
 
@@ -22,9 +23,13 @@ CustomWindow {
     }
 
     Component.onCompleted: {
-        //        FluTools.setQuitOnLastWindowClosed(false)
-        //        visible = false
-        //        FluApp.navigate("/login")
+        if(!UserHelper.isLogin()){
+            visible = false
+            FluApp.navigate("/login")
+        }else{
+            FluTools.setQuitOnLastWindowClosed(false)
+            visible = true
+        }
     }
 
     FluObject{

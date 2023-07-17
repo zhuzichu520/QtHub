@@ -102,6 +102,7 @@ set_target_properties(QtHub PROPERTIES
 target_include_directories(QtHub PRIVATE
     ${CMAKE_SOURCE_DIR}/3rdparty/include
     ${CMAKE_CURRENT_SOURCE_DIR}/controller
+    ${CMAKE_CURRENT_SOURCE_DIR}/infrastructure/helper
 )
 
 #链接库

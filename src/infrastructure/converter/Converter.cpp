@@ -14,5 +14,6 @@ User Converter::dto2User(const UserDto& val){
     obj.followers = val.followers;
     obj.following = val.following;
     obj.login = QString::fromStdString(val.login);
+    obj.bio = QString::fromStdString(val.bio);
     return obj;
 }

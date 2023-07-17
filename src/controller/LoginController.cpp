@@ -3,8 +3,8 @@
 #include <QtConcurrent>
 #include "domain/exception/BizException.h"
 
-LoginController::LoginController(QObject *parent,UserService* service)
-    : BaseController{parent},_userService(service)
+LoginController::LoginController(QObject *parent)
+    : BaseController{parent}
 {
     loginStatus(1);
     _server.route("/oauth/redirect",QHttpServerRequest::Method::Get,[this](const QHttpServerRequest &request) {
@@ -12,7 +12,7 @@ LoginController::LoginController(QObject *parent,UserService* service)
         const QString& code = request.query().queryItemValue("code");
         return QtConcurrent::run([this,code] () {
             try {
-                _userService->login(code);
+                _userService()->login(code);
                 loginStatus(4);
             } catch (const BizException& e) {
                 loginStatus(1);

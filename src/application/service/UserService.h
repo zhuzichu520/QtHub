@@ -22,7 +22,7 @@ public:
     Q_SIGNAL void loginSuccess();
 
 private:
-     Repository* _repository;
+    Repository* _repository;
 };
 
 #endif  // USERSERVICE_H

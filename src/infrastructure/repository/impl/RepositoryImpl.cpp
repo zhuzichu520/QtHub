@@ -43,6 +43,18 @@ QString RepositoryImpl::accessToken(const QString &id,const QString &secret,cons
 
 User RepositoryImpl::user(){
     UserDto dto;
-    handleResult(RxHttp::get(api("/user")),dto);
-    return Converter::dto2User(dto);
+    QString query = R"(
+query {
+  viewer {
+    login
+  }
+}
+}
+    )";
+    const QVariantMap& data = {
+        {"query",query},
+    };
+    RxHttp::postJson("https://api.github.com/graphql",data);
+    User user;
+    return user;
 }

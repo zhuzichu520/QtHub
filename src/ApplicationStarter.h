@@ -13,7 +13,7 @@ public:
     static void init(char* argv[])
     {
         Logger::instance()->initGoogleLog(argv);
-        LOGI("Logger init completed");
+        LOGI(QString("Logger init completed"));
         ServiceInjector::init();
         RepositoryInjector::init();
     }

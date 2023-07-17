@@ -2,7 +2,7 @@
 #define USERHELPER_H
 
 #include <QObject>
-#include <QGlobalStatic>
+#include <QtQml/qqml.h>
 #include "infrastructure/helper/SettingsHelper.h"
 #include "domain/entity/User.h"
 #include "stdafx.h"
@@ -23,24 +23,31 @@ class UserHelper : public QObject
     Q_PROPERTY_AUTO(int,public_gists)
     Q_PROPERTY_AUTO(int,followers)
     Q_PROPERTY_AUTO(int,following)
-public:
-    static UserHelper* instance();
-
+    Q_PROPERTY_AUTO(QString,bio)
+    QML_NAMED_ELEMENT(UserHelper)
+    QML_SINGLETON
+private:
     explicit UserHelper(QObject* parent = nullptr);
-
+    static UserHelper* m_instance;
+public:
+    static UserHelper *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
+    {
+        return getInstance();
+    }
+    static UserHelper *getInstance();
     Q_INVOKABLE bool isLogin(){
         return !_token.isEmpty();
     }
 
     Q_INVOKABLE void logout(){
-        token(""),name(""),account(""),avatar(""),location(""),email(""),blog(""),created_at(""),updated_at("");
+        token(""),name(""),account(""),avatar(""),location(""),email(""),blog(""),created_at(""),updated_at(""),bio("");
         public_repos(0),public_gists(0),followers(0),following(0);
-        SettingsHelper::instance()->saveToken(_token);
+        SettingsHelper::getInstance()->saveToken(_token);
     }
 
     Q_INVOKABLE void login(const QString& val){
         token(val);
-        SettingsHelper::instance()->saveToken(_token);
+        SettingsHelper::getInstance()->saveToken(_token);
     }
 
     void updateUser(const User& user){
@@ -56,6 +63,7 @@ public:
         followers(user.followers);
         following(user.following);
         account(user.login);
+        bio(user.bio);
     };
 
 };

@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include <QtCore/qobject.h>
-#include <QGlobalStatic>
+#include <QtQml/qqml.h>
 #include <QSettings>
 #include <QScopedPointer>
 #include <QFileInfo>
@@ -11,10 +11,17 @@
 class SettingsHelper : public QObject
 {
     Q_OBJECT
-public:
+    QML_NAMED_ELEMENT(SettingsHelper)
+    QML_SINGLETON
+private:
     explicit SettingsHelper(QObject* parent = nullptr);
-    static SettingsHelper* instance();
-
+    static SettingsHelper* m_instance;
+public:
+    static SettingsHelper* getInstance();
+    static SettingsHelper *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
+    {
+        return getInstance();
+    }
     ~SettingsHelper() override;
 
     Q_INVOKABLE void saveToken(const QString& token){

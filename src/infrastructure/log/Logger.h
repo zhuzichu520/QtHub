@@ -11,10 +11,10 @@
 #include <glog/logging.h>
 #include <infrastructure/config/AppConfig.h>
 
-#define LOGD(data) DLOG(INFO) << data
-#define LOGI(data) LOG(INFO) << data
-#define LOGW(data) LOG(WARNING) << data
-#define LOGE(data) LOG(ERROR) << data
+#define LOGD(data) DLOG(INFO) << data.toLocal8Bit().constData()
+#define LOGI(data) LOG(INFO) << data.toLocal8Bit().constData()
+#define LOGW(data) LOG(WARNING) << data.toLocal8Bit().constData()
+#define LOGE(data) LOG(ERROR) << data.toLocal8Bit().constData()
 
 class Logger : public QObject
 {

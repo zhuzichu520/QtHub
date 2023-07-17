@@ -16,9 +16,9 @@ class LoginController : public BaseController
     Q_PROPERTY_AUTO(int,loginStatus)
     QML_NAMED_ELEMENT(LoginController)
 public:
-    explicit LoginController(QObject* parent = nullptr, UserService* service = QInjection::Inject);
+    explicit LoginController(QObject* parent = nullptr);
 private:
-    UserService* _userService;
+    UserService* _userService(){return QInjection::Inject;}
     QHttpServer _server;
     std::string _htmlError = R"(<!DOCTYPE html>
 <html>

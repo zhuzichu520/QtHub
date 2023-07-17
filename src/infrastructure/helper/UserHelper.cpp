@@ -1,13 +1,16 @@
 ﻿#include "UserHelper.h"
 
-Q_GLOBAL_STATIC(UserHelper, userHelper)
+UserHelper* UserHelper::m_instance = nullptr;
 
-UserHelper* UserHelper::instance()
+UserHelper *UserHelper::getInstance()
 {
-  return userHelper;
+    if(UserHelper::m_instance == nullptr){
+        UserHelper::m_instance = new UserHelper;
+    }
+    return UserHelper::m_instance;
 }
 
 UserHelper::UserHelper(QObject* parent) : QObject{ parent }
 {
-    token(SettingsHelper::instance()->getToken());
+    token(SettingsHelper::getInstance()->getToken());
 }

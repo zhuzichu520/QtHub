@@ -22,7 +22,6 @@ CustomWindow {
                 hideLoading()
                 break;
             case 2:
-                console.debug('-23412312')
                 showLoading()
                 window.show()
                 //将窗口置顶，等获取到焦点后再取消置顶

@@ -34,6 +34,7 @@
 
 #include <QTimer>
 #include <QEventLoop>
+#include <QThread>
 #include <QDebug>
 
 #include <functional>
@@ -480,15 +481,15 @@ public:
     {
         HttpClient& client = *HttpClient::instance();
         client.get(m_httpRequest.m_request.url().toString())
-                .timeout(30)
-                .block(m_httpRequest.m_isBlock)
-                .attribute(QNetworkRequest::RedirectPolicyAttribute, true)
-                //                .attribute(QNetworkRequest::FollowRedirectsAttribute, true)
-                .onHead(this, SLOT(onHead(QList<QNetworkReply::RawHeaderPair>)))
-                .onHead(this, SLOT(onHead(QMap<QString, QString>)))
-                .onReadyRead(this, SLOT(onReadyRead(QNetworkReply*)))
-                .onFailed(this, SLOT(onResponse(QNetworkReply::NetworkError)))
-                .exec();
+            .timeout(30)
+            .block(m_httpRequest.m_isBlock)
+            .attribute(QNetworkRequest::RedirectPolicyAttribute, true)
+            //                .attribute(QNetworkRequest::FollowRedirectsAttribute, true)
+            .onHead(this, SLOT(onHead(QList<QNetworkReply::RawHeaderPair>)))
+            .onHead(this, SLOT(onHead(QMap<QString, QString>)))
+            .onReadyRead(this, SLOT(onReadyRead(QNetworkReply*)))
+            .onFailed(this, SLOT(onResponse(QNetworkReply::NetworkError)))
+            .exec();
 
         m_response = new HttpResponse(m_httpRequest, nullptr);
         return m_response;
@@ -594,16 +595,25 @@ private slots:
     }
 };
 
+
 class HttpResponseTimeout : public QObject
 {
     Q_OBJECT
-public:
 
+private:
+    HttpResponse* _parent;
+    int _timeout;
+    Q_SLOT void handleTimeOut(){
+        QTimer::singleShot(_timeout, _parent, SLOT(onTimeout()));
+    }
+public:
     HttpResponseTimeout(HttpResponse* parent, const int timeout = -1) : QObject(parent)
     {
+        _timeout = timeout;
+        _parent = parent;
         if (timeout > 0)
         {
-            QTimer::singleShot(timeout, parent, SLOT(onTimeout()));
+            QMetaObject::invokeMethod(this, "handleTimeOut",Qt::QueuedConnection);
         }
         else
         {
@@ -627,28 +637,28 @@ public:
 };
 
 #define _logger(l1, l2, str)                                                                                           \
-    do                                                                                                                   \
-{                                                                                                                    \
-    if (l1 >= l2)                                                                                                      \
-{                                                                                                                  \
-    if (l2 >= HttpRequest::Debug)                                                                                    \
-{                                                                                                                \
-    qDebug().noquote() << str;                                                                                     \
-}                                                                                                                \
-    else if (l2 == HttpRequest::Warn)                                                                                \
-{                                                                                                                \
-    qWarning().noquote() << str;                                                                                   \
-}                                                                                                                \
-    else if (l2 == HttpRequest::Error)                                                                               \
-{                                                                                                                \
-    qCritical().noquote() << str;                                                                                  \
-}                                                                                                                \
-    else if (l2 == HttpRequest::Fatal)                                                                               \
-{                                                                                                                \
-    qFatal("%s\n", str);                                                                                           \
-}                                                                                                                \
-}                                                                                                                  \
-} while (0);
+do                                                                                                                   \
+    {                                                                                                                    \
+            if (l1 >= l2)                                                                                                      \
+        {                                                                                                                  \
+                if (l2 >= HttpRequest::Debug)                                                                                    \
+            {                                                                                                                \
+                    qDebug().noquote() << str;                                                                                     \
+            }                                                                                                                \
+                else if (l2 == HttpRequest::Warn)                                                                                \
+            {                                                                                                                \
+                    qWarning().noquote() << str;                                                                                   \
+            }                                                                                                                \
+                else if (l2 == HttpRequest::Error)                                                                               \
+            {                                                                                                                \
+                    qCritical().noquote() << str;                                                                                  \
+            }                                                                                                                \
+                else if (l2 == HttpRequest::Fatal)                                                                               \
+            {                                                                                                                \
+                    qFatal("%s\n", str);                                                                                           \
+            }                                                                                                                \
+        }                                                                                                                  \
+    } while (0);
 
 #define printTrace(level, str) _logger(level, HttpRequest::Trace, str)
 #define printInfo(level, str) _logger(level, HttpRequest::Info, str)
@@ -1215,13 +1225,13 @@ HttpRequest& HttpRequest::onResponse(HandleType type, QString key, QVariant valu
 QString HttpRequest::toString()
 {
     QString str =
-            "General: \n"
-            "    Request URL: %{url} \n"
-            "    Request Method: %{method} \n"
-            "Request Headers: \n"
-            "%{requestHeaders} \n"
-            "Request Body: \n"
-            "%{requestBody}";
+        "General: \n"
+        "    Request URL: %{url} \n"
+        "    Request Method: %{method} \n"
+        "Request Headers: \n"
+        "%{requestHeaders} \n"
+        "Request Body: \n"
+        "%{requestBody}";
 
     str.replace("%{url}", m_request.url().toString());
     str.replace("%{method}", networkOperation2String(m_op));
@@ -1239,7 +1249,7 @@ HttpResponse* HttpRequest::exec(const HttpRequest& _httpRequest, HttpResponse* h
     if (op.isEmpty())
     {
         QString str =
-                QString("Url: [%1]; Method: [%2] not support!").arg(httpRequest.m_request.url().toString()).arg(QString(op));
+            QString("Url: [%1]; Method: [%2] not support!").arg(httpRequest.m_request.url().toString()).arg(QString(op));
         printError(httpRequest.m_logLevel, str.toStdString().c_str());
         return nullptr;
     }
@@ -1281,7 +1291,7 @@ HttpResponse* HttpRequest::exec(const HttpRequest& _httpRequest, HttpResponse* h
 
             // note: "form-data; name=\"%1\";filename=\"%2\"" != "form-data; name=\"%1\";filename=\"%2\";"
             QString dispositionHeader =
-                    QString("form-data; name=\"%1\";filename=\"%2\"").arg(key).arg(QFileInfo(filePath).fileName());
+                QString("form-data; name=\"%1\";filename=\"%2\"").arg(key).arg(QFileInfo(filePath).fileName());
             QHttpPart part;
             part.setHeader(QNetworkRequest::ContentDispositionHeader, dispositionHeader);
             part.setBodyDevice(file);
@@ -1467,7 +1477,7 @@ bool httpResponseConnect(L sender, T senderSignal, const QString& lambdaString, 
 
         const QObject* receiver = lambda.value<QObject*>();
         QString method =
-                QMetaObject::normalizedSignature(qPrintable(lambdaString));  // remove 'const', like: const QString => QString
+            QMetaObject::normalizedSignature(qPrintable(lambdaString));  // remove 'const', like: const QString => QString
 
         if (QMetaObject::checkConnectArgs(qPrintable(signal), qPrintable(method)))
         {
@@ -1485,8 +1495,8 @@ bool httpResponseConnect(L sender, T senderSignal, const QString& lambdaString, 
 }
 
 #define HTTP_RESPONSE_CONNECT_X(sender, senderSignal, lambdaString, lambda, ...)                                       \
-    httpResponseConnect<std::function<void(__VA_ARGS__)>>(                                                               \
-    sender, static_cast<void (HttpResponse::*)(__VA_ARGS__)>(&HttpResponse::senderSignal), lambdaString, lambda);
+httpResponseConnect<std::function<void(__VA_ARGS__)>>(                                                               \
+                                                                                                                     sender, static_cast<void (HttpResponse::*)(__VA_ARGS__)>(&HttpResponse::senderSignal), lambdaString, lambda);
 
 HttpResponse* HttpRequest::exec()
 {
@@ -1808,16 +1818,16 @@ void HttpResponse::setHttpRequest(const HttpRequest& httpRequest)
 QString HttpResponse::toString() const
 {
     QString str =
-            "General: \n"
-            "    Request URL: %{url} \n"
-            "    Request Method: %{method} \n"
-            "    Request Status: %{status}(%{statusString}) \n"
-            "Request Headers: \n"
-            "%{requestHeaders} \n"
-            "Response Headers: \n"
-            "%{responseHeaders} \n"
-            "Request Body: \n"
-            "%{requestBody}";
+        "General: \n"
+        "    Request URL: %{url} \n"
+        "    Request Method: %{method} \n"
+        "    Request Status: %{status}(%{statusString}) \n"
+        "Request Headers: \n"
+        "%{requestHeaders} \n"
+        "Response Headers: \n"
+        "%{responseHeaders} \n"
+        "Request Body: \n"
+        "%{requestBody}";
 
     QNetworkReply* reply = this->m_httpRequest.m_reply;
     str.replace("%{url}", this->m_httpRequest.m_request.url().toString());
@@ -1868,7 +1878,7 @@ void HttpResponse::onFinished()
     }
 
     if (this->receivers(SIGNAL(finished())) > 0 || this->receivers(SIGNAL(finished(QByteArray))) > 0 ||
-            this->receivers(SIGNAL(finished(QVariantMap))) > 0)
+        this->receivers(SIGNAL(finished(QVariantMap))) > 0)
     {
         QByteArray result = reply->readAll();
         emit finished();
@@ -1922,9 +1932,9 @@ void HttpResponse::onError(QNetworkReply::NetworkError error)
     if (m_httpRequest.m_downloader.isEnabled)
     {
         QString error = QString("Url: %1 file: %2 error: %3")
-                .arg(m_httpRequest.m_request.url().toString())  // fixme
-                .arg(m_downloadFile.fileName())
-                .arg(errorString);
+                            .arg(m_httpRequest.m_request.url().toString())  // fixme
+                            .arg(m_downloadFile.fileName())
+                            .arg(errorString);
 
         emit downloadFileError();
         emit downloadFileError(error);
@@ -2006,8 +2016,8 @@ void HttpResponse::onReadyRead()
             if (size == -1)
             {
                 QString error = QString("Url: %1 %2 Write failed!")
-                        .arg(m_httpRequest.m_request.url().toString())
-                        .arg(m_downloadFile.fileName());
+                                    .arg(m_httpRequest.m_request.url().toString())
+                                    .arg(m_downloadFile.fileName());
                 emit downloadFileError();
                 emit downloadFileError(error);
             }
@@ -2043,7 +2053,7 @@ void HttpResponse::onReadOnceReplyHeader()
 
     QIODevice::OpenMode mode = QIODevice::WriteOnly;
     if (m_httpRequest.m_downloader.isSupportBreakpointDownload && m_httpRequest.m_downloader.enabledBreakpointDownload &&
-            QFile::exists(fileName))
+        QFile::exists(fileName))
     {
         mode = QIODevice::Append;
     }
@@ -2051,7 +2061,7 @@ void HttpResponse::onReadOnceReplyHeader()
     if (!m_downloadFile.open(mode))
     {
         QString error =
-                QString("Url: %1 %2 Non-Writable").arg(m_httpRequest.m_request.url().toString()).arg(m_downloadFile.fileName());
+            QString("Url: %1 %2 Non-Writable").arg(m_httpRequest.m_request.url().toString()).arg(m_downloadFile.fileName());
         emit downloadFileError();
         emit downloadFileError(error);
     }
@@ -2108,7 +2118,7 @@ void HttpResponse::onAuthenticationRequired(QNetworkReply* reply, QAuthenticator
     }
 
     if (m_httpRequest.m_authenticationRequiredCount >= 0 &&
-            m_authenticationCount > m_httpRequest.m_authenticationRequiredCount)
+        m_authenticationCount > m_httpRequest.m_authenticationRequiredCount)
     {
         return;
     }
@@ -2136,7 +2146,7 @@ void HttpResponse::onHandleHead()
 
     QNetworkReply* reply = m_httpRequest.m_reply;
     if (this->receivers(SIGNAL(head(QList<QNetworkReply::RawHeaderPair>))) ||
-            this->receivers(SIGNAL(head(QMap<QString, QString>))))
+        this->receivers(SIGNAL(head(QMap<QString, QString>))))
     {
         emit head(reply->rawHeaderPairs());
         QMap<QString, QString> map;
@@ -2291,11 +2301,11 @@ inline QString networkBody2String(const QPair<HttpRequest::BodyType, QVariant>& 
 inline QString networkOperation2String(QNetworkAccessManager::Operation o)
 {
     static QMap<QNetworkAccessManager::Operation, QByteArray> verbMap = {
-        { QNetworkAccessManager::HeadOperation, "HEAD" },
-        { QNetworkAccessManager::GetOperation, "GET" },
-        { QNetworkAccessManager::PostOperation, "POST" },
-        { QNetworkAccessManager::PutOperation, "PUT" },
-    };
+                                                                         { QNetworkAccessManager::HeadOperation, "HEAD" },
+                                                                         { QNetworkAccessManager::GetOperation, "GET" },
+                                                                         { QNetworkAccessManager::PostOperation, "POST" },
+                                                                         { QNetworkAccessManager::PutOperation, "PUT" },
+                                                                         };
 
     return verbMap.value(o, "");
 }

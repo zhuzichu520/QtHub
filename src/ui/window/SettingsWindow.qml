@@ -15,14 +15,13 @@ CustomWindow {
     closeDestory: false
     title: "Settings"
 
-
     FluFilledButton{
         text:"Sign Out"
         width: 200
         anchors{
-           horizontalCenter: parent.horizontalCenter
-           bottom: parent.bottom
-           bottomMargin: 20
+            horizontalCenter: parent.horizontalCenter
+            bottom: parent.bottom
+            bottomMargin: 20
         }
         onClicked: {
             dialog_sign_out.open()
@@ -35,10 +34,18 @@ CustomWindow {
         buttonFlags: FluContentDialogType.NeutralButton | FluContentDialogType.PositiveButton
         positiveText:"SIGN OUT"
         neutralText:"CANCEL"
-        onNegativeClicked:{
-
-        }
         onPositiveClicked:{
+            UserHelper.logout()
+            timer_restart.restart()
         }
     }
+
+    Timer{
+        id:timer_restart
+        interval: 100
+        onTriggered: {
+            CommonHelper.restart()
+        }
+    }
+
 }

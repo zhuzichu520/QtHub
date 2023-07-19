@@ -3,7 +3,7 @@
 #include <infrastructure/nlohmann/json.hpp>
 #include "domain/exception/BizException.h"
 #include "infrastructure/converter/Converter.h"
-#include "infrastructure/tool/CommonTool.h"
+#include "infrastructure/helper/CommonHelper.h"
 #include "infrastructure/tool/RxHttp.h"
 #include "infrastructure/dto/UserDto.h"
 #include "infrastructure/dto/TokenDto.h"
@@ -19,18 +19,20 @@ RepositoryImpl::RepositoryImpl(QObject* parent) : Repository{ parent }
 template <typename T>
 void RepositoryImpl::handleResult(QString result, T& data,QString type)
 {
-    if (!CommonTool::instance()->isJson(result))
+    try{
+        CommonHelper::getInstance()->jsonNonNull(result);
+        const QJsonObject& obj = CommonHelper::getInstance()->json2Object(result);
+        json j = json::parse(result.toStdString());
+        if(!type.isEmpty()){
+            j = j["data"][type.toStdString()];
+        }
+        data = j.get<T>();
+    }
+    catch (std::exception e)
     {
-        throw BizException(-1, "Json解析失败");
-    }else{
-        CommonTool::instance()->jsonNonNull(result);
-        const QJsonObject& obj = CommonTool::instance()->json2Object(result.toStdString());
+        LOGE(QString::fromStdString("【Http】result->%1").arg(result));
+        throw BizException(-1, "Json解析异常");
     }
-    json j = json::parse(result.toStdString());
-    if(!type.isEmpty()){
-       j = j["data"][type.toStdString()];
-    }
-    data = j.get<T>();
 }
 
 QString RepositoryImpl::accessToken(const QString &id,const QString &secret,const QString &code){
@@ -50,17 +52,26 @@ User RepositoryImpl::user(){
   viewer {
     login
     bio
-    avatarUrl
     name
+    location
+    websiteUrl
+    avatarUrl
+    company
+    followers {
+      totalCount
+    }
+    following {
+      totalCount
+    }
     status {
-      message
       emojiHTML
+      message
     }
   }
 })";
     const QVariantMap& data = {
-        {"query",query},
-    };
+                               {"query",query},
+                               };
     handleResult(RxHttp::postJson("https://api.github.com/graphql",data),dto,"viewer");
     return Converter::dto2User(dto);
 }

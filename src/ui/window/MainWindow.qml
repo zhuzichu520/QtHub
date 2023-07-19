@@ -24,11 +24,11 @@ CustomWindow {
 
     Component.onCompleted: {
         if(!UserHelper.isLogin()){
-            visible = false
+            window.autoShow = false
             FluApp.navigate("/login")
         }else{
+            window.autoShow = true
             FluTools.setQuitOnLastWindowClosed(false)
-            visible = true
         }
     }
 
@@ -125,9 +125,9 @@ CustomWindow {
 
     SystemTrayIcon {
         id:system_tray
-        visible: true
         icon.source: "qrc:/QtHub/favicon.ico"
         tooltip: "QtHub"
+        visible: UserHelper.token !== ""
         menu: Menu {
             MenuItem {
                 text: "退出"

@@ -3,9 +3,34 @@ import QtQuick.Layouts
 import FluentUI
 
 FluScrollablePage {
-    title: "Home"
-    animDisabled: true
     launchMode: FluPageType.SingleTask
+
+    Item{
+        Layout.fillWidth: parent
+        Layout.preferredHeight:40
+        FluText{
+            font: FluTextStyle.Title
+            text: "Home"
+        }
+
+        RowLayout{
+            height: parent.height
+            anchors.right: parent.right
+            FluIconButton{
+                width: 40
+                height: 40
+                iconSource: FluentIcons.Search
+            }
+
+            FluIconButton{
+                width: 40
+                height: 40
+                iconSource: FluentIcons.Add
+            }
+
+        }
+    }
+
 
     FluText{
         text:"My Work"

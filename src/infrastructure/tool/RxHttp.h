@@ -4,7 +4,7 @@
 #include <QObject>
 #include <infrastructure/http/HttpClient.h>
 #include "domain/exception/BizException.h"
-#include "infrastructure/tool/CommonTool.h"
+#include "infrastructure/helper/CommonHelper.h"
 #include "infrastructure/helper/SettingsHelper.h"
 #include "infrastructure/log/Logger.h"
 
@@ -45,9 +45,7 @@ class RxHttp {
         } else if (operation == QNetworkAccessManager::PostOperation) {
             if (isJson) {
                 QJsonObject obj = QJsonDocument::fromJson(QJsonDocument::fromVariant(QVariant(data)).toJson()).object();
-                LOGI(QString::fromStdString("【Http】obj>%1").arg(CommonTool::instance()->object2Json(obj)));
-                reply =
-                    client.post(url).headers(headers()).bodyWithJson(obj).timeout(timeout()).block().exec()->reply();
+                reply = client.post(url).headers(headers()).bodyWithJson(obj).timeout(timeout()).block().exec()->reply();
             } else {
                 reply = client.post(url).headers(headers()).body(data).timeout(timeout()).block().exec()->reply();
             }
@@ -61,7 +59,7 @@ class RxHttp {
             LOGE(QString::fromStdString("【Http】url->%1，httpcode->%2，param->%3，result->%4")
                      .arg(url,
                          QString::number(httpStatus),
-                         CommonTool::instance()->object2Json(QJsonObject(QJsonDocument::fromJson(QJsonDocument::fromVariant(QVariant(data)).toJson()).object()))
+                         CommonHelper::getInstance()->object2Json(QJsonObject(QJsonDocument::fromJson(QJsonDocument::fromVariant(QVariant(data)).toJson()).object()))
                          ,result)
                  );
             throw BizException(QString::fromStdString("网络出现异常，错误码：%1").arg(httpStatus),httpStatus);

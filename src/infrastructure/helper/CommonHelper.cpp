@@ -1,26 +1,32 @@
-﻿#include "CommonTool.h"
-
-Q_GLOBAL_STATIC(CommonTool, commonTool)
+﻿#include "CommonHelper.h"
+#include <QGuiApplication>
+#include <QTimer>
 
 QRegularExpression Reg_JsonNonNull("/(?:,\"\\w+\":(?:null|""))|(?:\"\\w+\":(?:null|""),)|(?:\"\\w+\":(?:null|""))/g");
 
-CommonTool* CommonTool::instance()
+CommonHelper* CommonHelper::m_instance = nullptr;
+
+CommonHelper *CommonHelper::getInstance()
 {
-    return commonTool;
+    if(CommonHelper::m_instance == nullptr){
+        CommonHelper::m_instance = new CommonHelper;
+    }
+    return CommonHelper::m_instance;
 }
 
-CommonTool::CommonTool(QObject* parent) : QObject{ parent }
+CommonHelper::CommonHelper(QObject *parent) : QObject(parent)
 {
+
 }
 
-QString CommonTool::maxString(const QString& text,int max){
+QString CommonHelper::maxString(QString text,int max){
     if(text.length()>max){
         return text.mid(0,max)+"...";
     }
     return text;
 }
 
-bool CommonTool::isJson(const QString& val)
+bool CommonHelper::isJson(QString val)
 {
     QJsonParseError err;
     QJsonDocument doc = QJsonDocument::fromJson(val.toUtf8(), &err);
@@ -31,52 +37,52 @@ bool CommonTool::isJson(const QString& val)
     return true;
 }
 
-QString CommonTool::toBase64(const QString& text)
+QString CommonHelper::toBase64(QString text)
 {
     return text.toUtf8().toBase64();
 }
 
-QString CommonTool::fromBase64(const QString& text)
+QString CommonHelper::fromBase64(QString text)
 {
     return QByteArray::fromBase64(text.toUtf8());
 }
 
-QString CommonTool::md5(const QString& text)
+QString CommonHelper::md5(QString text)
 {
     return QCryptographicHash::hash(text.toUtf8(), QCryptographicHash::Md5).toHex();
 }
 
-QString CommonTool::sha1(const QString& text)
+QString CommonHelper::sha1(QString text)
 {
     return QCryptographicHash::hash(text.toUtf8(), QCryptographicHash::Sha1).toHex();
 }
 
-QString CommonTool::sha224(const QString& text)
+QString CommonHelper::sha224(QString text)
 {
     return QCryptographicHash::hash(text.toUtf8(), QCryptographicHash::Sha224).toHex();
 }
 
-QString CommonTool::sha256(const QString& text)
+QString CommonHelper::sha256(QString text)
 {
     return QCryptographicHash::hash(text.toUtf8(), QCryptographicHash::Sha256).toHex();
 }
 
-QString CommonTool::sha384(const QString& text)
+QString CommonHelper::sha384(QString text)
 {
     return QCryptographicHash::hash(text.toUtf8(), QCryptographicHash::Sha384).toHex();
 }
 
-QString CommonTool::sha512(const QString& text)
+QString CommonHelper::sha512(QString text)
 {
     return QCryptographicHash::hash(text.toUtf8(), QCryptographicHash::Sha512).toHex();
 }
 
-qint64 CommonTool::currentTimeMillis()
+qint64 CommonHelper::currentTimeMillis()
 {
     return QDateTime::currentDateTimeUtc().toMSecsSinceEpoch();
 }
 
-QJsonObject CommonTool::json2Object(const QString& val){
+QJsonObject CommonHelper::json2Object(QString val){
     QJsonParseError jsonError;
     QJsonDocument doucment = QJsonDocument::fromJson(val.toUtf8(), &jsonError);
     if (!doucment.isNull() && (jsonError.error == QJsonParseError::NoError))
@@ -86,16 +92,15 @@ QJsonObject CommonTool::json2Object(const QString& val){
     return {};
 }
 
-QJsonObject CommonTool::json2Object(const std::string& val)
-{
-   return json2Object(QString::fromStdString(val));
-}
-
-QString CommonTool::object2Json(const QJsonObject& val){
+QString CommonHelper::object2Json(QJsonObject val){
     QJsonDocument doc(val);
     return QString(doc.toJson(QJsonDocument::Indented));
 }
 
-void CommonTool::jsonNonNull(QString& val){
+void CommonHelper::jsonNonNull(QString val){
     val.replace(Reg_JsonNonNull,"");
+}
+
+void CommonHelper::restart(){
+    qApp->exit(931);
 }

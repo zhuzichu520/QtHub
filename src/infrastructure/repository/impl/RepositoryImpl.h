@@ -10,7 +10,7 @@ class RepositoryImpl : public Repository
 
 private:
     template <typename T>
-    void handleResult(QString result, T& data);
+    void handleResult(QString result, T& data,QString type = "");
 
     QString accessToken(const QString &id,const QString &secret,const QString &code) override;
 

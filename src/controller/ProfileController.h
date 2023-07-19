@@ -12,8 +12,9 @@ class ProfileController : public BaseController
     QML_NAMED_ELEMENT(ProfileController)
 public:
     explicit ProfileController(QObject *parent = nullptr);
-
     Q_INVOKABLE void loadProfileInfo();
+    Q_SIGNAL void loadProfileSuccessEvent();
+    Q_SIGNAL void loadProfileErrorEvent(const QString& message);
 private:
     UserService* _userService(){return QInjection::Inject;}
 };

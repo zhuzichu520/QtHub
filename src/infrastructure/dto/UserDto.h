@@ -1,10 +1,11 @@
 ﻿#pragma once
 
 #include <infrastructure/nlohmann/json.hpp>
+#include "UserStatusDto.h"
 
 struct UserDto
 {
-    std::string avatar_url;
+    std::string avatarUrl;
     std::string bio;
     std::string blog;
     std::string company;
@@ -36,5 +37,6 @@ struct UserDto
     std::string type;
     std::string updated_at;
     std::string url;
+    UserStatusDto status;
 };
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(UserDto,avatar_url,bio,blog,company,created_at,email,events_url,followers,followers_url,following,following_url,gists_url,gravatar_id,hireable,html_url,id,location,login,name,node_id,organizations_url,public_gists,public_repos,received_events_url,repos_url,site_admin,starred_url,subscriptions_url,twitter_username,type,updated_at,url);
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(UserDto,avatarUrl,bio,blog,company,created_at,email,events_url,followers,followers_url,following,following_url,gists_url,gravatar_id,hireable,html_url,id,location,login,name,node_id,organizations_url,public_gists,public_repos,received_events_url,repos_url,site_admin,starred_url,subscriptions_url,twitter_username,type,updated_at,url,status);

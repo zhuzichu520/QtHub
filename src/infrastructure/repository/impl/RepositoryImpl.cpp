@@ -17,16 +17,19 @@ RepositoryImpl::RepositoryImpl(QObject* parent) : Repository{ parent }
 }
 
 template <typename T>
-void RepositoryImpl::handleResult(QString result, T& data)
+void RepositoryImpl::handleResult(QString result, T& data,QString type)
 {
     if (!CommonTool::instance()->isJson(result))
     {
-        throw BizException(-1, "服务器异常");
+        throw BizException(-1, "Json解析失败");
     }else{
         CommonTool::instance()->jsonNonNull(result);
         const QJsonObject& obj = CommonTool::instance()->json2Object(result.toStdString());
     }
     json j = json::parse(result.toStdString());
+    if(!type.isEmpty()){
+       j = j["data"][type.toStdString()];
+    }
     data = j.get<T>();
 }
 
@@ -43,18 +46,21 @@ QString RepositoryImpl::accessToken(const QString &id,const QString &secret,cons
 
 User RepositoryImpl::user(){
     UserDto dto;
-    QString query = R"(
-query {
+    QString query = R"(query {
   viewer {
     login
+    bio
+    avatarUrl
+    name
+    status {
+      message
+      emojiHTML
+    }
   }
-}
-}
-    )";
+})";
     const QVariantMap& data = {
         {"query",query},
     };
-    RxHttp::postJson("https://api.github.com/graphql",data);
-    User user;
-    return user;
+    handleResult(RxHttp::postJson("https://api.github.com/graphql",data),dto,"viewer");
+    return Converter::dto2User(dto);
 }

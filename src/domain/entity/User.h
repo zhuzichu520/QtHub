@@ -16,6 +16,8 @@ public:
     QString updated_at;
     QString login;
     QString bio;
+    QString statusMessage;
+    QString statusEmoji;
     int public_repos;
     int public_gists;
     int followers;

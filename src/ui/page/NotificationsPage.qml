@@ -4,5 +4,5 @@ import FluentUI
 
 FluScrollablePage {
     title: "Notifications"
-    launchMode: FluPage.SingleInstance
+    launchMode: FluPageType.SingleInstance
 }

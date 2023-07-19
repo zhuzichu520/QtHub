@@ -5,7 +5,7 @@ import FluentUI
 FluScrollablePage {
     title: "Home"
     animDisabled: true
-    launchMode: FluPage.SingleTask
+    launchMode: FluPageType.SingleTask
 
     FluText{
         text:"My Work"

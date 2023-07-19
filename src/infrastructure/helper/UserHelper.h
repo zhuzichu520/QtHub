@@ -24,6 +24,8 @@ class UserHelper : public QObject
     Q_PROPERTY_AUTO(int,followers)
     Q_PROPERTY_AUTO(int,following)
     Q_PROPERTY_AUTO(QString,bio)
+    Q_PROPERTY_AUTO(QString,statusEmoji)
+    Q_PROPERTY_AUTO(QString,statusMessage)
     QML_NAMED_ELEMENT(UserHelper)
     QML_SINGLETON
 private:
@@ -40,7 +42,7 @@ public:
     }
 
     Q_INVOKABLE void logout(){
-        token(""),name(""),account(""),avatar(""),location(""),email(""),blog(""),created_at(""),updated_at(""),bio("");
+        token(""),name(""),account(""),avatar(""),location(""),email(""),blog(""),created_at(""),updated_at(""),bio(""),statusEmoji(""),statusMessage("");
         public_repos(0),public_gists(0),followers(0),following(0);
         SettingsHelper::getInstance()->saveToken(_token);
     }
@@ -64,6 +66,8 @@ public:
         following(user.following);
         account(user.login);
         bio(user.bio);
+        statusEmoji(user.statusEmoji);
+        statusMessage(user.statusMessage);
     };
 
 };

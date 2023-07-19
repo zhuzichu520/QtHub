@@ -4,15 +4,32 @@ import FluentUI
 import QtHub
 
 FluScrollablePage {
-    title: "Profile"
-    launchMode: FluPage.SingleInstance
 
-    ProfileController{
-        id:controller
+    id:root
+    title: "Profile"
+    launchMode: FluPageType.SingleInstance
+    onErrorClicked: {
+        loadProfileInfo()
+    }
+
+    function loadProfileInfo(){
+        statusMode = FluStatusViewType.Loading
+        controller.loadProfileInfo()
     }
 
     Component.onCompleted: {
-        controller.loadProfileInfo()
+        loadProfileInfo()
+    }
+
+    ProfileController{
+        id:controller
+        onLoadProfileSuccessEvent:{
+            statusMode = FluStatusViewType.Success
+        }
+        onLoadProfileErrorEvent:(message)=>{
+            errorText = message
+            statusMode = FluStatusViewType.Error
+        }
     }
 
     Item{
@@ -63,8 +80,20 @@ FluScrollablePage {
                 topMargin: 10
             }
         }
+    }
+
+    FluArea{
+        Layout.preferredWidth: text_status.width
+        Layout.preferredHeight: text_status.height
 
 
+        FluText{
+            id:text_status
+            wrapMode: Text.WrapAnywhere
+            padding: 10
+            width: Math.min(implicitWidth,root.width-root.leftPadding-root.rightPadding)
+            text: UserHelper.statusEmoji + " " + UserHelper.statusMessage
+        }
 
     }
 

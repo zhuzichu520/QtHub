@@ -1,6 +1,6 @@
 #pragma once
 
-#include <infrastructure/nlohmann/json.h>
+#include <infrastructure/nlohmann/json.hpp>
 
 struct OwnerDto
 {

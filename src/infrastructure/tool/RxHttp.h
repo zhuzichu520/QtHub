@@ -65,8 +65,6 @@ class RxHttp {
                          ,result)
                  );
             throw BizException(QString::fromStdString("网络出现异常，错误码：%1").arg(httpStatus),httpStatus);
-        }else{
-            throw BizException(QString::fromStdString("网络出现异常,errorString：%1").arg(reply->errorString()));
         }
         return result;
     }
@@ -75,7 +73,6 @@ class RxHttp {
         QMap<QString, QVariant> data;
         data.insert("Accept", "application/json");
         QString token = SettingsHelper::getInstance()->getToken();
-        LOGI(token);
         if (!token.isEmpty()) {
             data.insert("Authorization", "token " + token);
         }

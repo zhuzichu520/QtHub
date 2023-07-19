@@ -6,15 +6,39 @@ import "qrc:///QtHub/ui/component"
 CustomWindow {
 
     id:window
-    width: 400
-    height: 500
+    width: 480
+    height: 520
     fixSize:true
-    launchMode: FluWindow.SingleTask
+    launchMode: FluWindowType.SingleTask
     showMaximize: false
     showMinimize: false
     closeDestory: false
     title: "Settings"
 
 
+    FluFilledButton{
+        text:"Sign Out"
+        width: 200
+        anchors{
+           horizontalCenter: parent.horizontalCenter
+           bottom: parent.bottom
+           bottomMargin: 20
+        }
+        onClicked: {
+            dialog_sign_out.open()
+        }
+    }
 
+    FluContentDialog{
+        id:dialog_sign_out
+        title:"Sign Out"
+        buttonFlags: FluContentDialogType.NeutralButton | FluContentDialogType.PositiveButton
+        positiveText:"SIGN OUT"
+        neutralText:"CANCEL"
+        onNegativeClicked:{
+
+        }
+        onPositiveClicked:{
+        }
+    }
 }

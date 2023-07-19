@@ -14,7 +14,7 @@ CustomWindow {
     minimumHeight: 200
     appBarVisible: false
     autoShow: false
-    launchMode: FluWindow.SingleTask
+    launchMode: FluWindowType.SingleTask
     title: qsTr("QtHub")
 
     closeFunc:function(event){
@@ -109,7 +109,7 @@ CustomWindow {
         title:"退出"
         message:"确定要退出程序吗？"
         negativeText:"最小化"
-        buttonFlags: FluContentDialog.NeutralButton | FluContentDialog.NegativeButton | FluContentDialog.PositiveButton
+        buttonFlags: FluContentDialogType.NeutralButton | FluContentDialogType.NegativeButton | FluContentDialogType.PositiveButton
         onNegativeClicked:{
             window.hide()
             system_tray.showMessage("友情提示","QtHub已隐藏至托盘,点击托盘可再次激活窗口");

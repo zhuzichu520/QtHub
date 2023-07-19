@@ -15,11 +15,11 @@ void ProfileController::loadProfileInfo(){
         UserHelper::getInstance()->updateUser(user);
         subscriber.on_next("");
         subscriber.on_completed();
-    }).subscribe_on(Rx->IO()).observe_on(Rx->mainThread()).subscribe([](const QString &data){
-
-        },[this](const rxu::error_ptr& error){
-                       handleError(error,[](const BizException& e){
-
-                       });
-                   });
+    }).subscribe_on(Rx->IO()).observe_on(Rx->mainThread()).subscribe([=](const QString &data){
+        Q_EMIT loadProfileSuccessEvent();
+    },[this](const rxu::error_ptr& error){
+        handleError(error,[=](const BizException& e){
+            Q_EMIT loadProfileErrorEvent(e.message);
+        });
+    });
 }

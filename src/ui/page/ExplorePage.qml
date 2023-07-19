@@ -4,5 +4,5 @@ import FluentUI
 
 FluScrollablePage {
     title: "Explore"
-    launchMode: FluPage.SingleInstance
+    launchMode: FluPageType.SingleInstance
 }

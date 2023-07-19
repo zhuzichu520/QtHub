@@ -22,7 +22,7 @@ void BaseController::handleError(std::exception_ptr eptr, std::function<void(Biz
     {
       func(e);
     }
-    LOGI(QString::fromStdString("【业务异常】code->%1，msg->%2").arg(e.code).arg(e.message));
+    LOGE(QString::fromStdString("【业务异常】code->%1，msg->%2").arg(e.code).arg(e.message));
   }
   catch (std::exception e)
   {
@@ -30,6 +30,6 @@ void BaseController::handleError(std::exception_ptr eptr, std::function<void(Biz
     {
       func(BizException("未知异常"));
     }
-    LOGI(QString::fromStdString("【未知异常】message->%1").arg(e.what()));
+    LOGE(QString::fromStdString("【未知异常】message->%1").arg(e.what()));
   }
 }
